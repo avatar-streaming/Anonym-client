@@ -1,8 +1,13 @@
 import React from "react";
+import useLogin from "../../hooks/handleLogin";
 
 function Login() {
+  const handleLogin = useLogin();
+
   return (
-    <div>Login</div>
+    <button onClick={handleLogin}>
+      Goggle Login
+    </button>
   );
 }
 
