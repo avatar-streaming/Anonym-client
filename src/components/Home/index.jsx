@@ -1,16 +1,18 @@
 import React from "react";
+import useFetchStreamings from "../../hooks/useFetchStreamings";
 
 function Home() {
+  const streamings = useFetchStreamings();
+
   return (
     <div>
-      <div>
-        <ul>
-          <li>following list</li>
-        </ul>
-      </div>
       <main>
         <ul>
-          <li>streaming list</li>
+          {
+            streamings.map((streaming, index) => (
+              <li id={index}>streaming {index}</li>
+            ))
+          }
         </ul>
       </main>
     </div>

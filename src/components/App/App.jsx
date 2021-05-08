@@ -8,12 +8,13 @@ import StreamingPage from "../StreamingPage";
 import UserDetail from "../UserDetail";
 import ErrorPage from "../ErrorPage";
 import TopNav from "../TopNav";
+import SideNav from "../SideNav";
 
 import useAuthCheck from "../../hooks/useAuthCheck";
 import "../../styles/styles.scss";
 
 function App() {
-  const { isAuthenticated } = useSelector(state => state);
+  const { isAuthenticated } = useSelector(state => state.authReducer);
   useAuthCheck(isAuthenticated);
 
   return (
@@ -22,6 +23,7 @@ function App() {
     ) : (
       <>
         <TopNav />
+        <SideNav />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/streaming/:id" component={StreamingPage} />

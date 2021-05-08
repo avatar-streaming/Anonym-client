@@ -13,7 +13,7 @@ export const checkAuthorization = () => async (dispatch) => {
           "Content-Type": "application/json",
           "Authentication": `bearer ${token}`,
         },
-      }
+      },
     );
     const result = await response.json();
 
@@ -47,7 +47,7 @@ export const userLogin = (userInfo) => async (dispatch) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(userInfo),
-      }
+      },
     );
     const result = await response.json();
     const cookies = new Cookies();
