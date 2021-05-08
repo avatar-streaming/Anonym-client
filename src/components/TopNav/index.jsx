@@ -3,11 +3,11 @@ import { NavLink } from "react-router-dom";
 
 function TopNav() {
   return (
-    <nav>
+    <nav className="nav-top">
       <div>
         <NavLink to="/">Logo</NavLink>
       </div>
-      <div>
+      <div className="search-bar">
         <form>
           <input type="text"/>
           <button>🔍</button>

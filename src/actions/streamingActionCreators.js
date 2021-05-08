@@ -12,6 +12,7 @@ export const fetchStreamings = () => async (dispatch) => {
       },
     );
     const result = await response.json();
+    console.log(response, result)
 
     dispatch({
       type: actionTypes.FETCH_STREAMINGS_SUCCESS,

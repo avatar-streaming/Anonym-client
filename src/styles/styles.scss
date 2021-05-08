@@ -1,3 +1,10 @@
+@import "./nav.scss";
+
+:root {
+  --bg-color: #0e0e10;
+  --color: #e2e2e4;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,7 +12,7 @@
   user-select: none;
   text-align: center;
   line-height: 1em;
-  color: black;
+  color: var(--color);
   text-decoration: none;
 }
 
@@ -13,6 +20,11 @@ html,
 body {
   width: 100%;
   height: 100%;
+}
+
+body {
+  position: relative;
+  background-color: var(--bg-color);
 }
 
 a {

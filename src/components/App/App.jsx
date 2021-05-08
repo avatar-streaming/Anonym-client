@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-
 import Home from "../Home";
 import Login from "../Login";
 import StreamingPage from "../StreamingPage";
@@ -9,7 +8,6 @@ import UserDetail from "../UserDetail";
 import ErrorPage from "../ErrorPage";
 import TopNav from "../TopNav";
 import SideNav from "../SideNav";
-
 import useAuthCheck from "../../hooks/useAuthCheck";
 import "../../styles/styles.scss";
 

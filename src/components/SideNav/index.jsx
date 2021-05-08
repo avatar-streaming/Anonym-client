@@ -5,7 +5,7 @@ function SideNav() {
   const { following } = useSelector((state) => state.authReducer.userInfo);
 
   return (
-    <div>
+    <div className="nav-side">
       <ul>
         {
           following.map((user, index) => (

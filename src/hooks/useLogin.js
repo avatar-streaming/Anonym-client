@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import firebase from "firebase";
 import firebaseApp from "../api/firebaseAPI";
-
 import { userLogin } from "../actions/authActionCreators";
 
 const useLogin = () => {

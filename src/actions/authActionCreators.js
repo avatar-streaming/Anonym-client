@@ -5,6 +5,7 @@ export const checkAuthorization = () => async (dispatch) => {
   try {
     const cookies = new Cookies();
     const token = cookies.get("jwt");
+    console.log(token)
     const response = await fetch(
       `${process.env.REACT_APP_USER_SERVER}/auth/check`,
       {
