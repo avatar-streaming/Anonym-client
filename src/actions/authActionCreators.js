@@ -5,7 +5,6 @@ export const checkAuthorization = () => async (dispatch) => {
   try {
     const cookies = new Cookies();
     const token = cookies.get("jwt");
-    console.log(token)
     const response = await fetch(
       `${process.env.REACT_APP_USER_SERVER}/auth/check`,
       {
@@ -44,6 +43,8 @@ export const userLogin = (userInfo) => async (dispatch) => {
       `${process.env.REACT_APP_USER_SERVER}/auth/login`,
       {
         method: "POST",
+        withCredentials: true,
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -51,9 +52,6 @@ export const userLogin = (userInfo) => async (dispatch) => {
       },
     );
     const result = await response.json();
-    const cookies = new Cookies();
-
-    cookies.set("jwt", result.token);
 
     dispatch({
       type: actionTypes.LOG_IN_SUCCESS,
