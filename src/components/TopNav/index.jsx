@@ -10,7 +10,6 @@ function TopNav() {
       <div className="search-bar">
         <form>
           <input type="text"/>
-          <button>🔍</button>
         </form>
       </div>
       <div>

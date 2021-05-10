@@ -3,6 +3,11 @@
 :root {
   --bg-color: #0e0e10;
   --color: #e2e2e4;
+  --search-bg: #212124;
+  --body-font: "Poppins", sans-serif;
+  --theme-color: #f9fafb;
+  --inactive-color: rgb(113 119 144 / 78%);
+  --border-color: rgba(113 119 144 / 25%);
 }
 
 * {
@@ -34,4 +39,33 @@ a {
 ul,
 ol {
   list-style: none;
+}
+
+input {
+  width: 300px;
+  height: 40px;
+  border: none;
+  background-color: var(--search-bg);
+  border-radius: 4px;
+  font-family: var(--body-font);
+  font-size: 15px;
+  font-weight: 500;
+  padding: 0 20px 0 40px;
+  background-size: 14px;
+  background-repeat: no-repeat;
+  background-position: 16px 48%;
+  color: var(--theme-color);
+  text-align: left;
+
+  &::placeholder {
+    font-family: var(--body-font);
+    color: var(--inactive-color);
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px var(--border-color);
+  }
 }
