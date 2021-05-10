@@ -5,7 +5,7 @@ function Login() {
   const handleLogin = useLogin();
 
   return (
-    <button onClick={handleLogin}>
+    <button onClick={() => handleLogin(true)}>
       Goggle Login
     </button>
   );
