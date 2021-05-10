@@ -19,8 +19,10 @@ const authReducer = (state = initialState, action) => {
       return copiedState;
     case actionTypes.AUTHORIZATION_FAIL:
     case actionTypes.LOG_IN_FAIL:
+    case actionTypes.LOG_OUT_SUCCESS:
       copiedState.isAuthenticated = false;
       copiedState.err = action.payload;
+      copiedState.userInfo = null;
 
       return copiedState;
     default:

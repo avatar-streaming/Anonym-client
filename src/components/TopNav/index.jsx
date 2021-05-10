@@ -1,7 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import useLogout from "../../hooks/useLogout";
 
 function TopNav() {
+  const { _id: userId } = useSelector((state) => state.authReducer.userInfo);
+  const handleLogout = useLogout();
+
   return (
     <nav className="nav-top">
       <div>
@@ -13,9 +18,9 @@ function TopNav() {
         </form>
       </div>
       <div>
-        <NavLink to="/streaming/:id">OnAir</NavLink>
-        <NavLink to="/user/:id">My Page</NavLink>
-        <NavLink to="/logout">Logout</NavLink>
+        <NavLink to="/streaming/new">OnAir</NavLink>
+        <NavLink to={`/user/${userId}`}>My Page</NavLink>
+        <NavLink to="/logout" onClick={() => handleLogout(true)}>Logout</NavLink>
       </div>
     </nav>
   );

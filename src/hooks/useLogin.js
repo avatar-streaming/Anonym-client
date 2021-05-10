@@ -15,7 +15,7 @@ const useLogin = () => {
       dispatch(userLogin({ uid, email, displayName }));
     } catch (err) {
       console.log(err);
-      // need to modify
+      // need to modify err handling
     }
   };
 };

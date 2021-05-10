@@ -17,7 +17,7 @@ export const checkAuthorization = () => async (dispatch) => {
     );
     const result = await response.json();
 
-    if (result.message === "Authorization Success") {
+    if (response.ok) {
       dispatch({
         type: actionTypes.AUTHORIZATION_SUCCESS,
         payload: result.user,
@@ -43,7 +43,6 @@ export const userLogin = (userInfo) => async (dispatch) => {
       `${process.env.REACT_APP_USER_SERVER}/auth/login`,
       {
         method: "POST",
-        withCredentials: true,
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
@@ -60,6 +59,30 @@ export const userLogin = (userInfo) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.LOG_IN_FAIL,
+      payload: err,
+    });
+  }
+};
+
+export const userLogout = () => async (dispatch) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_USER_SERVER}/auth/logout`,
+      {
+        method: "GET",
+        credentials: "include",
+      },
+    );
+
+    if (response.ok) {
+      dispatch({
+        type: actionTypes.LOG_OUT_SUCCESS,
+      });
+    }
+
+  } catch (err) {
+    dispatch({
+      type: actionTypes.LOG_OUT_FAIL.anchor,
       payload: err,
     });
   }
