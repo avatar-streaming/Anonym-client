@@ -9,6 +9,7 @@ export const checkAuthorization = () => async (dispatch) => {
       `${process.env.REACT_APP_USER_SERVER}/auth/check`,
       {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
           "Authentication": `bearer ${token}`,
@@ -71,6 +72,9 @@ export const userLogout = () => async (dispatch) => {
       {
         method: "GET",
         credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
     );
 
@@ -79,7 +83,6 @@ export const userLogout = () => async (dispatch) => {
         type: actionTypes.LOG_OUT_SUCCESS,
       });
     }
-
   } catch (err) {
     dispatch({
       type: actionTypes.LOG_OUT_FAIL.anchor,

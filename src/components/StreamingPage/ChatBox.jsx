@@ -2,13 +2,13 @@ import React from "react";
 
 function ChatBox() {
   return (
-    <div>
-      <div>
+    <div className="chat-container">
+      <div className="chat-box">
         <ul>
           <li>chatting list</li>
         </ul>
       </div>
-      <div>
+      <div className="chat-form">
         <form>
           <input type="text" />
           <button>Chat</button>

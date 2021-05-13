@@ -1,14 +1,7 @@
+@import "./theme.scss";
+@import "./home.scss";
+@import "./streamingPage.scss";
 @import "./nav.scss";
-
-:root {
-  --bg-color: #0e0e10;
-  --color: #e2e2e4;
-  --search-bg: #212124;
-  --body-font: "Poppins", sans-serif;
-  --theme-color: #f9fafb;
-  --inactive-color: rgb(113 119 144 / 78%);
-  --border-color: rgba(113 119 144 / 25%);
-}
 
 * {
   margin: 0;
@@ -21,10 +14,16 @@
   text-decoration: none;
 }
 
+#root {
+  height: 100%;
+}
+
 html,
 body {
   width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -41,11 +40,25 @@ ol {
   list-style: none;
 }
 
+button {
+  color: var(--bg-color);
+}
+
+.content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding-top: 50px;
+  padding-left: 50px;
+}
+
 input {
   width: 300px;
   height: 40px;
   border: none;
-  background-color: var(--search-bg);
+  background-color: var(--sub-bg-color);
   border-radius: 4px;
   font-family: var(--body-font);
   font-size: 15px;

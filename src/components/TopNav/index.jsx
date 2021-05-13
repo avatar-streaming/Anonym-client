@@ -18,7 +18,7 @@ function TopNav() {
         </form>
       </div>
       <div>
-        <NavLink to="/streaming/new">OnAir</NavLink>
+        <NavLink to={`/streaming/${userId}`}>OnAir</NavLink>
         <NavLink to={`/user/${userId}`}>My Page</NavLink>
         <NavLink to="/logout" onClick={() => handleLogout(true)}>Logout</NavLink>
       </div>

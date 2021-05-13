@@ -1,0 +1,8 @@
+.content-wrapper {
+  display: flex;
+}
+.streaming-box {
+  width: calc(33.3% - 10px);
+
+  border: 1px solid var(--sub-bg-color);
+}
