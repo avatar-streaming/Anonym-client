@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import useMotionAnimator from "../../hooks/useMotionAnimator";
 import useToggleOnOff from "../../hooks/useToggleOnOff";
 import useToggleStreaming from "../../hooks/useToggleStreaming";
-import { bindPage } from "../../poseAnimator/camera";
 import ChatBox from "./ChatBox";
 
 function StreamingPage() {
@@ -11,15 +11,9 @@ function StreamingPage() {
   const { id } = useParams();
   const { isOn, toggleOnOff } = useToggleOnOff();
   const [streamingTitle, setStreamingTitle] = useState("");
-  const outputRef = useRef(null);
-  const avatarRef = useRef(null);
-  const videoRef = useRef(null);
+  const { outputRef, avatarRef, videoRef } = useMotionAnimator();
 
   useToggleStreaming(isOn, streamingTitle);
-
-  useEffect(() => {
-    bindPage(avatarRef.current, outputRef.current, videoRef.current);
-  });
 
   return (
     <div className="content-wrapper">

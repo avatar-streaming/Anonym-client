@@ -43,11 +43,22 @@ export const generateStreaming = (streamingTitle) => async (dispatch, state) => 
       }
     );
     const result = await response.json();
+    console.log(response, result)
 
-    dispatch({
-      type: actionTypes.GENERATE_STREAMING_SUCESS,
-      payload: result.streaming,
-    });
+    if (response.ok) {
+      dispatch({
+        type: actionTypes.GENERATE_STREAMING_SUCESS,
+        payload: result.streaming,
+      });
+    } else {
+      dispatch({
+        type: actionTypes.GENERATE_STREAMING_FAIL,
+        payload: {
+          status: response.status,
+          message: response.statusText,
+        },
+      });
+    }
   } catch (err) {
     dispatch({
       type: actionTypes.GENERATE_STREAMING_FAIL,

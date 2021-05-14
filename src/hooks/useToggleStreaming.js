@@ -19,7 +19,7 @@ const useToggleStreaming = (isOnAir, streamTitle) => {
     return () => {
       dispatch(removeStreaming());
     };
-  }, [isOnAir, dispatch]);
+  }, [isOnAir, streamTitle, dispatch]);
 };
 
 export default useToggleStreaming;

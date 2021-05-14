@@ -20,7 +20,7 @@ function TopNav() {
       <div>
         <NavLink to={`/streaming/${userId}`}>OnAir</NavLink>
         <NavLink to={`/user/${userId}`}>My Page</NavLink>
-        <NavLink to="/logout" onClick={() => handleLogout(true)}>Logout</NavLink>
+        <NavLink to="/auth/logout" onClick={() => handleLogout(true)}>Logout</NavLink>
       </div>
     </nav>
   );
