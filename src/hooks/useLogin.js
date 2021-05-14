@@ -17,9 +17,9 @@ const useLogin = () => {
       try {
         const provider = new firebase.auth.GoogleAuthProvider();
         const loginData = await firebaseApp.auth().signInWithPopup(provider);
-        const { uid, email, displayName } = loginData.user;
+        const { uid, email, displayName, photoURL } = loginData.user;
 
-        dispatch(userLogin({ uid, email, displayName }));
+        dispatch(userLogin({ uid, email, displayName, photoURL }));
       } catch (err) {
         console.log(err);
         // need to modify err handling

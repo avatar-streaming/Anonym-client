@@ -6,9 +6,9 @@ const useMotionAnimator = () => {
   const avatarRef = useRef(null);
   const videoRef = useRef(null);
 
-  // useEffect(() => {
-  //   bindPage(avatarRef.current, outputRef.current, videoRef.current);
-  // });
+  useEffect(() => {
+    bindPage(avatarRef.current, outputRef.current, videoRef.current);
+  }, []);
 
   return { outputRef, avatarRef, videoRef };
 };

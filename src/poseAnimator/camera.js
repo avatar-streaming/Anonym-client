@@ -38,8 +38,8 @@ let videoHeight = 300;
 let faceDetection = null;
 let illustration = null;
 let canvasScope;
-let canvasWidth = 500;
-let canvasHeight = 300;
+let canvasWidth = 800;
+let canvasHeight = 600;
 
 // ML models
 let facemesh;
@@ -208,8 +208,10 @@ export async function bindPage(avatarCanvas, outputCanvas, video) {
   detectPoseInRealTime(video, outputCanvas);
 }
 
-navigator.getUserMedia = navigator.getUserMedia ||
-  navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+navigator.getUserMedia =
+  navigator.getUserMedia ||
+  navigator.webkitGetUserMedia ||
+  navigator.mozGetUserMedia;
 // FileUtils.setDragDropHandler((result) => {parseSVG(result)});
 
 async function parseSVG(target) {

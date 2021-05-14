@@ -21,6 +21,7 @@ export class SVGUtils {
   static importSVG(file) {
     const svgScope = new paper.default.PaperScope();
     const canvas = svgScope.createCanvas(0, 0);
+
     svgScope.setup(canvas);
 
     return new Promise((resolve, reject) => {
@@ -62,21 +63,26 @@ export class SVGUtils {
     const to = [];
     const back = []; ;
     const segCount = Math.max(pathLen / 3, 1.0);
+
     for (let i = 0; i < segCount; i++) {
       const perc = i / (segCount - 1);
       const p = path.getPointAt(perc * pathLen);
       const n = path.getNormalAt(perc * pathLen);
       const easeHeight = spline.get(perc);
+
       if (!p || !n) continue;
       const pp0 = p.add(n.multiply(height * easeHeight));
       const pp1 = p.subtract(n.multiply(height * easeHeight));
+
       to.push(pp0);
       back.unshift(pp1);
     }
 
     const outPath = new scope.Path(options);
+
     outPath.addSegments(to.concat(back));
     outPath.simplify();
+
     return outPath;
   }
 
@@ -94,11 +100,13 @@ export class SVGUtils {
 
   static findFirstItemWithPrefix(root, prefix) {
     const items = root.getItems({ recursive: true });
+
     for (let i = 0; i < items.length; i++) {
       if (items[i].name && items[i].name.startsWith(prefix)) {
         return items[i];
       }
     }
+
     return null;
   }
 }

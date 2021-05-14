@@ -10,7 +10,10 @@ function ChatBox() {
       </div>
       <div className="chat-form">
         <form>
-          <input type="text" />
+          <input
+            type="text"
+            className="input-text"
+          />
           <button>Chat</button>
         </form>
       </div>

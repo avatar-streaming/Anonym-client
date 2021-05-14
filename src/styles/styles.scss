@@ -29,6 +29,7 @@ body {
 body {
   position: relative;
   background-color: var(--bg-color);
+  min-width: 1010px;
 }
 
 a {
@@ -54,7 +55,7 @@ button {
   padding-left: 50px;
 }
 
-input {
+.input-text {
   width: 300px;
   height: 40px;
   border: none;
@@ -81,4 +82,8 @@ input {
     outline: none;
     box-shadow: 0 0 0 1px var(--border-color);
   }
+}
+
+.user-thumnail {
+  border-radius: 50%;
 }

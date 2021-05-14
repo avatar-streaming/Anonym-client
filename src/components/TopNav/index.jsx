@@ -14,7 +14,10 @@ function TopNav() {
       </div>
       <div className="search-bar">
         <form>
-          <input type="text"/>
+          <input
+            type="text"
+            className="input-text"
+          />
         </form>
       </div>
       <div>
