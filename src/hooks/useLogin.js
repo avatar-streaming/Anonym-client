@@ -25,7 +25,7 @@ const useLogin = () => {
         // need to modify err handling
       }
     })();
-  });
+  }, [isLogin, dispatch]);
 
   return setIsLogin;
 };

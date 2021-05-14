@@ -1,21 +1,16 @@
 import Cookies from "universal-cookie";
 import * as actionTypes from "../constants/actionTypes";
+import { defaultOptionHelper, urlHelper } from "../utils/fetchHelper";
 
 export const checkAuthorization = () => async (dispatch) => {
   try {
     const cookies = new Cookies();
     const token = cookies.get("jwt");
-    const response = await fetch(
-      `${process.env.REACT_APP_USER_SERVER}/auth/check`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          "Authentication": `bearer ${token}`,
-        },
-      },
-    );
+    const url = urlHelper("auth/check");
+    const option = defaultOptionHelper("POST");
+    option.headers.Authentication = `bearer ${token}`;
+
+    const response = await fetch(url, option);
     const result = await response.json();
 
     if (response.ok) {
@@ -40,17 +35,11 @@ export const checkAuthorization = () => async (dispatch) => {
 
 export const userLogin = (userInfo) => async (dispatch) => {
   try {
-    const response = await fetch(
-      `${process.env.REACT_APP_USER_SERVER}/auth/login`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userInfo),
-      },
-    );
+    const url = urlHelper("auth/login");
+    const option = defaultOptionHelper("POST");
+    option.body = JSON.stringify(userInfo);
+
+    const response = await fetch(url, option);
     const result = await response.json();
 
     dispatch({
@@ -67,16 +56,10 @@ export const userLogin = (userInfo) => async (dispatch) => {
 
 export const userLogout = () => async (dispatch) => {
   try {
-    const response = await fetch(
-      `${process.env.REACT_APP_USER_SERVER}/auth/logout`,
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
+    const url = urlHelper("auth/logout");
+    const option = defaultOptionHelper("GET");
+
+    const response = await fetch(url, option);
 
     if (response.ok) {
       dispatch({

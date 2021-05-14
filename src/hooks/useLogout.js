@@ -10,7 +10,7 @@ const useLogout = () => {
     if (isLogout) {
       dispatch(userLogout());
     }
-  });
+  }, [isLogout, dispatch]);
 
   return setIsLogout;
 };

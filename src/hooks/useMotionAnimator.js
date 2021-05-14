@@ -8,6 +8,10 @@ const useMotionAnimator = () => {
 
   useEffect(() => {
     bindPage(avatarRef.current, outputRef.current, videoRef.current);
+
+    return () => {
+      window.location.reload();
+    };
   }, []);
 
   return { outputRef, avatarRef, videoRef };

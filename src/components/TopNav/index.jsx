@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useLogout from "../../hooks/useLogout";
+import useSearch from "../../hooks/useSearch";
 
 function TopNav() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const updateIsSubmit = useSearch(searchTerm);
   const { _id: userId } = useSelector((state) => state.authReducer.userInfo);
   const handleLogout = useLogout();
 
@@ -13,10 +16,19 @@ function TopNav() {
         <NavLink to="/">Logo</NavLink>
       </div>
       <div className="search-bar">
-        <form>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            updateIsSubmit(true);
+          }}
+        >
           <input
             type="text"
             className="input-text"
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
           />
         </form>
       </div>
