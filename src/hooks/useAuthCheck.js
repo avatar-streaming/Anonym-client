@@ -9,6 +9,7 @@ const useAuthCheck = (isAuthenticated) => {
 
   useEffect(() => {
     dispatch(checkAuthorization());
+
     if (isAuthenticated) {
       history.push("/");
     } else {

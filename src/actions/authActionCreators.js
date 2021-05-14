@@ -9,6 +9,7 @@ export const checkAuthorization = () => async (dispatch) => {
       `${process.env.REACT_APP_USER_SERVER}/auth/check`,
       {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
           "Authentication": `bearer ${token}`,
@@ -17,7 +18,7 @@ export const checkAuthorization = () => async (dispatch) => {
     );
     const result = await response.json();
 
-    if (result.message === "Authorization Success") {
+    if (response.ok) {
       dispatch({
         type: actionTypes.AUTHORIZATION_SUCCESS,
         payload: result.user,
@@ -43,6 +44,7 @@ export const userLogin = (userInfo) => async (dispatch) => {
       `${process.env.REACT_APP_USER_SERVER}/auth/login`,
       {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -50,9 +52,6 @@ export const userLogin = (userInfo) => async (dispatch) => {
       },
     );
     const result = await response.json();
-    const cookies = new Cookies();
-
-    cookies.set("jwt", result.token);
 
     dispatch({
       type: actionTypes.LOG_IN_SUCCESS,
@@ -61,6 +60,32 @@ export const userLogin = (userInfo) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: actionTypes.LOG_IN_FAIL,
+      payload: err,
+    });
+  }
+};
+
+export const userLogout = () => async (dispatch) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_USER_SERVER}/auth/logout`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    if (response.ok) {
+      dispatch({
+        type: actionTypes.LOG_OUT_SUCCESS,
+      });
+    }
+  } catch (err) {
+    dispatch({
+      type: actionTypes.LOG_OUT_FAIL.anchor,
       payload: err,
     });
   }

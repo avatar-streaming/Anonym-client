@@ -2,7 +2,7 @@ import React from "react";
 
 function UserDetail() {
   return (
-    <div>
+    <div className="content-wrapper">
       <div>
         <h3>Profile</h3>
       </div>

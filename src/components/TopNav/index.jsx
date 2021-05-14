@@ -1,22 +1,26 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import useLogout from "../../hooks/useLogout";
 
 function TopNav() {
+  const { _id: userId } = useSelector((state) => state.authReducer.userInfo);
+  const handleLogout = useLogout();
+
   return (
-    <nav>
+    <nav className="nav-top">
       <div>
         <NavLink to="/">Logo</NavLink>
       </div>
-      <div>
+      <div className="search-bar">
         <form>
           <input type="text"/>
-          <button>🔍</button>
         </form>
       </div>
       <div>
-        <NavLink to="/streaming/:id">OnAir</NavLink>
-        <NavLink to="/user/:id">My Page</NavLink>
-        <NavLink to="/logout">Logout</NavLink>
+        <NavLink to={`/streaming/${userId}`}>OnAir</NavLink>
+        <NavLink to={`/user/${userId}`}>My Page</NavLink>
+        <NavLink to="/auth/logout" onClick={() => handleLogout(true)}>Logout</NavLink>
       </div>
     </nav>
   );
