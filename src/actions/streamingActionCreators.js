@@ -43,7 +43,6 @@ export const generateStreaming = (streamingTitle) => async (dispatch, state) => 
       }
     );
     const result = await response.json();
-    console.log(response, result)
 
     if (response.ok) {
       dispatch({

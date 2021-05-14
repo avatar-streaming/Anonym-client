@@ -25,6 +25,14 @@ const authReducer = (state = initialState, action) => {
       copiedState.userInfo = null;
 
       return copiedState;
+    case actionTypes.UPDATE_USER_NAME_SUCCESS:
+      copiedState.userInfo = action.payload;
+
+      return copiedState;
+    case actionTypes.UPDATE_USER_NAME_FAIL:
+      copiedState.err = action.payload;
+
+      return copiedState;
     default:
       return copiedState;
   }

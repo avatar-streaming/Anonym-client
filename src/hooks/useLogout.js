@@ -1,7 +1,6 @@
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { userLogout } from "../actions/authActionCreators";
-
-const { useEffect, useState } = require("react");
-const { useDispatch } = require("react-redux");
 
 const useLogout = () => {
   const [isLogout, setIsLogout] = useState(false);
