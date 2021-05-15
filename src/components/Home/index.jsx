@@ -1,27 +1,27 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import useFetchStreamings from "../../hooks/useFetchStreamings";
 
 function Home() {
   const streamings = useFetchStreamings();
-
   return (
     <div className="content-wrapper">
-      <main>
+      <div className="streaming-list">
         {
           streamings.map((streaming) => (
-            <div key={streaming._id} className="streaming-box">
+            <Link to={`/streaming/${streaming.streamer._id}`} key={streaming._id} className="streaming-box">
               <div className="streaming-thumnail"></div>
               <div className="streaming-description">
-                <div className="streamer-image"></div>
+                <img src={streaming.streamer.thumnail} alt="user thumnail" className="user-thumnail"></img>
                 <div>
                   <div className="streamer-title">{streaming.title}</div>
                   <div className="streamer-name">{streaming.streamer.userName}</div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))
         }
-      </main>
+      </div>
     </div>
   );
 }

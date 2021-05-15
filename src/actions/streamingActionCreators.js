@@ -55,12 +55,6 @@ export const generateStreaming = (streamingTitle) => async (dispatch, state) => 
 
 export const removeStreaming = () => async (dispatch, state) => {
   try {
-    const userStreaming = state().streamingReducer.userStreaming;
-
-    if (!userStreaming) {
-      return;
-    }
-
     const streamingId = state().authReducer.userInfo["_id"];
     const url = urlHelper(`streaming/${streamingId}`);
     const option = defaultOptionHelper("DELETE");
