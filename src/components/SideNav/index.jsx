@@ -8,8 +8,8 @@ function SideNav() {
     <div className="nav-side">
       <ul>
         {
-          following.map((user, index) => (
-            <li id={index}>user {index}</li>
+          following.map((user) => (
+            <li key={user._id}>user</li>
           ))
         }
       </ul>
