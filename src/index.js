@@ -5,7 +5,6 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
-import io from "socket.io-client";
 import App from "./components/App/App";
 import reducer from "./reducer";
 
@@ -25,5 +24,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
-
-const socket = io(process.env.REACT_APP_USER_SERVER);

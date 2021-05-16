@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import useMotionAnimator from "../../hooks/useMotionAnimator";
 import ChatBox from "./ChatBox";
 import Streamer from "./Streamer";
 import Viewer from "./Viewer";
+import useMotionAnimator from "../../hooks/useMotionAnimator";
+import { checkRoom } from "../../api/socket";
 
 function StreamingPage() {
   const { _id: userId } = useSelector((state) => state.authReducer.userInfo);
   const { id } = useParams();
   const { outputRef, avatarRef, videoRef } = useMotionAnimator();
+
+  useEffect(() => {
+    return checkRoom(id);
+  }, [id]);
 
   return (
     <div className="content-wrapper">
