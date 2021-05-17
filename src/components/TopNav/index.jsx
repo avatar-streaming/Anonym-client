@@ -7,7 +7,7 @@ import useSearch from "../../hooks/useSearch";
 function TopNav() {
   const [searchTerm, setSearchTerm] = useState("");
   const updateIsSubmit = useSearch(searchTerm);
-  const { _id: userId } = useSelector((state) => state.authReducer.userInfo);
+  const { _id: userId } = useSelector((state) => state.auth.userInfo);
   const handleLogout = useLogout();
 
   return (

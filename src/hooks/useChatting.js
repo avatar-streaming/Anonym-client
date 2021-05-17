@@ -7,7 +7,7 @@ const useChatting = () => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [chatList, setChatList] = useState([]);
   const chatBoxRef = useRef(null);
-  const { userName } = useSelector((state) => state.authReducer.userInfo);
+  const { userName } = useSelector((state) => state.auth.userInfo);
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmit(true);

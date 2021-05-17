@@ -6,7 +6,7 @@ import { searchUsers } from "../actions/userActionCreator";
 const useSearchUsers = () => {
   const dispatch = useDispatch();
   const { search } = useLocation();
-  const { searchList } = useSelector((state) => state.searchReducer);
+  const { searchList } = useSelector((state) => state.search);
 
   useEffect(() => {
     dispatch(searchUsers(search));

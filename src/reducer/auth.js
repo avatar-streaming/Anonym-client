@@ -7,7 +7,7 @@ const initialState = {
   err: null,
 };
 
-const authReducer = (state = initialState, action) => {
+const auth = (state = initialState, action) => {
   const copiedState = _.cloneDeep(state);
 
   switch (action.type) {
@@ -38,4 +38,4 @@ const authReducer = (state = initialState, action) => {
   }
 };
 
-export default authReducer;
+export default auth;

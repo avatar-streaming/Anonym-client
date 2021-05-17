@@ -23,7 +23,7 @@ export const fetchStreamings = () => async (dispatch) => {
 
 export const generateStreaming = (streamingTitle) => async (dispatch, state) => {
   try {
-    const streamingId = state().authReducer.userInfo["_id"];
+    const streamingId = state().auth.userInfo["_id"];
     const url = urlHelper(`streaming/${streamingId}`);
     const option = defaultOptionHelper("POST");
     option.body = JSON.stringify({ streamingTitle });
@@ -55,7 +55,7 @@ export const generateStreaming = (streamingTitle) => async (dispatch, state) => 
 
 export const removeStreaming = () => async (dispatch, state) => {
   try {
-    const streamingId = state().authReducer.userInfo["_id"];
+    const streamingId = state().auth.userInfo["_id"];
     const url = urlHelper(`streaming/${streamingId}`);
     const option = defaultOptionHelper("DELETE");
 

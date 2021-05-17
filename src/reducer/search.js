@@ -6,7 +6,7 @@ const initialState = {
   err: null,
 };
 
-const searchReducer = (state = initialState, action) => {
+const search = (state = initialState, action) => {
   const copiedState = _.cloneDeep(state);
 
   switch (action.type) {
@@ -24,4 +24,4 @@ const searchReducer = (state = initialState, action) => {
   }
 };
 
-export default searchReducer;
+export default search;

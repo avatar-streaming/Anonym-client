@@ -13,7 +13,7 @@ import useAuthCheck from "../../hooks/useAuthCheck";
 import "../../styles/styles.scss";
 
 function App() {
-  const { isAuthenticated } = useSelector(state => state.authReducer);
+  const { isAuthenticated } = useSelector(state => state.auth);
   useAuthCheck(isAuthenticated);
 
   return (

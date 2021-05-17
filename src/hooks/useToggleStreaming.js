@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { generateStreaming, removeStreaming } from "../actions/streamingActionCreators";
 
 const useToggleStreaming = (isOnAir, streamTitle) => {
-  const { userStreaming } = useSelector((state) => state.streamingReducer);
+  const { userStreaming } = useSelector((state) => state.streaming);
   const dispatch = useDispatch();
 
   useEffect(() => {

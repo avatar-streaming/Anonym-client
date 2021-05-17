@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 function UserDetail() {
   const [userName, updateUserName] = useUserName();
   const isUpdateUserName = useUpdateUserName(userName);
-  const { thumnail } = useSelector((state) => state.authReducer.userInfo);
+  const { thumnail } = useSelector((state) => state.auth.userInfo);
 
   return (
     <div className="content-wrapper">

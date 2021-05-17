@@ -8,7 +8,7 @@ import useMotionAnimator from "../../hooks/useMotionAnimator";
 import { checkRoom } from "../../api/socket";
 
 function StreamingPage() {
-  const { _id: userId } = useSelector((state) => state.authReducer.userInfo);
+  const { _id: userId } = useSelector((state) => state.auth.userInfo);
   const { id } = useParams();
   const { outputRef, avatarRef, videoRef } = useMotionAnimator();
 

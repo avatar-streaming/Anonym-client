@@ -3,7 +3,7 @@ import * as actionTypes from "../constants/actionTypes";
 
 export const updateUserName = (userName) => async (dispatch, state) => {
   try {
-    const userId = state().authReducer.userInfo._id;
+    const userId = state().auth.userInfo._id;
     const url = urlHelper(`user/${userId}`);
     const option = defaultOptionHelper("PUT");
     option.body = JSON.stringify({ userName });

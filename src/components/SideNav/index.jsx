@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 function SideNav() {
-  const { following } = useSelector((state) => state.authReducer.userInfo);
+  const { following } = useSelector((state) => state.auth.userInfo);
 
   return (
     <div className="nav-side">

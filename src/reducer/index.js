@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
-import authReducer from "./authReducer";
-import streamingReducer from "./streamingReducer";
-import searchReducer from "./searchReducer";
+import auth from "./auth";
+import streaming from "./streaming";
+import search from "./search";
 
 const reducer = combineReducers({
-  authReducer,
-  streamingReducer,
-  searchReducer,
+  auth,
+  streaming,
+  search,
 });
 
 export default reducer;
