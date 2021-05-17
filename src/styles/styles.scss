@@ -18,6 +18,12 @@
   height: 100%;
 }
 
+:not(.chat-box) {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 html,
 body {
   width: 100%;
@@ -31,10 +37,6 @@ body {
 body {
   position: relative;
   background-color: var(--bg-color);
-}
-
-::-webkit-scrollbar {
-  display: none;
 }
 
 a {

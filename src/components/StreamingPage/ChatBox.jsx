@@ -7,13 +7,14 @@ function ChatBox() {
     updateInputValue,
     handleSubmit,
     chatList,
+    chatBoxRef,
   } = useChatting();
 
   return (
     <div className="chat-container">
-      <div className="chat-box">
+      <div ref={chatBoxRef} className="chat-box">
         {chatList.map((chat, index) => (
-          <div key={index} className="chat">
+          <div key={index} className="chat-item">
             <span>{chat.userName}</span>
             <span>: {chat.content}</span>
           </div>
