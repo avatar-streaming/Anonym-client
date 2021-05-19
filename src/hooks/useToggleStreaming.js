@@ -8,11 +8,11 @@ const useToggleStreaming = (isOnAir, streamTitle) => {
 
   useEffect(() => {
     (async () => {
-      if (isOnAir === true) {
+      if (isOnAir) {
         dispatch(generateStreaming(streamTitle.trim()));
       }
 
-      if (isOnAir === false) {
+      if (!isOnAir) {
         dispatch(removeStreaming());
       }
     })();

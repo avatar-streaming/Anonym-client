@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { getOtherUserChat, sendChat } from "../api/socket";
+import { cancelSubscribeUsersChat, sendChat, subscribeUsersChat } from "../api/socket";
 
 const useChatting = () => {
   const [inputValue, setInputValue] = useState("");
@@ -33,7 +33,11 @@ const useChatting = () => {
   }, [isSubmit, chatList, inputValue, userName]);
 
   useEffect(() => {
-    return getOtherUserChat(chatList, setChatList);
+    subscribeUsersChat(chatList, setChatList);
+
+    return () => {
+      cancelSubscribeUsersChat();
+    };
   }, [chatList]);
 
   useEffect(() => {

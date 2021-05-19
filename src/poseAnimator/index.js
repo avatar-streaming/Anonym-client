@@ -32,7 +32,7 @@ import blathersSVG from "./resources/illustration/blathers.svg";
 import tomNookSVG from "./resources/illustration/tom-nook.svg";
 
 class PoseAnimator {
-  constructor(avatarCanvasRef, outputCanvasRef, videoRef) {
+  constructor(avatarCanvasRef, outputCanvasRef, videoRef, setCanvasImage) {
     this.avatarCanvas = avatarCanvasRef.current;
     this.outputCanvas = outputCanvasRef.current;
     this.ctx = this.outputCanvas.getContext("2d");
@@ -40,6 +40,8 @@ class PoseAnimator {
     this.video = videoRef.current;
     this.videoWidth = 300;
     this.videoHeight = 300;
+
+    this.updateCanvasImage = setCanvasImage;
 
     this.faceDetection = null;
     this.illustration = null;
@@ -120,7 +122,7 @@ class PoseAnimator {
     video.height = this.videoHeight;
 
     const stream = await navigator.mediaDevices.getUserMedia({
-      "audio": false,
+      "audio": true,
       "video": {
         facingMode: "user",
         width: this.videoWidth,
@@ -153,6 +155,8 @@ class PoseAnimator {
     this.ctx.drawImage(this.video, 0, 0, this.videoWidth, this.videoHeight);
     this.ctx.restore();
 
+    // this.updateCanvasImage(this.outputCanvas.toDataURL("image/jpeg", 1.0));
+
     const input = tf.browser.fromPixels(this.outputCanvas);
     this.faceDetection = await this.facemesh.estimateFaces(input, false, false);
     let all_poses = await this.posenet.estimatePoses(this.video, {
@@ -160,7 +164,7 @@ class PoseAnimator {
       decodingMethod: "multi-person",
       maxDetections: 1,
       scoreThreshold: this.minPartConfidence,
-      nmsRadius: this.nmsRadius
+      nmsRadius: this.nmsRadius,
     });
 
     poses = poses.concat(all_poses);

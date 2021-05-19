@@ -1,25 +1,29 @@
 import io from "socket.io-client";
 
-const socket = io(process.env.REACT_APP_USER_SERVER);
+export const socket = io(process.env.REACT_APP_USER_SERVER);
 
-export const checkRoom = (id) => {
-  socket.emit("join streaming", id);
+export const joinRoom = (roomID) => {
+  socket.emit("join room", roomID);
+};
 
-  return () => {
-    socket.emit("leave streaming", id);
-  };
+export const leaveRoom = (roomID) => {
+  socket.emit("leave room", roomID);
 };
 
 export const sendChat = (chat) => {
   socket.emit("chat", chat);
 };
 
-export const getOtherUserChat = (chatList, updateChatList) => {
+export const subscribeUsersChat = (chatList, updateChatList) => {
   socket.on("other user chat", (chat) => {
     updateChatList([...chatList, chat]);
   });
+};
 
-  return () => {
-    socket.off("other user chat");
-  };
+export const cancelSubscribeUsersChat = () => {
+  socket.off("other user chat");
+};
+
+export const joinStreaming = (socketID, roomID) => {
+  socket.emit("join streaming", { id: socketID, roomID });
 };

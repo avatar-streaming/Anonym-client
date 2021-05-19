@@ -1,20 +1,25 @@
-import { useEffect, useRef } from "react";
-import { bindPage } from "../poseAnimator/camera";
+import { useEffect, useRef, useState } from "react";
+import PoseAnimator from "../poseAnimator";
 
 const useMotionAnimator = () => {
   const outputRef = useRef(null);
   const avatarRef = useRef(null);
   const videoRef = useRef(null);
+  const [canvasImage, setCanvasImage] = useState();
 
-  // useEffect(() => {
-  //   bindPage(avatarRef.current, outputRef.current, videoRef.current);
+  useEffect(() => {
+    new PoseAnimator(avatarRef, outputRef, videoRef, setCanvasImage);
 
-  //   return () => {
-  //     window.location.reload();
-  //   };
-  // }, []);
+    return () => {
+      // window.location.reload();
+    };
+  }, []);
 
-  return { outputRef, avatarRef, videoRef };
+  useEffect(() => {
+    console.log(canvasImage);
+  }, [canvasImage]);
+
+  return { outputRef, avatarRef, videoRef, canvasImage };
 };
 
 export default useMotionAnimator;

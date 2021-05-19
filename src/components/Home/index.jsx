@@ -4,6 +4,7 @@ import useFetchStreamings from "../../hooks/useFetchStreamings";
 
 function Home() {
   const streamings = useFetchStreamings();
+
   return (
     <div className="content-wrapper">
       <div className="streaming-list">
