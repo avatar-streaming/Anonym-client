@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { joinStreaming, socket } from "../api/socket";
-import { createReceivePC } from "../api/webRTC";
+import { receiveStreaming } from "../api/webRTC";
 
 const useReceiveStreaming = () => {
   const { id } = useParams();
@@ -9,14 +9,8 @@ const useReceiveStreaming = () => {
   const [stream, setStream] = useState(null);
 
   useEffect(() => {
+    receiveStreaming(setStream);
     joinStreaming(socket.id, id);
-    socket.on("allUsers", ({ users, roomID }) => {
-      const length = users.length;
-
-      for (let i = 0; i < length; i++) {
-        createReceivePC(users[i].id, socket, roomID, setStream);
-      }
-    });
 
     // return () => {
     //   socket.emit("leave")

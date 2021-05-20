@@ -2,7 +2,7 @@ import React from "react";
 import useReceiveStreaming from "../../hooks/useReceiveStreaming";
 
 function Viewer() {
-   const videoRef = useReceiveStreaming();
+  const videoRef = useReceiveStreaming();
 
   return (
     <>

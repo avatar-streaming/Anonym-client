@@ -28,9 +28,14 @@ const createSenderPeerConnection = (socket, localStream) => {
     localStream.getTracks().forEach(track => {
       pc.addTrack(track, localStream);
     });
-  } else {
-    console.log("no local stream");
   }
+
+  const dc = pc.createDataChannel("image data");
+  console.log("create channel");
+  dc.onopen = () => {
+    console.log("channel open");
+    dc.send("1");
+  };
 
   return pc;
 };
@@ -73,10 +78,20 @@ const createReceiverPeerConnection = (socketID, socket, setStream) => {
     }
   };
 
+  console.log("befor ondatachannel")
+  pc.ondatachannel = (event) => {
+    console.log("receive ondatachannel");
+    const dc = event.channel;
+
+    dc.onmessage = (event) => {
+      console.log("onmessage data", event.data);
+    };
+  };
+
   return pc;
 }
 
-const createReceiverOffer = async (pc, socket, senderSocketID, roomID) => {
+const createReceiverOffer = async (pc, senderID, roomID, socket) => {
   try {
     const sdp = await pc.createOffer({
       offerToReceiveAudio: true,
@@ -87,7 +102,7 @@ const createReceiverOffer = async (pc, socket, senderSocketID, roomID) => {
     socket.emit("receiverOffer", {
       receiverSdp: sdp,
       receiverSocketID: socket.id,
-      senderSocketID,
+      senderSocketID: senderID,
       roomID,
     });
   } catch (error) {
@@ -95,13 +110,28 @@ const createReceiverOffer = async (pc, socket, senderSocketID, roomID) => {
   }
 }
 
-export const createReceivePC = (id, socket, roomID, setStream) => {
+const createReceivePC = (senderID, roomID, socket, setStream) => {
   try {
-    const pc = createReceiverPeerConnection(id, socket, setStream);
-    createReceiverOffer(pc, socket, id, roomID);
+    const pc = createReceiverPeerConnection(senderID, socket, setStream);
+    createReceiverOffer(pc, senderID, roomID, socket);
+    console.log("befor ondatachannel")
+    pc.ondatachannel = (event) => {
+      console.log("receive ondatachannel");
+      const dc = event.channel;
+
+      dc.onmessage = (event) => {
+        console.log("onmessage data", event.data);
+      };
+    };
   } catch (error) {
     console.log(error);
   }
+};
+
+export const receiveStreaming = (updateStream) => {
+  socket.on("receive streaming", ({ streamerID, roomID }) => {
+    createReceivePC(streamerID, roomID, socket, updateStream);
+  });
 };
 
 export const init = (localStream, roomID) => {
@@ -130,6 +160,16 @@ socket.on("getReceiverCandidate", async ({ id, candidate }) => {
     }
 
     pc.addIceCandidate(new RTCIceCandidate(candidate));
+
+    console.log("befor ondatachannel")
+    pc.ondatachannel = (event) => {
+      console.log("receive ondatachannel");
+      const dc = event.channel;
+
+      dc.onmessage = (event) => {
+        console.log("onmessage data", event.data);
+      };
+    };
   } catch (error) {
     console.log(error);
   }
@@ -147,11 +187,17 @@ socket.on("getReceiverAnswer", async ({ id, sdp }) => {
   try {
     const pc = peer.receivePCs[id];
     await pc.setRemoteDescription(sdp);
+
+    console.log("befor ondatachannel")
+    pc.ondatachannel = (event) => {
+      console.log("receive ondatachannel");
+      const dc = event.channel;
+
+      dc.onmessage = (event) => {
+        console.log("onmessage data", event.data);
+      };
+    };
   } catch (error) {
     console.log(error);
   }
-});
-
-socket.on("userEnter", ({ id, roomID }) => {
-  createReceivePC(id, socket, roomID);
 });
