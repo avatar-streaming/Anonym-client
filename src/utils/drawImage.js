@@ -8,12 +8,19 @@ class Draw {
     this.image = new Image();
     this.imageSrc = imageRef;
 
+    // window.addEventListener("resize", this.resize.bind(this), false);
+    // this.resize();
+
     window.requestAnimationFrame(this.animate.bind(this));
   }
 
-  animate() {
-    // this.ctx.clearRect(0, 0, this.width, this.height);
+  resize() {
+    this.canvas.width = this.stageWidth * 2;
+    this.canvas.height = this.stageHeight * 2;
+    this.ctx.scale(2, 2);
+  }
 
+  animate() {
     this.image.src = this.imageSrc.current;
 
     this.ctx.drawImage(
@@ -24,7 +31,7 @@ class Draw {
       this.height
     );
 
-    window.requestAnimationFrame(this.animate.bind(this));
+    this.animatorID = window.requestAnimationFrame(this.animate.bind(this));
   }
 }
 

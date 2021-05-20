@@ -67,19 +67,16 @@ class PoseAnimator {
     this.defaultInputResolution = 200;
 
     window.addEventListener("resize", this.resize.bind(this), false);
-    this.resize();
     this.animate(this.avatarCanvas);
+    this.resize();
   }
 
   resize() {
-    // this.stageWidth = document.body.clientWidth;
-    // this.stageHeight = document.body.clientHeight;
+    this.canvasWidth = this.avatarCanvas.width / 2;
+    this.canvasHeight = this.avatarCanvas.height / 2;
 
-    this.canvasWidth = this.avatarCanvas.width;
-    this.canvasHeight = this.avatarCanvas.height;
-    // this.ctx.scale(2, 2);
-
-    this.setupCanvas();
+    this.avatarCanvas.style.width = null;
+    this.avatarCanvas.style.height = null;
   }
 
   async animate(avatarCanvas) {
@@ -107,8 +104,8 @@ class PoseAnimator {
 
   setupCanvas() {
     this.canvasScope = paper.default;
-    this.avatarCanvas.width = this.canvasWidth;
-    this.avatarCanvas.height = this.canvasHeight;
+    // this.avatarCanvas.width = this.canvasWidth;
+    // this.avatarCanvas.height = this.canvasHeight;
     this.canvasScope.setup(this.avatarCanvas);
   }
 
