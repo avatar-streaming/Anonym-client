@@ -32,7 +32,7 @@ import blathersSVG from "./resources/illustration/blathers.svg";
 import tomNookSVG from "./resources/illustration/tom-nook.svg";
 
 class PoseAnimator {
-  constructor(avatarCanvasRef, outputCanvasRef, videoRef, setCanvasImage) {
+  constructor(avatarCanvasRef, outputCanvasRef, videoRef) {
     this.avatarCanvas = avatarCanvasRef.current;
     this.outputCanvas = outputCanvasRef.current;
     this.ctx = this.outputCanvas.getContext("2d");
@@ -40,8 +40,6 @@ class PoseAnimator {
     this.video = videoRef.current;
     this.videoWidth = 300;
     this.videoHeight = 300;
-
-    this.updateCanvasImage = setCanvasImage;
 
     this.faceDetection = null;
     this.illustration = null;
@@ -68,7 +66,20 @@ class PoseAnimator {
     this.defaultStride = 16;
     this.defaultInputResolution = 200;
 
+    window.addEventListener("resize", this.resize.bind(this), false);
+    this.resize();
     this.animate(this.avatarCanvas);
+  }
+
+  resize() {
+    // this.stageWidth = document.body.clientWidth;
+    // this.stageHeight = document.body.clientHeight;
+
+    this.canvasWidth = this.avatarCanvas.width;
+    this.canvasHeight = this.avatarCanvas.height;
+    // this.ctx.scale(2, 2);
+
+    this.setupCanvas();
   }
 
   async animate(avatarCanvas) {
@@ -154,8 +165,6 @@ class PoseAnimator {
     this.ctx.translate(-this.videoWidth, 0);
     this.ctx.drawImage(this.video, 0, 0, this.videoWidth, this.videoHeight);
     this.ctx.restore();
-
-    // this.updateCanvasImage(this.outputCanvas.toDataURL("image/jpeg", 1.0));
 
     const input = tf.browser.fromPixels(this.outputCanvas);
     this.faceDetection = await this.facemesh.estimateFaces(input, false, false);
