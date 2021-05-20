@@ -1,5 +1,7 @@
-class Draw {
-  constructor(canvasRef, imageRef) {
+import { addEventHelper } from "./eventListHelper";
+
+class StreamingCanvas {
+  constructor({ canvasRef, imageRef }) {
     this.canvas = canvasRef.current;
     this.ctx = this.canvas.getContext("2d");
     this.width = this.canvas.width;
@@ -8,9 +10,15 @@ class Draw {
     this.image = new Image();
     this.imageSrc = imageRef;
 
-    // window.addEventListener("resize", this.resize.bind(this), false);
-    // this.resize();
+    this.eventList = [];
 
+    // addEventHelper(
+    //   this.eventList,
+    //   window,
+    //   "resize",
+    //   this.resize.bind(this)
+    // );
+    // this.resize();
     window.requestAnimationFrame(this.animate.bind(this));
   }
 
@@ -35,4 +43,4 @@ class Draw {
   }
 }
 
-export default Draw;
+export default StreamingCanvas;
