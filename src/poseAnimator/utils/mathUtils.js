@@ -145,7 +145,7 @@ export class MathUtils {
       for (let i = 0; i < growthIterCount; i++) {
         let grew = false;
         circles.forEach(s => {
-          let intersecting = circles.some(other => (s !== other) && (intersects(s, other) || intersects(s, bound)));
+          const intersecting = circles.some(other => (s !== other) && (intersects(s, other) || intersects(s, bound)));
           if (!intersecting && s.r < maxR) {
             s.r += maxR / growthIterCount;
             grew = true;
@@ -172,21 +172,21 @@ class KeySpline {
     if (this.mX1 === this.mY1 && this.mX2 === this.mY2) return aX; // linear
     return this.CalcBezier(this.GetTForX(aX), this.mY1, this.mY2);
   }
-    
+
   A( aA1, aA2) { return 1.0 - 3.0 * aA2 + 3.0 * aA1 }
   B( aA1, aA2) { return 3.0 * aA2 - 6.0 * aA1 }
   C( aA1) { return 3.0 * aA1 }
-    
+
   // Returns x(t) given t, x1, and x2, or y(t) given t, y1, and y2.
   CalcBezier( aT, aA1, aA2) {
     return ((this.A(aA1, aA2) * aT + this.B(aA1, aA2)) * aT + this.C(aA1)) * aT;
   }
-    
+
   // Returns dx/dt given t, x1, and x2, or dy/dt given t, y1, and y2.
   GetSlope( aT, aA1, aA2) {
     return 3.0 * this.A(aA1, aA2) * aT * aT + 2.0 * this.B(aA1, aA2) * aT + this.C(aA1);
   }
-    
+
   GetTForX( aX) {
     // Newton raphson iteration
     let aGuessT = aX;
