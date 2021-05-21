@@ -19,6 +19,7 @@ import * as paper from "paper";
 import { SVGUtils } from "../utils/svgUtils";
 import { MathUtils } from "../utils/mathUtils";
 import { ColorUtils } from "../utils/colorUtils";
+import _ from "lodash";
 
 const MIN_POSE_SCORE = 0.1;
 const MIN_FACE_SCORE = 0.8;
@@ -604,7 +605,7 @@ export class Skeleton {
         selectedGroups.push(this.boneGroups[key]);
       }
     });
-    return selectedGroups.flatten();
+    return _.flatMapDeep(selectedGroups);
   }
 
   getTotalBoneLength(bones) {

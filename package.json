@@ -6,7 +6,7 @@
     "@tensorflow-models/facemesh": "0.0.5",
     "@tensorflow-models/posenet": "^2.2.2",
     "@tensorflow/tfjs": "^3.6.0",
-    "babel-polyfill": "^6.26.0",
+    "core-js": "^3.12.1",
     "firebase": "^8.5.0",
     "lodash": "^4.17.21",
     "node-sass": "^5.0.0",

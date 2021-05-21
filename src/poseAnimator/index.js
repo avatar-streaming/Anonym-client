@@ -19,7 +19,6 @@ import * as posenet_module from "@tensorflow-models/posenet";
 import * as facemesh_module from "@tensorflow-models/facemesh";
 import * as tf from "@tensorflow/tfjs";
 import * as paper from "paper";
-import "babel-polyfill";
 
 import { SVGUtils } from "./utils/svgUtils";
 import { PoseIllustration } from "./illustrationGen/illustration";
@@ -95,8 +94,8 @@ class PoseAnimator {
 
     try {
       await this.loadVideo();
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log(err);
     }
 
     this.detectPoseInRealTime();
@@ -104,8 +103,6 @@ class PoseAnimator {
 
   setupCanvas() {
     this.canvasScope = paper.default;
-    // this.avatarCanvas.width = this.canvasWidth;
-    // this.avatarCanvas.height = this.canvasHeight;
     this.canvasScope.setup(this.avatarCanvas);
   }
 
