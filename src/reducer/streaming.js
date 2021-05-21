@@ -7,7 +7,7 @@ const initialState = {
   err: null,
 };
 
-const streamingReducer = (state = initialState, action) => {
+const streaming = (state = initialState, action) => {
   const copiedState = _.cloneDeep(state);
 
   switch (action.type) {
@@ -37,4 +37,4 @@ const streamingReducer = (state = initialState, action) => {
   }
 };
 
-export default streamingReducer;
+export default streaming;

@@ -7,7 +7,7 @@ const initialState = {
   err: null,
 };
 
-const authReducer = (state = initialState, action) => {
+const auth = (state = initialState, action) => {
   const copiedState = _.cloneDeep(state);
 
   switch (action.type) {
@@ -25,9 +25,17 @@ const authReducer = (state = initialState, action) => {
       copiedState.userInfo = null;
 
       return copiedState;
+    case actionTypes.UPDATE_USER_NAME_SUCCESS:
+      copiedState.userInfo = action.payload;
+
+      return copiedState;
+    case actionTypes.UPDATE_USER_NAME_FAIL:
+      copiedState.err = action.payload;
+
+      return copiedState;
     default:
       return copiedState;
   }
 };
 
-export default authReducer;
+export default auth;

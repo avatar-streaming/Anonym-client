@@ -2,14 +2,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 function SideNav() {
-  const { following } = useSelector((state) => state.authReducer.userInfo);
+  const { following } = useSelector((state) => state.auth.userInfo);
 
   return (
     <div className="nav-side">
       <ul>
         {
-          following.map((user, index) => (
-            <li id={index}>user {index}</li>
+          following.map((user) => (
+            <li key={user._id}>user</li>
           ))
         }
       </ul>

@@ -1,17 +1,12 @@
 import * as actionTypes from "../constants/actionTypes";
+import { defaultOptionHelper, urlHelper } from "../utils/fetchHelper";
 
 export const fetchStreamings = () => async (dispatch) => {
   try {
-    const response = await fetch(
-      `${process.env.REACT_APP_USER_SERVER}/`,
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
+    const url = urlHelper();
+    const option = defaultOptionHelper("GET");
+
+    const response = await fetch(url, option);
     const result = await response.json();
 
     dispatch({
@@ -26,24 +21,15 @@ export const fetchStreamings = () => async (dispatch) => {
   }
 };
 
-export const generateStreaming = (streamingTitle) => async (dispatch, state) => {
+export const generateStreaming = (streamingTitle, streamingThumnail) => async (dispatch, state) => {
   try {
-    const streamingId = state().authReducer.userInfo["_id"];
-    const response = await fetch(
-      `${process.env.REACT_APP_USER_SERVER}/streaming/${streamingId}`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          streamingTitle,
-        }),
-      }
-    );
+    const streamingId = state().auth.userInfo["_id"];
+    const url = urlHelper(`streaming/${streamingId}`);
+    const option = defaultOptionHelper("POST");
+    option.body = JSON.stringify({ streamingTitle, streamingThumnail });
+
+    const response = await fetch(url, option);
     const result = await response.json();
-    console.log(response, result)
 
     if (response.ok) {
       dispatch({
@@ -69,23 +55,11 @@ export const generateStreaming = (streamingTitle) => async (dispatch, state) => 
 
 export const removeStreaming = () => async (dispatch, state) => {
   try {
-    const userStreaming = state().streamingReducer.userStreaming;
+    const streamingId = state().auth.userInfo["_id"];
+    const url = urlHelper(`streaming/${streamingId}`);
+    const option = defaultOptionHelper("DELETE");
 
-    if (!userStreaming) {
-      return;
-    }
-
-    const streamingId = state().authReducer.userInfo["_id"];
-    await fetch(
-      `${process.env.REACT_APP_USER_SERVER}/streaming/${streamingId}`,
-      {
-        method: "DELETE",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    await fetch(url, option);
 
     dispatch({
       type: actionTypes.REMOVE_STREAMING_SUCCESS,

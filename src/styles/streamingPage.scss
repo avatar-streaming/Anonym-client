@@ -1,15 +1,10 @@
 .streaming-container {
   display: grid;
   grid-template-columns: 1fr 340px;
+  overflow: hidden;
 }
 
-.main-container {
-  padding: 10px;
-
-  #main {
-    display: none;
-  }
-
+.streamer-page {
   video {
     -moz-transform: scaleX(-1);
     -o-transform: scaleX(-1);
@@ -17,10 +12,19 @@
     transform: scaleX(-1);
     display: none;
   }
+}
+
+.main-container {
+  padding: 10px;
+  overflow: auto;
+
+  #main {
+    display: none;
+  }
 
   canvas {
     width: 100%;
-    background-color: var(--sub-bg-color);
+    background-color: black;
   }
 
   .streaming-state {
@@ -44,18 +48,36 @@
 }
 
 .chat-container {
-  position: fixed;
-  right: 0;
   display: grid;
   grid-template-rows: 1fr 70px;
+  overflow: hidden;
   border-left: 1px solid var(--sub-bg-color);
+  height: 100%;
 
   .chat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: auto;
     background-color: var(--sub-bg-color);
     margin: 10px;
     margin-bottom: 0px;
-    padding: 20px;
+    padding: 15px 20px 0px 20px;
     border-radius: 5px;
+
+    .chat-item {
+      padding-bottom: 13px;
+    }
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-bg);
+      border-radius: 10px;
+    }
   }
 
   .chat-form {

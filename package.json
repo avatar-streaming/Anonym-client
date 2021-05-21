@@ -20,6 +20,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "redux-toolkit": "^1.1.2",
+    "socket.io-client": "^4.1.1",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^1.0.1"
   },
