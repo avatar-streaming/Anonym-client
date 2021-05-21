@@ -35,8 +35,8 @@ const createSenderPeerConnection = (localStream, avatarRef) => {
 
   dc.onopen = () => {
     peer.intervalIDs[socket.id] = setInterval(() => {
-      console.log(1)
       const imageUri = avatarRef.current.toDataURL("image/jpeg", 1.0);
+
       dc.send(imageUri);
     }, 100);
   };
@@ -93,17 +93,15 @@ const createReceiverPeerConnection = (viewerID, setStream, imageRef) => {
     }, 100);
   };
   dc.onclose = () => {
-    console.log(peer.intervalIDs[socket.id])
     clearInterval(peer.intervalIDs[socket.id]);
     delete peer.intervalIDs[socket.id];
-    console.log(peer.intervalIDs[socket.id])
   };
   dc.onmessage = (event) => {
     imageRef.current = event.data;
   };
 
   return pc;
-}
+};
 
 const createReceiverOffer = async (pc, roomID, viewerID) => {
   try {
@@ -121,7 +119,7 @@ const createReceiverOffer = async (pc, roomID, viewerID) => {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 const createReceivePC = (roomID, viewerID, setStream, imageRef) => {
   try {
@@ -142,8 +140,7 @@ export const receiveStreaming = (updateStream, imageRef) => {
   }
 };
 
-
-export const leaveStreaming = () => {
+export const leaveStreaming = (viewerID) => {
   try {
     socket.emit("leave streaming", viewerID);
     peer.receivePCs[viewerID].close();

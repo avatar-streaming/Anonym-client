@@ -9,7 +9,7 @@ function Streamer() {
   const { isOn, toggleOnOff } = useToggleOnOff();
   const { outputRef, avatarRef, videoRef } = useMotionAnimator();
 
-  useToggleStreaming(isOn, streamingTitle);
+  useToggleStreaming(isOn, streamingTitle, avatarRef);
   useSendStreaming(isOn, videoRef, avatarRef);
 
   return (
@@ -30,7 +30,6 @@ function Streamer() {
             setStreamingTitle(e.target.value);
           }}
         />
-        <button>save</button>
         <button onClick={() => {
           toggleOnOff();
         }}>

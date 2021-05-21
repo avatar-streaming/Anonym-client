@@ -21,12 +21,12 @@ export const fetchStreamings = () => async (dispatch) => {
   }
 };
 
-export const generateStreaming = (streamingTitle) => async (dispatch, state) => {
+export const generateStreaming = (streamingTitle, streamingThumnail) => async (dispatch, state) => {
   try {
     const streamingId = state().auth.userInfo["_id"];
     const url = urlHelper(`streaming/${streamingId}`);
     const option = defaultOptionHelper("POST");
-    option.body = JSON.stringify({ streamingTitle });
+    option.body = JSON.stringify({ streamingTitle, streamingThumnail });
 
     const response = await fetch(url, option);
     const result = await response.json();

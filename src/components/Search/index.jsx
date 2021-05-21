@@ -9,16 +9,26 @@ function Search() {
         {userList.map((user) => (
           <div key={user._id} className="user-card">
             <div>
-              <img className="user-thumnail" src={user.thumnail} alt="user thumnail" />
+              <img
+                className="user-thumnail"
+                src={user.thumnail}
+                alt="user thumnail"
+              />
             </div>
-            <div>
-              <div>{user.userName}</div>
-              <div>{user.follower.length} followers</div>
-            </div>
-            <div>
-              <button>
-                follow
-              </button>
+            <div className="card-right">
+              <div className="user-description">
+                <div className="user-name">
+                  {user.userName}
+                </div>
+                <div className="follower-number">
+                  {user.follower.length} followers
+                </div>
+              </div>
+              <div className="follow-button-box">
+                <button className="follow-button">
+                  follow
+                </button>
+              </div>
             </div>
           </div>
         ))}

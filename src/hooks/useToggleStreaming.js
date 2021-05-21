@@ -2,16 +2,18 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { generateStreaming, removeStreaming } from "../actions/streamingActionCreators";
 
-const useToggleStreaming = (isOnAir, streamTitle) => {
+const useToggleStreaming = (isOn, streamTitle, avatarRef) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
-      if (isOnAir) {
-        dispatch(generateStreaming(streamTitle.trim()));
+      if (isOn) {
+        const imgUrl = avatarRef.current.toDataURL("image/jpeg", 1.0);
+
+        dispatch(generateStreaming(streamTitle.trim(), imgUrl));
       }
 
-      if (!isOnAir) {
+      if (isOn === false) {
         dispatch(removeStreaming());
       }
     })();
@@ -19,7 +21,7 @@ const useToggleStreaming = (isOnAir, streamTitle) => {
     return () => {
       dispatch(removeStreaming());
     };
-  }, [isOnAir, streamTitle, dispatch]);
+  }, [isOn, streamTitle, dispatch]);
 };
 
 export default useToggleStreaming;

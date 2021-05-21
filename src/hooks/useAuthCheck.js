@@ -7,9 +7,9 @@ import Cookies from "universal-cookie";
 const useAuthCheck = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const cookies = new Cookies();
 
   useEffect(() => {
+    const cookies = new Cookies();
     const token = cookies.get("jwt");
 
     dispatch(checkAuthorization());
@@ -19,7 +19,7 @@ const useAuthCheck = () => {
     } else {
       history.push("/auth/login");
     }
-  }, [history, dispatch]);
+  }, [dispatch, history]);
 };
 
 export default useAuthCheck;

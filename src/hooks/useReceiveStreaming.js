@@ -15,7 +15,7 @@ const useReceiveStreaming = () => {
     joinStreaming(socket.id, id);
 
     return () => {
-      leaveStreaming(socket.id, id);
+      leaveStreaming(socket.id);
       window.location.reload();
     };
   }, [id]);

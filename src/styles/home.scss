@@ -1,8 +1,30 @@
-.content-wrapper {
-  display: flex;
-}
 .streaming-box {
-  width: calc(33.3% - 10px);
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  border-radius: 10px;
+  padding: 20px 0px;
 
   border: 1px solid var(--sub-bg-color);
+
+  .streaming-thumnail {
+    width: 300px;
+  }
+
+  .streaming-description {
+    display: flex;
+    margin-left: 20px;
+
+    .streamer-thumnail {
+      border-radius: 50%;
+      width: 50px;
+      margin-right: 30px;
+    }
+
+    .description-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+  }
 }
