@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import useMotionAnimator from "../../hooks/useMotionAnimator";
 import useToggleOnOff from "../../hooks/useToggleOnOff";
 import useToggleStreaming from "../../hooks/useToggleStreaming";
 import useSendStreaming from "../../hooks/useSendStreaming";
-import Draw from "../../utils/drawImage";
 
 function Streamer() {
   const [streamingTitle, setStreamingTitle] = useState("");

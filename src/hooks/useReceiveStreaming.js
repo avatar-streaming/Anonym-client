@@ -1,18 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { joinStreaming, socket } from "../api/socket";
-import { receiveStreaming } from "../api/webRTC";
+import { leaveStreaming, receiveStreaming } from "../api/webRTC";
 
 const useReceiveStreaming = () => {
-  const { id } = useParams();
-  const videoRef = useRef(null);
-  const canvasRef = useRef(null);
   const [stream, setStream] = useState(null);
+  const canvasRef = useRef(null);
   const imageRef = useRef(null);
+  const videoRef = useRef(null);
+  const { id } = useParams();
 
   useEffect(() => {
     receiveStreaming(setStream, imageRef);
     joinStreaming(socket.id, id);
+
+    return () => {
+      leaveStreaming(socket.id, id);
+      window.location.reload();
+    };
   }, [id]);
 
   useEffect(() => {

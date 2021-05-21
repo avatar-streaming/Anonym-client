@@ -24,6 +24,6 @@ export const cancelSubscribeUsersChat = () => {
   socket.off("other user chat");
 };
 
-export const joinStreaming = (socketID, roomID) => {
-  socket.emit("join streaming", { id: socketID, roomID });
+export const joinStreaming = (viewerID, roomID) => {
+  socket.emit("join streaming", { viewerID, roomID });
 };

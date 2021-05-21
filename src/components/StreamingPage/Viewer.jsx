@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import useCanvas from "../../hooks/useCanvas";
 import useReceiveStreaming from "../../hooks/useReceiveStreaming";
 import StreamingCanvas from "../../utils/StreamingCanvas";

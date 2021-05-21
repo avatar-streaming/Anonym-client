@@ -10,7 +10,7 @@ const useMotionAnimator = () => {
     new PoseAnimator(avatarRef, outputRef, videoRef);
 
     return () => {
-      // window.location.reload();
+      window.location.reload();
     };
   }, []);
 

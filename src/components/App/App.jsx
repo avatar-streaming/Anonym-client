@@ -14,7 +14,7 @@ import "../../styles/styles.scss";
 
 function App() {
   const { isAuthenticated } = useSelector(state => state.auth);
-  useAuthCheck(isAuthenticated);
+  useAuthCheck();
 
   return (
     !isAuthenticated ? (

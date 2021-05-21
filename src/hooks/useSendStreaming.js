@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { sendStreaming } from "../api/webRTC";
+import { endStreaming, sendStreaming } from "../api/webRTC";
 
 const useSendStreaming = (isOnStream, videoRef, avatarRef) => {
   const { id } = useParams();
@@ -11,6 +11,10 @@ const useSendStreaming = (isOnStream, videoRef, avatarRef) => {
 
       sendStreaming(stream, id, avatarRef);
     }
+
+    return () => {
+      endStreaming(id);
+    };
   }, [isOnStream, videoRef, avatarRef]);
 };
 
