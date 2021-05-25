@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import UserCard from "./UserCard";
 
 function SideNav() {
   const { followings } = useSelector((state) => state.auth.userInfo);
@@ -9,15 +10,7 @@ function SideNav() {
       <div className="following-list">
         {
           followings.map((follwing) => (
-            <div className="following-card">
-              <div>
-                <img src={follwing.thumnail} className="user-thumnail" />
-              </div>
-              <div>
-                <span className="user-name">{follwing.userName}</span>
-                <span className="streaming-state">Offline</span>
-              </div>
-            </div>
+            <UserCard userInfo={follwing} />
           ))
         }
       </div>
