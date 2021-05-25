@@ -10,7 +10,7 @@ function SideNav() {
       <div className="following-list">
         {
           followings.map((follwing) => (
-            <UserCard userInfo={follwing} />
+            <UserCard key={follwing._id} userInfo={follwing} />
           ))
         }
       </div>
