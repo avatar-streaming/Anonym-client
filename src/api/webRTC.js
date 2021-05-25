@@ -1,3 +1,4 @@
+import "webrtc-adapter";
 import { socket } from "./socket";
 
 const pc_config = {
@@ -35,7 +36,7 @@ const createSenderPeerConnection = (localStream, avatarRef) => {
 
   dc.onopen = () => {
     peer.intervalIDs[socket.id] = setInterval(() => {
-      const imageUri = avatarRef.current.toDataURL("image/jpeg", 1.0);
+      const imageUri = avatarRef.current.toDataURL("image/jpeg");
 
       dc.send(imageUri);
     }, 100);

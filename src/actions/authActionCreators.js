@@ -3,8 +3,9 @@ import * as actionTypes from "../constants/actionTypes";
 import { defaultOptionHelper, urlHelper } from "../utils/fetchHelper";
 
 export const checkAuthorization = () => async (dispatch) => {
+  const cookies = new Cookies();
+
   try {
-    const cookies = new Cookies();
     const token = cookies.get("jwt");
     const url = urlHelper("auth/check");
     const option = defaultOptionHelper("POST");
@@ -22,10 +23,12 @@ export const checkAuthorization = () => async (dispatch) => {
       return;
     }
 
+    cookies.remove("jwt");
     dispatch({
       type: actionTypes.AUTHORIZATION_FAIL,
     });
   } catch (err) {
+    cookies.remove("jwt");
     dispatch({
       type: actionTypes.AUTHORIZATION_FAIL,
       payload: err,

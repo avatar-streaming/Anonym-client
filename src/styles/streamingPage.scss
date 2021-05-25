@@ -83,4 +83,12 @@
   .chat-form {
     @extend %flex-center;
   }
+
+  .chatting-form {
+    display: flex;
+
+    .input-text {
+      width: 250px;
+    }
+  }
 }

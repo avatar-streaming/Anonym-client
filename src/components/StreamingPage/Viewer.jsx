@@ -13,7 +13,6 @@ function Viewer() {
         <canvas ref={canvasRef} />
       </div>
       <video className="viewer-video" ref={videoRef} autoPlay />
-      <div>title</div>
     </>
   );
 }

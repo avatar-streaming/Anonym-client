@@ -21,7 +21,7 @@ function ChatBox() {
         ))}
       </div>
       <div className="chat-form">
-        <form onSubmit={handleSubmit}>
+        <form className="chatting-form" onSubmit={handleSubmit}>
           <input
             type="text"
             className="input-text"

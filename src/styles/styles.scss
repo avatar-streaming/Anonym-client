@@ -1,6 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Pattaya&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap");
 @import "./theme.scss";
+@import "./login.scss";
 @import "./home.scss";
 @import "./streamingPage.scss";
+@import "./userDetail.scss";
 @import "./nav.scss";
 @import "./search.scss";
 
@@ -13,6 +17,7 @@
   line-height: 1em;
   color: var(--color);
   text-decoration: none;
+  font-family: "Kanit", sans-serif;
 }
 
 #root {
@@ -50,7 +55,21 @@ ol {
 }
 
 button {
-  color: var(--bg-color);
+  color: var(--color);
+  background-color: var(--point-color);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.follow-button:hover {
+    padding: 11px 22px;
+    transform: translate(2px, 1px);
+  }
 }
 
 .content-wrapper {

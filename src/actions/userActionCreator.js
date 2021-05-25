@@ -4,7 +4,7 @@ import * as actionTypes from "../constants/actionTypes";
 export const updateUserName = (userName) => async (dispatch, state) => {
   try {
     const userId = state().auth.userInfo._id;
-    const url = urlHelper(`user/${userId}`);
+    const url = urlHelper(`user/userName/${userId}`);
     const option = defaultOptionHelper("PUT");
     option.body = JSON.stringify({ userName });
 
@@ -23,21 +23,44 @@ export const updateUserName = (userName) => async (dispatch, state) => {
   }
 };
 
-export const searchUsers = (searchTerm) => async (dispatch) => {
+export const searchUsers = (searchTerm) => async (dispatch, state) => {
   try {
+    const currentUser = state().auth.userInfo.userName;
     const url = urlHelper(`search/${searchTerm}`);
     const option = defaultOptionHelper("GET");
 
     const response = await fetch(url, option);
     const result = await response.json();
+    const userList = result.userList.filter((user) => user.userName !== currentUser);
 
     dispatch({
       type: actionTypes.SEARCH_USERS_SUCCESS,
-      payload: result.userList,
+      payload: userList,
     });
   } catch (err) {
     dispatch({
       type: actionTypes.SEARCH_USERS_FAIL,
+      payload: err,
+    });
+  }
+};
+
+export const followUser = (userID, targetID) => async (dispatch) => {
+  try {
+    const url = urlHelper(`user/follow/${userID}`);
+    const option = defaultOptionHelper("PUT");
+    option.body = JSON.stringify({ targetID });
+
+    const response = await fetch(url, option);
+    const result = await response.json();
+
+    dispatch({
+      type: actionTypes.FOLLOW_USER_SUCCESS,
+      payload: result.currentUser,
+    });
+  } catch (err) {
+    dispatch({
+      type: actionTypes.FOLLOW_USER_FAIL,
       payload: err,
     });
   }

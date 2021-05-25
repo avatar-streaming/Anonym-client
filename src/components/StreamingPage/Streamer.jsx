@@ -36,16 +36,6 @@ function Streamer() {
           {isOn ? "STOP STREAM" : "START STREAM"}
         </button>
       </div>
-      <ul className="character-list">
-        <li className="character">1</li>
-        <li className="character">2</li>
-        <li className="character">3</li>
-      </ul>
-      <ul className="character-list">
-        <li className="character">1</li>
-        <li className="character">2</li>
-        <li className="character">3</li>
-      </ul>
     </>
   );
 }
