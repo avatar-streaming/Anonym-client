@@ -95,7 +95,7 @@ class PoseAnimator {
     try {
       await this.loadVideo();
     } catch (err) {
-      console.log(err);
+      throw new Error(err);
     }
 
     this.detectPoseInRealTime();

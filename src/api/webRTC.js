@@ -62,8 +62,8 @@ const createSenderOffer = async (roomID) => {
       streamerID: socket.id,
       roomID,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    throw new Error(err);
   }
 };
 
@@ -117,8 +117,8 @@ const createReceiverOffer = async (pc, roomID, viewerID) => {
       viewerID,
       roomID,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    throw new Error(err);
   }
 };
 
@@ -126,8 +126,8 @@ const createReceivePC = (roomID, viewerID, setStream, imageRef) => {
   try {
     const pc = createReceiverPeerConnection(viewerID, setStream, imageRef);
     createReceiverOffer(pc, roomID, viewerID);
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    throw new Error(err);
   }
 };
 
@@ -137,7 +137,7 @@ export const receiveStreaming = (updateStream, imageRef) => {
       createReceivePC(roomID, socket.id, updateStream, imageRef);
     });
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
@@ -147,7 +147,7 @@ export const leaveStreaming = (viewerID) => {
     peer.receivePCs[viewerID].close();
     delete peer.receivePCs[viewerID];
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
@@ -156,7 +156,7 @@ export const sendStreaming = (localStream, roomID, avatarRef) => {
     peer.sendPC = createSenderPeerConnection(localStream, avatarRef);
     createSenderOffer(roomID);
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
@@ -167,7 +167,7 @@ export const endStreaming = (roomID) => {
 
     socket.emit("end streaming", { streamerID: socket.id, roomID });
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
@@ -178,8 +178,8 @@ socket.on("getSenderCandidate", async ({ candidate }) => {
     }
 
     peer.sendPC.addIceCandidate(new RTCIceCandidate(candidate));
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    throw new Error(err);
   }
 });
 
@@ -192,16 +192,16 @@ socket.on("getReceiverCandidate", async ({ viewerID, candidate }) => {
     }
 
     pc.addIceCandidate(new RTCIceCandidate(candidate));
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    throw new Error(err);
   }
 });
 
 socket.on("getSenderAnswer", async ({ sdp }) => {
   try {
     await peer.sendPC.setRemoteDescription(new RTCSessionDescription(sdp));
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    throw new Error(err);
   }
 });
 
@@ -209,7 +209,7 @@ socket.on("getReceiverAnswer", async ({ viewerID, sdp }) => {
   try {
     const pc = peer.receivePCs[viewerID];
     await pc.setRemoteDescription(sdp);
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    throw new Error(err);
   }
 });

@@ -21,7 +21,7 @@ const useLogin = () => {
 
         dispatch(userLogin({ uid, email, displayName, photoURL }));
       } catch (err) {
-        console.log(err);
+        throw new Error(err);
         // need to modify err handling
       }
     })();

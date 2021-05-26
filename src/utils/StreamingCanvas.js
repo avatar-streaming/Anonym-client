@@ -1,4 +1,4 @@
-import { addEventHelper } from "./eventListHelper";
+// import { addEventHelper } from "./eventListHelper";
 
 class StreamingCanvas {
   constructor({ canvasRef, imageRef }) {
