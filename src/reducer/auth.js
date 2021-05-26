@@ -32,8 +32,8 @@ const auth = (state = initialState, action) => {
 
       return copiedState;
     case actionTypes.UPDATE_USER_NAME_FAIL:
-    case actionTypes.FOLLOW_USER_SUCCESS:
-    case actionTypes.UNFOLLOW_USER_SUCCESS:
+    case actionTypes.FOLLOW_USER_FAIL:
+    case actionTypes.UNFOLLOW_USER_FAIL:
       copiedState.err = action.payload;
 
       return copiedState;

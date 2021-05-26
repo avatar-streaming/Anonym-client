@@ -21,7 +21,7 @@ const useToggleStreaming = (isOn, streamTitle, avatarRef) => {
     return () => {
       dispatch(removeStreaming());
     };
-  }, [isOn, streamTitle, dispatch]);
+  }, [isOn, avatarRef, streamTitle, dispatch]);
 };
 
 export default useToggleStreaming;

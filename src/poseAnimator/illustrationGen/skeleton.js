@@ -24,7 +24,7 @@ import _ from "lodash";
 const MIN_POSE_SCORE = 0.1;
 const MIN_FACE_SCORE = 0.8;
 
-const posePartNames = ["leftAnkle", "leftKnee", "leftHip", "leftWrist", "leftElbow", "leftShoulder", 
+const posePartNames = ["leftAnkle", "leftKnee", "leftHip", "leftWrist", "leftElbow", "leftShoulder",
   "rightAnkle", "rightKnee", "rightHip", "rightWrist", "rightElbow", "rightShoulder",
   "leftEar", "rightEar"];
 

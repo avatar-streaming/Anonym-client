@@ -35,6 +35,7 @@ export class Palette {
       saturation: c.saturation + MathUtils.gaussian(0, variance),
       brightness: c.brightness + MathUtils.gaussian(0, variance),
     });
+
     return {
       light: varColor(pair.light),
       dark: varColor(pair.dark),
@@ -71,6 +72,7 @@ export class ColorUtils {
     const r = hash & 255;
     const g = (hash & (255 << 8)) >> 8;
     const b = (hash & (255 << 16)) >> 16;
+
     return new paper.default.Color(r / 255, g / 255, b / 255);
   }
 }

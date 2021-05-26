@@ -26,10 +26,8 @@ export class SVGUtils {
 
     return new Promise((resolve, reject) => {
       svgScope.project.importSVG(file, () => {
-        console.log("** SVG imported **");
         resolve(svgScope);
       }, (e) => {
-        console.log("** SVG improt error: ", e);
         reject(svgScope);
       });
     });
@@ -70,7 +68,10 @@ export class SVGUtils {
       const n = path.getNormalAt(perc * pathLen);
       const easeHeight = spline.get(perc);
 
-      if (!p || !n) continue;
+      if (!p || !n) {
+        continue;
+      }
+
       const pp0 = p.add(n.multiply(height * easeHeight));
       const pp1 = p.subtract(n.multiply(height * easeHeight));
 

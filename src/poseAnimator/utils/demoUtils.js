@@ -73,13 +73,12 @@ export function drawSegment([ay, ax], [by, bx], color, scale, ctx) {
  * Draws a pose skeleton by looking up all adjacent keypoints/joints
  */
 export function drawSkeleton(keypoints, minConfidence, ctx, scale = 1) {
-  const adjacentKeyPoints =
-      posenet.getAdjacentKeyPoints(keypoints, minConfidence);
+  const adjacentKeyPoints = posenet.getAdjacentKeyPoints(keypoints, minConfidence);
 
   adjacentKeyPoints.forEach((keypoints) => {
     drawSegment(
-      toTuple(keypoints[0].position), toTuple(keypoints[1].position), color,
-      scale, ctx);
+      toTuple(keypoints[0].position),
+      toTuple(keypoints[1].position), color, scale, ctx);
   });
 }
 
@@ -95,6 +94,7 @@ export function drawKeypoints(keypoints, minConfidence, ctx, scale = 1) {
     }
 
     const { y, x } = keypoint.position;
+
     drawPoint(ctx, y * scale, x * scale, 3, color);
   }
 }
@@ -112,5 +112,6 @@ export function renderImageToCanvas(image, size, canvas) {
 
 export function setStatusText(text) {
   const resultElement = document.getElementById("status");
+
   resultElement.innerText = text;
 }

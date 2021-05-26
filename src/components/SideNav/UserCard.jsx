@@ -2,7 +2,7 @@ function UserCard({ userInfo }) {
   return (
     <div className="following-card">
       <div>
-        <img src={userInfo.thumnail} className="user-thumnail" />
+        <img src={userInfo.thumnail} className="user-thumnail" alt="user thumnail" />
       </div>
       <div>
         <span className="user-name">{userInfo.userName}</span>

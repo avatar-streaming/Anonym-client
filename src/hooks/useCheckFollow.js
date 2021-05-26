@@ -7,7 +7,7 @@ const useCheckFollow = (targetID) => {
 
   useEffect(() => {
     setIsFollow(followings.find((user) => user._id === targetID));
-  }, [followings]);
+  }, [targetID, followings]);
 
   return isFollow;
 };
