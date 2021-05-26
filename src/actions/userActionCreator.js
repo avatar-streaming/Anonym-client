@@ -23,15 +23,14 @@ export const updateUserName = (userName) => async (dispatch, state) => {
   }
 };
 
-export const searchUsers = (searchTerm) => async (dispatch, state) => {
+export const searchUsers = (searchTerm) => async (dispatch) => {
   try {
-    const currentUser = state().auth.userInfo.userName;
     const url = urlHelper(`search/${searchTerm}`);
     const option = defaultOptionHelper("GET");
 
     const response = await fetch(url, option);
     const result = await response.json();
-    const userList = result.userList.filter((user) => user.userName !== currentUser);
+    const userList = result.userList;
 
     dispatch({
       type: actionTypes.SEARCH_USERS_SUCCESS,

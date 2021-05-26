@@ -8,7 +8,7 @@ const useFollow = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (targetID) {
+    if (targetID && userID !== targetID) {
       dispatch(followUser(userID, targetID));
       setTargetID(null);
     }
