@@ -1,8 +1,12 @@
 import React from "react";
+import useCheckFollow from "../../hooks/useCheckFollow";
 import useFollow from "../../hooks/useFollow";
+import useUnfollow from "../../hooks/useUnfollow";
 
 function UserCard({ user }) {
-  const updateTargetID = useFollow();
+  const isFollow = useCheckFollow(user._id);
+  const followUser = useFollow();
+  const unfollowUser = useUnfollow();
 
   return (
     <div className="user-card">
@@ -23,14 +27,27 @@ function UserCard({ user }) {
           </div>
         </div>
         <div className="follow-button-box">
-          <button
-            className="follow-button"
-            onClick={() => {
-              updateTargetID(user._id);
-            }}
-          >
-            follow
-          </button>
+          {
+            isFollow ? (
+              <button
+                className="follow-button"
+                onClick={() => {
+                  unfollowUser(user._id);
+                }}
+              >
+                unfollow
+              </button>
+            ) : (
+              <button
+                className="follow-button"
+                onClick={() => {
+                  followUser(user._id);
+                }}
+              >
+                follow
+              </button>
+            )
+          }
         </div>
       </div>
     </div>

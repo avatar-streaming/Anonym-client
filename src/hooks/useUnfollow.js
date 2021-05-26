@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { followUser } from "../actions/userActionCreator";
+import { unfollowUser } from "../actions/userActionCreator";
 
-const useFollow = () => {
+const useUnfollow = () => {
   const [targetID, setTargetID] = useState(null);
   const { _id: userID } = useSelector((state) => state.auth.userInfo);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (targetID && userID !== targetID) {
-      dispatch(followUser(userID, targetID));
+      dispatch(unfollowUser(userID, targetID));
       setTargetID(null);
     }
   }, [userID, targetID, dispatch]);
@@ -17,4 +17,4 @@ const useFollow = () => {
   return setTargetID;
 };
 
-export default useFollow;
+export default useUnfollow;

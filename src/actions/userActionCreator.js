@@ -83,4 +83,4 @@ export const unfollowUser = (userID, targetID) => async (dispatch) => {
       payload: err,
     });
   }
-}
+};
