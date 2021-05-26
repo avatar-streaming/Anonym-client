@@ -36,31 +36,37 @@ export class PoseIllustration {
     this.pose = pose;
     this.face = face;
     this.skeleton.update(pose, face);
+
     if (!this.skeleton.isValid) {
       return;
     }
 
-    let getConfidenceScore = (p) => {
+    const getConfidenceScore = (p) => {
       return Object.keys(p.skinning).reduce((totalScore, boneName) => {
-        let bt = p.skinning[boneName];
+        const bt = p.skinning[boneName];
+
         return totalScore + bt.bone.score * bt.weight;
       }, 0);
     };
 
     this.skinnedPaths.forEach(skinnedPath => {
       let confidenceScore = 0;
+
       skinnedPath.segments.forEach(seg => {
         // Compute confidence score.
         confidenceScore += getConfidenceScore(seg.point);
         // Compute new positions for curve point and handles.
         seg.point.currentPosition = Skeleton.getCurrentPosition(seg.point);
+
         if (seg.handleIn) {
           seg.handleIn.currentPosition = Skeleton.getCurrentPosition(seg.handleIn);
         }
+
         if (seg.handleOut) {
           seg.handleOut.currentPosition = Skeleton.getCurrentPosition(seg.handleOut);
         }
       });
+
       skinnedPath.confidenceScore = confidenceScore / (skinnedPath.segments.length || 1);
     });
   }
@@ -69,43 +75,49 @@ export class PoseIllustration {
     if (!this.skeleton.isValid) {
       return;
     }
-    let scope = this.scope;
+
+    const scope = this.scope;
     // Add paths
     this.skinnedPaths.forEach(skinnedPath => {
       // Do not render paths with low confidence scores.
       if (!skinnedPath.confidenceScore || skinnedPath.confidenceScore < MIN_CONFIDENCE_PATH_SCORE) {
         return;
       }
-      let path = new scope.Path({
+
+      const path = new scope.Path({
         fillColor: skinnedPath.fillColor,
         strokeColor: skinnedPath.strokeColor,
         strokeWidth: skinnedPath.strokeWidth,
         closed: skinnedPath.closed,
       });
+
       skinnedPath.segments.forEach(seg => {
         path.addSegment(seg.point.currentPosition, 
           seg.handleIn ? seg.handleIn.currentPosition.subtract(seg.point.currentPosition) : null,
           seg.handleOut ? seg.handleOut.currentPosition.subtract(seg.point.currentPosition) : null);
       });
+
       if (skinnedPath.closed) {
         path.closePath();
       }
+
       scope.project.activeLayer.addChild(path);
     });
   }
 
   debugDraw() {
-    let scope = this.scope;
-    let group = new scope.Group();
+    const scope = this.scope;
+    const group = new scope.Group();
     scope.project.activeLayer.addChild(group);
-    let drawCircle = (p, opt = {}) => {
+
+    const drawCircle = (p, opt = {}) => {
       group.addChild(new scope.Path.Circle({
         center: [p.x, p.y],
         radius: opt.radius || 2,
         fillColor: opt.fillColor || "red",
       }));
     };
-    let drawLine = (p0, p1, opt = {}) => {
+    const drawLine = (p0, p1, opt = {}) => {
       group.addChild(new scope.Path({
         segments: [p0, p1],
         strokeColor: opt.strokeColor || "red",
@@ -118,14 +130,19 @@ export class PoseIllustration {
     this.skinnedPaths.forEach(skinnedPath => {
       skinnedPath.segments.forEach(seg => {
         // Color represents weight influence from bones.
-        let color = new scope.Color(0);
+        const color = new scope.Color(0);
+
         Object.keys(seg.point.skinning).forEach((boneName) => {
-          let bt = seg.point.skinning[boneName];
-          ColorUtils.addRGB(color, 
-            bt.weight * bt.bone.boneColor.red, 
-            bt.weight * bt.bone.boneColor.green, 
-            bt.weight * bt.bone.boneColor.blue);
-          let anchor = bt.bone.kp0.currentPosition.multiply(1 - bt.transform.anchorPerc).add(bt.bone.kp1.currentPosition.multiply(bt.transform.anchorPerc));
+          const bt = seg.point.skinning[boneName];
+
+          ColorUtils.addRGB(color,
+            bt.weight * bt.bone.boneColor.red,
+            bt.weight * bt.bone.boneColor.green,
+            bt.weight * bt.bone.boneColor.blue
+          );
+
+          const anchor = bt.bone.kp0.currentPosition.multiply(1 - bt.transform.anchorPerc).add(bt.bone.kp1.currentPosition.multiply(bt.transform.anchorPerc));
+
           drawLine(anchor, seg.point.currentPosition, { strokeColor: "blue", strokeWidth: bt.weight });
         });
 
@@ -144,59 +161,79 @@ export class PoseIllustration {
 
   bindSkeleton(skeleton, skeletonScope) {
     let items = skeletonScope.project.getItems({ recursive: true });
+
     items = items.filter(item => item.parent && item.parent.name && item.parent.name.startsWith("illustration"));
     this.skeleton = skeleton;
     this.skinnedPaths = [];
 
     // Only support rendering path and shapes for now.
     for (let i = 0; i < items.length; i++) {
-      let item = items[i];
+      const item = items[i];
+
       if (SVGUtils.isGroup(item)) {
         this.bindGroup(item, skeleton);
-      } else if (SVGUtils.isPath(item)) {
+        continue;
+      }
+
+      if (SVGUtils.isPath(item)) {
         this.bindPathToBones(item);
-      } else if (SVGUtils.isShape(item)) {
+        continue;
+      }
+
+      if (SVGUtils.isShape(item)) {
         this.bindPathToBones(item.toPath());
       }
     }
   }
 
   bindGroup(group, skeleton) {
-    let paths = [];
-    let keypoints = {};
-    let items = group.getItems({ recursive: true });
+    const paths = [];
+    const keypoints = {};
+    const items = group.getItems({ recursive: true });
     // Find all paths and included keypoints.
+
     items.forEach(item => {
-      let partName = item.name ? allPartNames.find(partName => item.name.startsWith(partName)) : null;
+      const partName = item.name ? allPartNames.find(partName => item.name.startsWith(partName)) : null;
+
       if (partName) {
         keypoints[partName] = {
           position: item.bounds.center,
           name: partName,
         };
-      } else if (SVGUtils.isPath(item)) {
+        return;
+      }
+
+      if (SVGUtils.isPath(item)) {
         paths.push(item);
-      } else if (SVGUtils.isShape(item)) {
+        return;
+      }
+
+      if (SVGUtils.isShape(item)) {
         paths.push(item.toPath());
       }
     });
-    let secondaryBones = [];
+
+    const secondaryBones = [];
     // Find all parent bones of the included keypoints.
-    let parentBones = skeleton.bones.filter(bone => keypoints[bone.kp0.name] && keypoints[bone.kp1.name]);
-    let nosePos = skeleton.bNose3Nose4.kp1.position;
+    const parentBones = skeleton.bones.filter(bone => keypoints[bone.kp0.name] && keypoints[bone.kp1.name]);
+    const nosePos = skeleton.bNose3Nose4.kp1.position;
+
     if (!parentBones.length) {
       return;
     }
 
     // Crete secondary bones for the included keypoints.
     parentBones.forEach(parentBone => {
-      let kp0 = keypoints[parentBone.kp0.name];
-      let kp1 = keypoints[parentBone.kp1.name];
-      let secondaryBone = new Bone().set(kp0, kp1, parentBone.skeleton, parentBone.type);
+      const kp0 = keypoints[parentBone.kp0.name];
+      const kp1 = keypoints[parentBone.kp1.name];
+      const secondaryBone = new Bone().set(kp0, kp1, parentBone.skeleton, parentBone.type);
+
       kp0.transformFunc = MathUtils.getTransformFunc(parentBone.kp0.position, nosePos, kp0.position);
       kp1.transformFunc = MathUtils.getTransformFunc(parentBone.kp1.position, nosePos, kp1.position);
       secondaryBone.parent = parentBone;
       secondaryBones.push(secondaryBone);
     });
+
     skeleton.secondaryBones = skeleton.secondaryBones.concat(secondaryBones);
     paths.forEach(path => {
       this.bindPathToBones(path, secondaryBones);
@@ -208,26 +245,29 @@ export class PoseIllustration {
   getWeights(point, bones) {
     let totalW = 0;
     let weights = {};
+
     bones.forEach(bone => {
-      let d = MathUtils.getClosestPointOnSegment(bone.kp0.position, bone.kp1.position, point)
-        .getDistance(point);
+      const d = MathUtils.getClosestPointOnSegment(bone.kp0.position, bone.kp1.position, point).getDistance(point);
       // Absolute weight = 1 / (distance * distance)
-      let w = 1 / (d * d);
+      const w = 1 / (d * d);
       weights[bone.name] = {
         value: w,
         bone: bone,
       };
     });
 
-    let values = Object.values(weights).sort((v0, v1) => {
+    const values = Object.values(weights).sort((v0, v1) => {
       return v1.value - v0.value;
     });
+
     weights = {};
     totalW = 0;
+
     values.forEach(v => {
       weights[v.bone.name] = v;
       totalW += v.value;
     });
+
     if (totalW === 0) {
       // Point is outside of the influence zone of all bones. It will not be influence by any bone.
       return {};
@@ -245,27 +285,32 @@ export class PoseIllustration {
   // If selectedBones are set, bind directly to the selected bones. Otherwise auto select the bone group closest to each segment.
   bindPathToBones(path, selectedBones) {
     // Compute bone weights for each segment.
-    let segs = path.segments.map(s => {
+    const segs = path.segments.map(s => {
       // Check if control points are collinear.
       // If so, use the middle point's weight for all three points (curve point, handleIn, handleOut).
       // This makes sure smooth curves remain smooth after deformation.
-      let collinear = MathUtils.isCollinear(s.handleIn, s.handleOut);
-      let bones = selectedBones || this.skeleton.findBoneGroup(s.point);
-      let weightsP = this.getWeights(s.point, bones);
-      let segment = {
+      const collinear = MathUtils.isCollinear(s.handleIn, s.handleOut);
+      const bones = selectedBones || this.skeleton.findBoneGroup(s.point);
+      const weightsP = this.getWeights(s.point, bones);
+      const segment = {
         point: this.getSkinning(s.point, weightsP),
       };
       // For handles, compute transformation in world space.
       if (s.handleIn) {
-        let pHandleIn = s.handleIn.add(s.point);
+        const pHandleIn = s.handleIn.add(s.point);
+
         segment.handleIn = this.getSkinning(pHandleIn, collinear ? weightsP : this.getWeights(pHandleIn, bones));
       }
+
       if (s.handleOut) {
-        let pHandleOut = s.handleOut.add(s.point);
+        const pHandleOut = s.handleOut.add(s.point);
+
         segment.handleOut = this.getSkinning(pHandleOut, collinear ? weightsP : this.getWeights(pHandleOut, bones));
       }
+
       return segment;
     });
+
     this.skinnedPaths.push({
       segments: segs,
       fillColor: path.fillColor,
@@ -276,7 +321,8 @@ export class PoseIllustration {
   }
 
   getSkinning(point, weights) {
-    let skinning = {};
+    const skinning = {};
+
     Object.keys(weights).forEach(boneName => {
       skinning[boneName] = {
         bone: weights[boneName].bone,
@@ -284,6 +330,7 @@ export class PoseIllustration {
         transform: weights[boneName].bone.getPointTransform(point),
       };
     });
+
     return {
       skinning: skinning,
       position: point,

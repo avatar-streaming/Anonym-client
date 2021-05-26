@@ -133,6 +133,7 @@ export class Bone {
     this.type = type;
     this.boneColor = ColorUtils.fromStringHash(this.name);
     this.boneColor.saturation += 0.5;
+
     return this;
   };
 
@@ -140,15 +141,16 @@ export class Bone {
   // Let anchor be the closest point on the bone to the point.
   // A point's bone transformation is the transformation from anchor to the point.
   getPointTransform(p) {
-    let dir = this.kp1.position.subtract(this.kp0.position).normalize();
-    let n = dir.clone();
+    const dir = this.kp1.position.subtract(this.kp0.position).normalize();
+    const n = dir.clone();
     n.angle += 90;
-    let closestP = MathUtils.getClosestPointOnSegment(this.kp0.position, this.kp1.position, p);
-    let v = p.subtract(closestP);
-    let dirProjD = v.dot(dir);
-    let dirProjN = v.dot(n);
-    let d = this.kp0.position.subtract(this.kp1.position).length;
-    let anchorPerc = closestP.subtract(this.kp0.position).length / d;
+    const closestP = MathUtils.getClosestPointOnSegment(this.kp0.position, this.kp1.position, p);
+    const v = p.subtract(closestP);
+    const dirProjD = v.dot(dir);
+    const dirProjN = v.dot(n);
+    const d = this.kp0.position.subtract(this.kp1.position).length;
+    const anchorPerc = closestP.subtract(this.kp0.position).length / d;
+
     return {
       transform: new paper.default.Point(dirProjD, dirProjN),
       anchorPerc: anchorPerc,
@@ -162,18 +164,20 @@ export class Bone {
     }
     // Scale distance from anchor point base on bone type.
     // All face bones will share one distance scale. All body bones share another.
-    let scale = this.type === "face" ? this.skeleton.currentFaceScale : this.skeleton.currentBodyScale;
-    let dir = this.kp1.currentPosition.subtract(this.kp0.currentPosition).normalize();
-    let n = dir.clone();
+    const scale = this.type === "face" ? this.skeleton.currentFaceScale : this.skeleton.currentBodyScale;
+    const dir = this.kp1.currentPosition.subtract(this.kp0.currentPosition).normalize();
+    const n = dir.clone();
     n.angle += 90;
-    let anchor = this.kp0.currentPosition.multiply(1 - trans.anchorPerc).add(this.kp1.currentPosition.multiply(trans.anchorPerc));
-    let p = anchor.add(dir.multiply(trans.transform.x * scale)).add(n.multiply(trans.transform.y * scale));
+    const anchor = this.kp0.currentPosition.multiply(1 - trans.anchorPerc).add(this.kp1.currentPosition.multiply(trans.anchorPerc));
+    const p = anchor.add(dir.multiply(trans.transform.x * scale)).add(n.multiply(trans.transform.y * scale));
+
     return p;
   }
 }
 
 function getKeyPointFromSVG(group, partName) {
-  let shape = SVGUtils.findFirstItemWithPrefix(group, partName);
+  const shape = SVGUtils.findFirstItemWithPrefix(group, partName);
+
   return {
     position: shape.bounds.center,
     name: partName,
@@ -184,7 +188,9 @@ function getPartFromPose(pose, name) {
   if (!pose || !pose.keypoints) {
     return null;
   }
-  let part = pose.keypoints.find(kp => kp.part === name);
+
+  const part = pose.keypoints.find(kp => kp.part === name);
+
   return {
     position: new paper.default.Point(part.position.x, part.position.y),
     score: part.score,
@@ -192,98 +198,99 @@ function getPartFromPose(pose, name) {
 }
 
 function getKeypointFromFaceFrame(face, i) {
-  if (!face || !face.scaledMesh || !face.scaledMesh.length);
-  return new paper.default.Point(face.positions[i * 2], face.positions[i * 2 + 1]);
+  if (!face || !face.scaledMesh || !face.scaledMesh.length) {
+    return new paper.default.Point(face.positions[i * 2], face.positions[i * 2 + 1]);
+  }
 }
 
 // Represents a full body skeleton.
 export class Skeleton {
   constructor(scope) {
-    let skeletonGroup = SVGUtils.findFirstItemWithPrefix(scope.project, "skeleton");
+    const skeletonGroup = SVGUtils.findFirstItemWithPrefix(scope.project, "skeleton");
     // Pose
-    let leftAnkle = getKeyPointFromSVG(skeletonGroup, "leftAnkle");
-    let leftKnee = getKeyPointFromSVG(skeletonGroup, "leftKnee");
-    let leftHip = getKeyPointFromSVG(skeletonGroup, "leftHip");
-    let leftWrist = getKeyPointFromSVG(skeletonGroup, "leftWrist");
-    let leftElbow = getKeyPointFromSVG(skeletonGroup, "leftElbow");
-    let leftShoulder = getKeyPointFromSVG(skeletonGroup, "leftShoulder");
-    let rightAnkle = getKeyPointFromSVG(skeletonGroup, "rightAnkle");
-    let rightKnee = getKeyPointFromSVG(skeletonGroup, "rightKnee");
-    let rightHip = getKeyPointFromSVG(skeletonGroup, "rightHip");
-    let rightWrist = getKeyPointFromSVG(skeletonGroup, "rightWrist");
-    let rightElbow = getKeyPointFromSVG(skeletonGroup, "rightElbow");
-    let rightShoulder = getKeyPointFromSVG(skeletonGroup, "rightShoulder");
+    const leftAnkle = getKeyPointFromSVG(skeletonGroup, "leftAnkle");
+    const leftKnee = getKeyPointFromSVG(skeletonGroup, "leftKnee");
+    const leftHip = getKeyPointFromSVG(skeletonGroup, "leftHip");
+    const leftWrist = getKeyPointFromSVG(skeletonGroup, "leftWrist");
+    const leftElbow = getKeyPointFromSVG(skeletonGroup, "leftElbow");
+    const leftShoulder = getKeyPointFromSVG(skeletonGroup, "leftShoulder");
+    const rightAnkle = getKeyPointFromSVG(skeletonGroup, "rightAnkle");
+    const rightKnee = getKeyPointFromSVG(skeletonGroup, "rightKnee");
+    const rightHip = getKeyPointFromSVG(skeletonGroup, "rightHip");
+    const rightWrist = getKeyPointFromSVG(skeletonGroup, "rightWrist");
+    const rightElbow = getKeyPointFromSVG(skeletonGroup, "rightElbow");
+    const rightShoulder = getKeyPointFromSVG(skeletonGroup, "rightShoulder");
 
     // Face
-    let topMid = getKeyPointFromSVG(skeletonGroup, "topMid");
-    let rightTop0 = getKeyPointFromSVG(skeletonGroup, "rightTop0");
-    let rightTop1 = getKeyPointFromSVG(skeletonGroup, "rightTop1");
-    let leftTop0 = getKeyPointFromSVG(skeletonGroup, "leftTop0");
-    let leftTop1 = getKeyPointFromSVG(skeletonGroup, "leftTop1");
-    let leftJaw2 = getKeyPointFromSVG(skeletonGroup, "leftJaw2");
-    let leftJaw3 = getKeyPointFromSVG(skeletonGroup, "leftJaw3");
-    let leftJaw4 = getKeyPointFromSVG(skeletonGroup, "leftJaw4");
-    let leftJaw5 = getKeyPointFromSVG(skeletonGroup, "leftJaw5");
-    let leftJaw6 = getKeyPointFromSVG(skeletonGroup, "leftJaw6");
-    let leftJaw7 = getKeyPointFromSVG(skeletonGroup, "leftJaw7");
-    let jawMid = getKeyPointFromSVG(skeletonGroup, "jawMid");
-    let rightJaw2 = getKeyPointFromSVG(skeletonGroup, "rightJaw2");
-    let rightJaw3 = getKeyPointFromSVG(skeletonGroup, "rightJaw3");
-    let rightJaw4 = getKeyPointFromSVG(skeletonGroup, "rightJaw4");
-    let rightJaw5 = getKeyPointFromSVG(skeletonGroup, "rightJaw5");
-    let rightJaw6 = getKeyPointFromSVG(skeletonGroup, "rightJaw6");
-    let rightJaw7 = getKeyPointFromSVG(skeletonGroup, "rightJaw7");
-    let nose0 = getKeyPointFromSVG(skeletonGroup, "nose0");
-    let nose1 = getKeyPointFromSVG(skeletonGroup, "nose1");
-    let nose2 = getKeyPointFromSVG(skeletonGroup, "nose2");
-    let nose3 = getKeyPointFromSVG(skeletonGroup, "nose3");
-    let nose4 = getKeyPointFromSVG(skeletonGroup, "nose4");
-    let leftNose0 = getKeyPointFromSVG(skeletonGroup, "leftNose0");
-    let leftNose1 = getKeyPointFromSVG(skeletonGroup, "leftNose1");
-    let rightNose0 = getKeyPointFromSVG(skeletonGroup, "rightNose0");
-    let rightNose1 = getKeyPointFromSVG(skeletonGroup, "rightNose1");
-    let leftEye0 = getKeyPointFromSVG(skeletonGroup, "leftEye0");
-    let leftEye1 = getKeyPointFromSVG(skeletonGroup, "leftEye1");
-    let leftEye2 = getKeyPointFromSVG(skeletonGroup, "leftEye2");
-    let leftEye3 = getKeyPointFromSVG(skeletonGroup, "leftEye3");
-    let leftEye4 = getKeyPointFromSVG(skeletonGroup, "leftEye4");
-    let leftEye5 = getKeyPointFromSVG(skeletonGroup, "leftEye5");
-    let rightEye0 = getKeyPointFromSVG(skeletonGroup, "rightEye0");
-    let rightEye1 = getKeyPointFromSVG(skeletonGroup, "rightEye1");
-    let rightEye2 = getKeyPointFromSVG(skeletonGroup, "rightEye2");
-    let rightEye3 = getKeyPointFromSVG(skeletonGroup, "rightEye3");
-    let rightEye4 = getKeyPointFromSVG(skeletonGroup, "rightEye4");
-    let rightEye5 = getKeyPointFromSVG(skeletonGroup, "rightEye5");
-    let leftBrow0 = getKeyPointFromSVG(skeletonGroup, "leftBrow0");
-    let leftBrow1 = getKeyPointFromSVG(skeletonGroup, "leftBrow1");
-    let leftBrow2 = getKeyPointFromSVG(skeletonGroup, "leftBrow2");
-    let leftBrow3 = getKeyPointFromSVG(skeletonGroup, "leftBrow3");
-    let leftBrow4 = getKeyPointFromSVG(skeletonGroup, "leftBrow4");
-    let rightBrow0 = getKeyPointFromSVG(skeletonGroup, "rightBrow0");
-    let rightBrow1 = getKeyPointFromSVG(skeletonGroup, "rightBrow1");
-    let rightBrow2 = getKeyPointFromSVG(skeletonGroup, "rightBrow2");
-    let rightBrow3 = getKeyPointFromSVG(skeletonGroup, "rightBrow3");
-    let rightBrow4 = getKeyPointFromSVG(skeletonGroup, "rightBrow4");
-    let leftMouthCorner = getKeyPointFromSVG(skeletonGroup, "leftMouthCorner");
-    let leftUpperLipTop0 = getKeyPointFromSVG(skeletonGroup, "leftUpperLipTop0");
-    let leftUpperLipTop1 = getKeyPointFromSVG(skeletonGroup, "leftUpperLipTop1");
-    let upperLipTopMid = getKeyPointFromSVG(skeletonGroup, "upperLipTopMid");
-    let rightMouthCorner = getKeyPointFromSVG(skeletonGroup, "rightMouthCorner");
-    let rightUpperLipTop0 = getKeyPointFromSVG(skeletonGroup, "rightUpperLipTop0");
-    let rightUpperLipTop1 = getKeyPointFromSVG(skeletonGroup, "rightUpperLipTop1");
-    let rightMiddleLip = getKeyPointFromSVG(skeletonGroup, "rightMiddleLip");
-    let rightUpperLipBottom1 = getKeyPointFromSVG(skeletonGroup, "rightUpperLipBottom1");
-    let leftMiddleLip = getKeyPointFromSVG(skeletonGroup, "leftMiddleLip");
-    let leftUpperLipBottom1 = getKeyPointFromSVG(skeletonGroup, "leftUpperLipBottom1");
-    let upperLipBottomMid = getKeyPointFromSVG(skeletonGroup, "upperLipBottomMid");
-    let rightLowerLipTop0 = getKeyPointFromSVG(skeletonGroup, "rightLowerLipTop0");
-    let leftLowerLipTop0 = getKeyPointFromSVG(skeletonGroup, "leftLowerLipTop0");
-    let lowerLipTopMid = getKeyPointFromSVG(skeletonGroup, "lowerLipTopMid");
-    let rightLowerLipBottom0 = getKeyPointFromSVG(skeletonGroup, "rightLowerLipBottom0");
-    let rightLowerLipBottom1 = getKeyPointFromSVG(skeletonGroup, "rightLowerLipBottom1");
-    let leftLowerLipBottom0 = getKeyPointFromSVG(skeletonGroup, "leftLowerLipBottom0");
-    let leftLowerLipBottom1 = getKeyPointFromSVG(skeletonGroup, "leftLowerLipBottom1");
-    let lowerLipBottomMid = getKeyPointFromSVG(skeletonGroup, "lowerLipBottomMid");
+    const topMid = getKeyPointFromSVG(skeletonGroup, "topMid");
+    const rightTop0 = getKeyPointFromSVG(skeletonGroup, "rightTop0");
+    const rightTop1 = getKeyPointFromSVG(skeletonGroup, "rightTop1");
+    const leftTop0 = getKeyPointFromSVG(skeletonGroup, "leftTop0");
+    const leftTop1 = getKeyPointFromSVG(skeletonGroup, "leftTop1");
+    const leftJaw2 = getKeyPointFromSVG(skeletonGroup, "leftJaw2");
+    const leftJaw3 = getKeyPointFromSVG(skeletonGroup, "leftJaw3");
+    const leftJaw4 = getKeyPointFromSVG(skeletonGroup, "leftJaw4");
+    const leftJaw5 = getKeyPointFromSVG(skeletonGroup, "leftJaw5");
+    const leftJaw6 = getKeyPointFromSVG(skeletonGroup, "leftJaw6");
+    const leftJaw7 = getKeyPointFromSVG(skeletonGroup, "leftJaw7");
+    const jawMid = getKeyPointFromSVG(skeletonGroup, "jawMid");
+    const rightJaw2 = getKeyPointFromSVG(skeletonGroup, "rightJaw2");
+    const rightJaw3 = getKeyPointFromSVG(skeletonGroup, "rightJaw3");
+    const rightJaw4 = getKeyPointFromSVG(skeletonGroup, "rightJaw4");
+    const rightJaw5 = getKeyPointFromSVG(skeletonGroup, "rightJaw5");
+    const rightJaw6 = getKeyPointFromSVG(skeletonGroup, "rightJaw6");
+    const rightJaw7 = getKeyPointFromSVG(skeletonGroup, "rightJaw7");
+    const nose0 = getKeyPointFromSVG(skeletonGroup, "nose0");
+    const nose1 = getKeyPointFromSVG(skeletonGroup, "nose1");
+    const nose2 = getKeyPointFromSVG(skeletonGroup, "nose2");
+    const nose3 = getKeyPointFromSVG(skeletonGroup, "nose3");
+    const nose4 = getKeyPointFromSVG(skeletonGroup, "nose4");
+    const leftNose0 = getKeyPointFromSVG(skeletonGroup, "leftNose0");
+    const leftNose1 = getKeyPointFromSVG(skeletonGroup, "leftNose1");
+    const rightNose0 = getKeyPointFromSVG(skeletonGroup, "rightNose0");
+    const rightNose1 = getKeyPointFromSVG(skeletonGroup, "rightNose1");
+    const leftEye0 = getKeyPointFromSVG(skeletonGroup, "leftEye0");
+    const leftEye1 = getKeyPointFromSVG(skeletonGroup, "leftEye1");
+    const leftEye2 = getKeyPointFromSVG(skeletonGroup, "leftEye2");
+    const leftEye3 = getKeyPointFromSVG(skeletonGroup, "leftEye3");
+    const leftEye4 = getKeyPointFromSVG(skeletonGroup, "leftEye4");
+    const leftEye5 = getKeyPointFromSVG(skeletonGroup, "leftEye5");
+    const rightEye0 = getKeyPointFromSVG(skeletonGroup, "rightEye0");
+    const rightEye1 = getKeyPointFromSVG(skeletonGroup, "rightEye1");
+    const rightEye2 = getKeyPointFromSVG(skeletonGroup, "rightEye2");
+    const rightEye3 = getKeyPointFromSVG(skeletonGroup, "rightEye3");
+    const rightEye4 = getKeyPointFromSVG(skeletonGroup, "rightEye4");
+    const rightEye5 = getKeyPointFromSVG(skeletonGroup, "rightEye5");
+    const leftBrow0 = getKeyPointFromSVG(skeletonGroup, "leftBrow0");
+    const leftBrow1 = getKeyPointFromSVG(skeletonGroup, "leftBrow1");
+    const leftBrow2 = getKeyPointFromSVG(skeletonGroup, "leftBrow2");
+    const leftBrow3 = getKeyPointFromSVG(skeletonGroup, "leftBrow3");
+    const leftBrow4 = getKeyPointFromSVG(skeletonGroup, "leftBrow4");
+    const rightBrow0 = getKeyPointFromSVG(skeletonGroup, "rightBrow0");
+    const rightBrow1 = getKeyPointFromSVG(skeletonGroup, "rightBrow1");
+    const rightBrow2 = getKeyPointFromSVG(skeletonGroup, "rightBrow2");
+    const rightBrow3 = getKeyPointFromSVG(skeletonGroup, "rightBrow3");
+    const rightBrow4 = getKeyPointFromSVG(skeletonGroup, "rightBrow4");
+    const leftMouthCorner = getKeyPointFromSVG(skeletonGroup, "leftMouthCorner");
+    const leftUpperLipTop0 = getKeyPointFromSVG(skeletonGroup, "leftUpperLipTop0");
+    const leftUpperLipTop1 = getKeyPointFromSVG(skeletonGroup, "leftUpperLipTop1");
+    const upperLipTopMid = getKeyPointFromSVG(skeletonGroup, "upperLipTopMid");
+    const rightMouthCorner = getKeyPointFromSVG(skeletonGroup, "rightMouthCorner");
+    const rightUpperLipTop0 = getKeyPointFromSVG(skeletonGroup, "rightUpperLipTop0");
+    const rightUpperLipTop1 = getKeyPointFromSVG(skeletonGroup, "rightUpperLipTop1");
+    const rightMiddleLip = getKeyPointFromSVG(skeletonGroup, "rightMiddleLip");
+    const rightUpperLipBottom1 = getKeyPointFromSVG(skeletonGroup, "rightUpperLipBottom1");
+    const leftMiddleLip = getKeyPointFromSVG(skeletonGroup, "leftMiddleLip");
+    const leftUpperLipBottom1 = getKeyPointFromSVG(skeletonGroup, "leftUpperLipBottom1");
+    const upperLipBottomMid = getKeyPointFromSVG(skeletonGroup, "upperLipBottomMid");
+    const rightLowerLipTop0 = getKeyPointFromSVG(skeletonGroup, "rightLowerLipTop0");
+    const leftLowerLipTop0 = getKeyPointFromSVG(skeletonGroup, "leftLowerLipTop0");
+    const lowerLipTopMid = getKeyPointFromSVG(skeletonGroup, "lowerLipTopMid");
+    const rightLowerLipBottom0 = getKeyPointFromSVG(skeletonGroup, "rightLowerLipBottom0");
+    const rightLowerLipBottom1 = getKeyPointFromSVG(skeletonGroup, "rightLowerLipBottom1");
+    const leftLowerLipBottom0 = getKeyPointFromSVG(skeletonGroup, "leftLowerLipBottom0");
+    const leftLowerLipBottom1 = getKeyPointFromSVG(skeletonGroup, "leftLowerLipBottom1");
+    const lowerLipBottomMid = getKeyPointFromSVG(skeletonGroup, "lowerLipBottomMid");
 
     this.bLeftShoulderRightShoulder = new Bone().set(leftShoulder, rightShoulder, this, "body");
     this.bRightShoulderRightHip = new Bone().set(rightShoulder, rightHip, this, "body");
@@ -438,6 +445,7 @@ export class Skeleton {
       this.bRightLowerLipBottom0RightLowerLipBottom1,
       this.bRightLowerLipBottom1LowerLipBottomMid,
     ];
+
     this.bodyBones = [
       // Body
       this.bLeftShoulderRightShoulder,
@@ -453,6 +461,7 @@ export class Skeleton {
       this.bRightHipRightKnee,
       this.bRightKneeRightAnkle
     ];
+
     this.bones = this.faceBones.concat(this.bodyBones);
     this.secondaryBones = [];
     this.parts = {};
@@ -486,7 +495,8 @@ export class Skeleton {
     };
 
     this.faceBones.forEach(bone => {
-      let parts = [bone.kp0, bone.kp1];
+      const parts = [bone.kp0, bone.kp1];
+
       parts.forEach(part => {
         part.baseTransFunc = MathUtils.getTransformFunc(this.bLeftJaw2LeftJaw3.kp0.position,
           this.bRightJaw2RightJaw3.kp0.position, part.position);
@@ -501,22 +511,30 @@ export class Skeleton {
     }
 
     this.isValid = this.updatePoseParts(pose);
-    if (!this.isValid) return;
+
+    if (!this.isValid) {
+      return;
+    }
 
     this.isValid = this.updateFaceParts(face);
-    if (!this.isValid) return;
+
+    if (!this.isValid) {
+      return;
+    }
 
     // Update bones.
     this.bones.forEach(bone => {
-      let part0 = this.parts[bone.kp0.name];
-      let part1 = this.parts[bone.kp1.name];
+      const part0 = this.parts[bone.kp0.name];
+      const part1 = this.parts[bone.kp1.name];
+
       bone.kp0.currentPosition = part0.position;
       bone.kp1.currentPosition = part1.position;
       bone.score = (part0.score + part1.score) / 2;
       bone.latestCenter = bone.kp1.currentPosition.add(bone.kp0.currentPosition).divide(2);
     });
     // Update secondary bones.
-    let nosePos = this.bNose3Nose4.kp1.currentPosition;
+    const nosePos = this.bNose3Nose4.kp1.currentPosition;
+
     this.secondaryBones.forEach(bone => {
       bone.kp0.currentPosition = bone.kp0.transformFunc(bone.parent.kp0.currentPosition, nosePos);
       bone.kp1.currentPosition = bone.kp1.transformFunc(bone.parent.kp1.currentPosition, nosePos);
@@ -532,31 +550,38 @@ export class Skeleton {
   updatePoseParts(pose) {
     posePartNames.forEach(partName => {
       // Use new and old pose's confidence scores as weights to compute the new part position.
-      let part1 = getPartFromPose(pose, partName);
-      let part0 = (this.parts[partName] || part1);
-      let weight0 = part0.score / (part1.score + part0.score);
-      let weight1 = part1.score / (part1.score + part0.score);
-      let pos = part0.position.multiply(weight0).add(part1.position.multiply(weight1));
+      const part1 = getPartFromPose(pose, partName);
+      const part0 = (this.parts[partName] || part1);
+      const weight0 = part0.score / (part1.score + part0.score);
+      const weight1 = part1.score / (part1.score + part0.score);
+      const pos = part0.position.multiply(weight0).add(part1.position.multiply(weight1));
       this.parts[partName] = {
         position: pos,
         score: part0.score * weight0 + part1.score * weight1,
       };
     });
+
     if (!this.parts["rightEar"] || !this.parts["leftEar"]) {
       return false;
     }
+
     return true;
   }
 
   updateFaceParts(face) {
-    let posLeftEar = this.parts["leftEar"].position;
-    let posRightEar = this.parts["rightEar"].position;
+    const posLeftEar = this.parts["leftEar"].position;
+    const posRightEar = this.parts["rightEar"].position;
+
     if (face && face.positions && face.positions.length && face.faceInViewConfidence > MIN_FACE_SCORE) {
       // Valid face results.
       for (let i = 0; i < facePartNames.length; i++) {
-        let partName = facePartNames[i];
-        let pos = getKeypointFromFaceFrame(face, i);
-        if (!pos) continue;
+        const partName = facePartNames[i];
+        const pos = getKeypointFromFaceFrame(face, i);
+
+        if (!pos) {
+          continue;
+        }
+
         this.parts[partName] = {
           position: pos,
           score: face.faceInViewConfidence
@@ -568,12 +593,13 @@ export class Skeleton {
       this.rightEarP2FFunc = MathUtils.getTransformFunc(posLeftEar, posRightEar, this.parts["rightJaw2"].position);
     } else {
       // Invalid face keypoints. Infer face keypoints from pose.
-      let fLeftEar = this.leftEarP2FFunc ? this.leftEarP2FFunc(posLeftEar, posRightEar) : posLeftEar;
-      let fRightEar = this.rightEarP2FFunc ? this.rightEarP2FFunc(posLeftEar, posRightEar) : posRightEar;
+      const fLeftEar = this.leftEarP2FFunc ? this.leftEarP2FFunc(posLeftEar, posRightEar) : posLeftEar;
+      const fRightEar = this.rightEarP2FFunc ? this.rightEarP2FFunc(posLeftEar, posRightEar) : posRightEar;
       // Also infer face scale from pose.
       this.currentFaceScale = this.currentBodyScale;
       this.faceBones.forEach(bone => {
-        let parts = [bone.kp0, bone.kp1];
+        const parts = [bone.kp0, bone.kp1];
+
         parts.forEach(part => {
           this.parts[part.name] = {
             position: part.baseTransFunc(fLeftEar, fRightEar),
@@ -582,50 +608,64 @@ export class Skeleton {
         });
       });
     }
+
     return true;
   }
 
   findBoneGroup(point) {
-    let minDistances = {};
+    const minDistances = {};
+
     Object.keys(this.boneGroups).forEach(boneGroupKey => {
+      const boneGroup = this.boneGroups[boneGroupKey];
       let minDistance = Infinity;
-      let boneGroup = this.boneGroups[boneGroupKey];
+
       boneGroup.forEach(bone => {
-        let d = MathUtils.getClosestPointOnSegment(bone.kp0.position, bone.kp1.position, point)
+        const d = MathUtils.getClosestPointOnSegment(bone.kp0.position, bone.kp1.position, point)
           .getDistance(point);
+
         minDistance = Math.min(minDistance, d);
       });
+
       minDistances[boneGroupKey] = minDistance;
     });
-    let minDistance = Math.min(...Object.values(minDistances));
-    let selectedGroups = [];
+
+    const minDistance = Math.min(...Object.values(minDistances));
+    const selectedGroups = [];
+
     Object.keys(minDistances).forEach(key => {
-      let distance = minDistances[key];
+      const distance = minDistances[key];
+
       if (distance <= minDistance) {
         selectedGroups.push(this.boneGroups[key]);
       }
     });
+
     return _.flatMapDeep(selectedGroups);
   }
 
   getTotalBoneLength(bones) {
     let totalLen = 0;
+
     bones.forEach(bone => {
-      let d = (bone.kp0.currentPosition || bone.kp0.position).subtract(bone.kp1.currentPosition || bone.kp1.position);
+      const d = (bone.kp0.currentPosition || bone.kp0.position).subtract(bone.kp1.currentPosition || bone.kp1.position);
+
       totalLen += d.length;
     });
+
     return totalLen;
   }
 
   debugDraw(scope) {
-    let group = new scope.Group();
+    const group = new scope.Group();
+
     scope.project.activeLayer.addChild(group);
     this.bones.forEach(bone => {
-      let path = new scope.Path({
+      const path = new scope.Path({
         segments: [bone.kp0.currentPosition, bone.kp1.currentPosition],
         strokeWidth: 2,
         strokeColor: bone.boneColor
       });
+
       group.addChild(path);
     });
     // this.secondaryBones.forEach(bone => {
@@ -639,18 +679,21 @@ export class Skeleton {
   }
 
   debugDrawLabels(scope) {
-    let group = new scope.Group();
+    const group = new scope.Group();
+
     scope.project.activeLayer.addChild(group);
     this.bones.forEach(bone => {
-      let addLabel = (kp, name) => {
-        let text = new scope.PointText({
+      const addLabel = (kp, name) => {
+        const text = new scope.PointText({
           point: [kp.currentPosition.x, kp.currentPosition.y],
           content: name,
           fillColor: "black",
           fontSize: 7
         });
+
         group.addChild(text);
       };
+
       addLabel(bone.kp0, bone.kp0.name);
       addLabel(bone.kp1, bone.kp1.name);
     });
@@ -662,10 +705,13 @@ export class Skeleton {
 
   static getCurrentPosition(segment) {
     let position = new paper.default.Point();
+
     Object.keys(segment.skinning).forEach(boneName => {
-      let bt = segment.skinning[boneName];
+      const bt = segment.skinning[boneName];
+
       position = position.add(bt.bone.transform(bt.transform).multiply(bt.weight));
     });
+
     return position;
   }
 
@@ -673,7 +719,10 @@ export class Skeleton {
     pose.keypoints.forEach(kp => {
       if (kp.part && kp.part.startsWith("left")) {
         kp.part = "right" + kp.part.substring("left".length, kp.part.length);
-      } else if (kp.part && kp.part.startsWith("right")) {
+        return;
+      }
+
+      if (kp.part && kp.part.startsWith("right")) {
         kp.part = "left" + kp.part.substring("right".length, kp.part.length);
       }
     });
@@ -682,8 +731,9 @@ export class Skeleton {
   static flipFace(face) {
     Object.keys(facePartName2Index).forEach(partName => {
       if (partName.startsWith("left")) {
-        let rightName = "right" + partName.substr("left".length, partName.length);
-        let temp = face.scaledMesh[facePartName2Index[partName]];
+        const rightName = "right" + partName.substr("left".length, partName.length);
+        const temp = face.scaledMesh[facePartName2Index[partName]];
+
         face.scaledMesh[facePartName2Index[partName]] = face.scaledMesh[facePartName2Index[rightName]];
         face.scaledMesh[facePartName2Index[rightName]] = temp;
       }
@@ -695,21 +745,25 @@ export class Skeleton {
     let maxX = -100000;
     let minY = 100000;
     let maxY = -100000;
-    let updateMinMax = (x, y) => {
+    const updateMinMax = (x, y) => {
       minX = Math.min(x, minX);
       maxX = Math.max(x, maxX);
       minY = Math.min(y, minY);
       maxY = Math.max(y, maxY);
     };
+
     pose.frames.forEach(frame => {
       frame.pose.keypoints.forEach(kp => {
         updateMinMax(kp.position.x, kp.position.y);
       });
-      let faceKeypoints = frame.face.positions;
+
+      const faceKeypoints = frame.face.positions;
+
       for (let i = 0; i < faceKeypoints.length; i += 2) {
         updateMinMax(faceKeypoints[i], faceKeypoints[i + 1]);
       }
     });
+
     return [minX, maxX, minY, maxY];
   }
 
@@ -719,7 +773,9 @@ export class Skeleton {
         kp.position.x += d.x;
         kp.position.y += d.y;
       });
-      let faceKeypoints = frame.face.positions;
+
+      const faceKeypoints = frame.face.positions;
+
       for (let i = 0; i < faceKeypoints.length; i += 2) {
         faceKeypoints[i] += d.x;
         faceKeypoints[i + 1] += d.y;
@@ -733,7 +789,9 @@ export class Skeleton {
         kp.position.x = origin.x + (kp.position.x - origin.x) * scale.x;
         kp.position.y = origin.y + (kp.position.y - origin.y) * scale.y;
       });
-      let faceKeypoints = frame.face.positions;
+
+      const faceKeypoints = frame.face.positions;
+
       for (let i = 0; i < faceKeypoints.length; i += 2) {
         faceKeypoints[i] = origin.x + (faceKeypoints[i] - origin.x) * scale.x;
         faceKeypoints[i + 1] = origin.y + (faceKeypoints[i + 1] - origin.y) * scale.y;
@@ -742,13 +800,15 @@ export class Skeleton {
   }
 
   static toFaceFrame(faceDetection) {
-    let frame = {
+    const frame = {
       positions: [],
       faceInViewConfidence: faceDetection.faceInViewConfidence,
     };
+
     for (let i = 0; i < facePartNames.length; i++) {
-      let partName = facePartNames[i];
-      let p = faceDetection.scaledMesh[facePartName2Index[partName]];
+      const partName = facePartNames[i];
+      const p = faceDetection.scaledMesh[facePartName2Index[partName]];
+
       frame.positions.push(p[0]);
       frame.positions.push(p[1]);
     }

@@ -93,7 +93,7 @@ export class MathUtils {
   }
 
   static selectSegments(selectPerc, count, selectVar, segVar) {
-    let segments = [];
+    const segments = [];
     let totalSeg = 0;
     for (let i = 0; i < count; i++) {
       let seg = MathUtils.gaussian(1, segVar);

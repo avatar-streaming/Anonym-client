@@ -20,7 +20,7 @@ import * as paper from "paper";
 
 export class Palette {
   constructor(colors) {
-    let scope = paper.default;
+    const scope = paper.default;
     this.colors = colors.map(c => ({
       light: new scope.Color(c[0]).convert("hsb"),
       dark: new scope.Color(c[1]).convert("hsb"),
@@ -28,9 +28,9 @@ export class Palette {
   }
 
   select(variance) {
-    let scope = paper.default;
-    let pair = this.colors[Math.floor(Math.random() * this.colors.length)];
-    let varColor = (c) => new scope.Color({
+    const scope = paper.default;
+    const pair = this.colors[Math.floor(Math.random() * this.colors.length)];
+    const varColor = (c) => new scope.Color({
       hue: c.hue + 360 * MathUtils.gaussian(0, variance),
       saturation: c.saturation + MathUtils.gaussian(0, variance),
       brightness: c.brightness + MathUtils.gaussian(0, variance),
@@ -61,16 +61,16 @@ export class ColorUtils {
   static fromStringHash(str) {
     // Compute hash from string
     // Source http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
-    var hash = 0, i, chr;
+    let hash = 0, i, chr;
     for (i = 0; i < str.length; i++) {
       chr = str.charCodeAt(i);
       hash = ((hash << 5) - hash) + chr;
       hash |= 0; // Convert to 32bit integer
     }
     // Hash to rgb color.
-    let r = hash & 255;
-    let g = (hash & (255 << 8)) >> 8;
-    let b = (hash & (255 << 16)) >> 16;
+    const r = hash & 255;
+    const g = (hash & (255 << 8)) >> 8;
+    const b = (hash & (255 << 16)) >> 16;
     return new paper.default.Color(r / 255, g / 255, b / 255);
   }
 }
