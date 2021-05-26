@@ -17,7 +17,7 @@ export const checkAuthorization = () => async (dispatch) => {
     if (response.ok) {
       dispatch({
         type: actionTypes.AUTHORIZATION_SUCCESS,
-        payload: result.user,
+        payload: result.payload,
       });
 
       return;
@@ -44,10 +44,11 @@ export const userLogin = (userInfo) => async (dispatch) => {
 
     const response = await fetch(url, option);
     const result = await response.json();
+    console.log(result)
 
     dispatch({
       type: actionTypes.LOG_IN_SUCCESS,
-      payload: result.user,
+      payload: result.payload,
     });
   } catch (err) {
     dispatch({

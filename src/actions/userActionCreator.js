@@ -13,7 +13,7 @@ export const updateUserName = (userName) => async (dispatch, state) => {
 
     dispatch({
       type: actionTypes.UPDATE_USER_NAME_SUCCESS,
-      payload: result.user,
+      payload: result.payload,
     });
   } catch (err) {
     dispatch({
@@ -30,11 +30,10 @@ export const searchUsers = (searchTerm) => async (dispatch) => {
 
     const response = await fetch(url, option);
     const result = await response.json();
-    const userList = result.userList;
 
     dispatch({
       type: actionTypes.SEARCH_USERS_SUCCESS,
-      payload: userList,
+      payload: result.payload,
     });
   } catch (err) {
     dispatch({
@@ -55,7 +54,7 @@ export const followUser = (userID, targetID) => async (dispatch) => {
 
     dispatch({
       type: actionTypes.FOLLOW_USER_SUCCESS,
-      payload: result.currentUser,
+      payload: result.payload,
     });
   } catch (err) {
     dispatch({
@@ -64,3 +63,24 @@ export const followUser = (userID, targetID) => async (dispatch) => {
     });
   }
 };
+
+export const unfollowUser = (userID, targetID) => async (dispatch) => {
+  try {
+    const url = urlHelper(`user/unfollow/${userID}`);
+    const option = defaultOptionHelper("PUT");
+    option.body = JSON.stringify({ targetID });
+
+    const response = await fetch(url, option);
+    const result = await response.json();
+
+    dispatch({
+      type: actionTypes.UNFOLLOW_USER_SUCCESS,
+      payload: result.payload,
+    });
+  } catch (err) {
+    dispatch({
+      type: actionTypes.UNFOLLOW_USER_FAIL,
+      payload: err,
+    });
+  }
+}

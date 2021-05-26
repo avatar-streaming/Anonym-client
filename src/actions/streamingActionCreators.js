@@ -11,7 +11,7 @@ export const fetchStreamings = () => async (dispatch) => {
 
     dispatch({
       type: actionTypes.FETCH_STREAMINGS_SUCCESS,
-      payload: result.streamings,
+      payload: result.payload,
     });
   } catch (err) {
     dispatch({
@@ -34,7 +34,7 @@ export const generateStreaming = (streamingTitle, streamingThumnail) => async (d
     if (response.ok) {
       dispatch({
         type: actionTypes.GENERATE_STREAMING_SUCESS,
-        payload: result.streaming,
+        payload: result.payload,
       });
     } else {
       dispatch({
