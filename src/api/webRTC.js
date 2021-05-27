@@ -97,7 +97,6 @@ const createReceiverPeerConnection = (viewerID, setStream, detectionRef) => {
   };
   dc.onmessage = (event) => {
     detectionRef.current = JSON.parse(event.data);
-    console.log(detectionRef);
   };
 
   return pc;

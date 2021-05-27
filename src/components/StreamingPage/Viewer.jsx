@@ -1,11 +1,10 @@
 import React from "react";
-import useCanvas from "../../hooks/useCanvas";
+import useDrawStreaming from "../../hooks/useDrawStreaming";
 import useReceiveStreaming from "../../hooks/useReceiveStreaming";
-import StreamingCanvas from "../../utils/StreamingCanvas";
 
 function Viewer() {
-  const { videoRef, canvasRef, detectionRef } = useReceiveStreaming();
-  // useCanvas(StreamingCanvas, { canvasRef, detectionRef });
+  const { videoRef, detectionRef } = useReceiveStreaming();
+  const canvasRef = useDrawStreaming(detectionRef);
 
   return (
     <>
