@@ -3,17 +3,13 @@ import PoseAnimator from "../poseAnimator/poseAnimator";
 
 const useDrawStreaming = (detectionRef) => {
   const canvasRef = useRef(null);
-  let myCanvas;
-
-  useEffect(() => {
-    myCanvas = new PoseAnimator(canvasRef, 300, 300);
-  }, [canvasRef]);
 
   useEffect(() => {
     let animationFrameID;
+    const poseAnimator = new PoseAnimator(canvasRef, 300, 300);
     const animate = () => {
       if (detectionRef.current) {
-        myCanvas.draw(detectionRef.current.face, detectionRef.current.pose);
+        poseAnimator.draw(detectionRef.current.face, detectionRef.current.pose);
       }
 
       animationFrameID = requestAnimationFrame(animate);
@@ -24,7 +20,7 @@ const useDrawStreaming = (detectionRef) => {
     return () => {
       cancelAnimationFrame(animationFrameID);
     };
-  }, [detectionRef]);
+  }, [canvasRef, detectionRef]);
 
   return canvasRef;
 };
