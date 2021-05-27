@@ -7,10 +7,10 @@ import useSendStreaming from "../../hooks/useSendStreaming";
 function Streamer() {
   const [streamingTitle, setStreamingTitle] = useState("");
   const { isOn, toggleOnOff } = useToggleOnOff();
-  const { outputRef, avatarRef, videoRef } = useMotionAnimator();
+  const { avatarRef, outputRef, videoRef, detectionRef } = useMotionAnimator();
 
   useToggleStreaming(isOn, streamingTitle, avatarRef);
-  useSendStreaming(isOn, videoRef, avatarRef);
+  useSendStreaming(isOn, videoRef, detectionRef);
 
   return (
     <>
@@ -36,16 +36,6 @@ function Streamer() {
           {isOn ? "STOP STREAM" : "START STREAM"}
         </button>
       </div>
-      <ul className="character-list">
-        <li className="character">1</li>
-        <li className="character">2</li>
-        <li className="character">3</li>
-      </ul>
-      <ul className="character-list">
-        <li className="character">1</li>
-        <li className="character">2</li>
-        <li className="character">3</li>
-      </ul>
     </>
   );
 }

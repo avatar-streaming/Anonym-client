@@ -8,7 +8,7 @@ const useToggleStreaming = (isOn, streamTitle, avatarRef) => {
   useEffect(() => {
     (async () => {
       if (isOn) {
-        const imgUrl = avatarRef.current.toDataURL("image/jpeg", 1.0);
+        const imgUrl = avatarRef.current.toDataURL("image/jpeg");
 
         dispatch(generateStreaming(streamTitle.trim(), imgUrl));
       }
@@ -21,7 +21,7 @@ const useToggleStreaming = (isOn, streamTitle, avatarRef) => {
     return () => {
       dispatch(removeStreaming());
     };
-  }, [isOn, streamTitle, dispatch]);
+  }, [isOn, avatarRef, streamTitle, dispatch]);
 };
 
 export default useToggleStreaming;

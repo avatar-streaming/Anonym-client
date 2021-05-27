@@ -11,7 +11,7 @@ function UserDetail() {
   return (
     <div className="content-wrapper">
       <div>
-        <h3>Profile</h3>
+        <h3 className="profile-title">Profile</h3>
       </div>
       <div>
         <h4>Profile Picture</h4>
@@ -25,7 +25,7 @@ function UserDetail() {
         <div>
           <h4>Profile Setting</h4>
           <div>
-            <h5>Username</h5>
+            <h5 className="sub-title">Username</h5>
             <form>
               <input
                 type="text"

@@ -1,3 +1,4 @@
+import "webrtc-adapter";
 import { socket } from "./socket";
 
 const pc_config = {
@@ -13,7 +14,7 @@ const peer = {
   intervalIDs: {},
 };
 
-const createSenderPeerConnection = (localStream, avatarRef) => {
+const createSenderPeerConnection = (localStream, detectionRef) => {
   const pc = new RTCPeerConnection(pc_config);
 
   pc.onicecandidate = (event) => {
@@ -35,9 +36,7 @@ const createSenderPeerConnection = (localStream, avatarRef) => {
 
   dc.onopen = () => {
     peer.intervalIDs[socket.id] = setInterval(() => {
-      const imageUri = avatarRef.current.toDataURL("image/jpeg", 1.0);
-
-      dc.send(imageUri);
+      dc.send(JSON.stringify(detectionRef.current));
     }, 100);
   };
   dc.onclose = () => {
@@ -61,12 +60,12 @@ const createSenderOffer = async (roomID) => {
       streamerID: socket.id,
       roomID,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    throw new Error(err);
   }
 };
 
-const createReceiverPeerConnection = (viewerID, setStream, imageRef) => {
+const createReceiverPeerConnection = (viewerID, setStream, detectionRef) => {
   const pc = new RTCPeerConnection(pc_config);
   peer.receivePCs[viewerID] = pc;
 
@@ -89,7 +88,7 @@ const createReceiverPeerConnection = (viewerID, setStream, imageRef) => {
 
   dc.onopen = () => {
     peer.intervalIDs[socket.id] = setInterval(() => {
-      dc.send("get image");
+      dc.send("get detection");
     }, 100);
   };
   dc.onclose = () => {
@@ -97,7 +96,8 @@ const createReceiverPeerConnection = (viewerID, setStream, imageRef) => {
     delete peer.intervalIDs[socket.id];
   };
   dc.onmessage = (event) => {
-    imageRef.current = event.data;
+    detectionRef.current = JSON.parse(event.data);
+    console.log(detectionRef);
   };
 
   return pc;
@@ -116,27 +116,27 @@ const createReceiverOffer = async (pc, roomID, viewerID) => {
       viewerID,
       roomID,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    throw new Error(err);
   }
 };
 
-const createReceivePC = (roomID, viewerID, setStream, imageRef) => {
+const createReceivePC = (roomID, viewerID, setStream, detectionRef) => {
   try {
-    const pc = createReceiverPeerConnection(viewerID, setStream, imageRef);
+    const pc = createReceiverPeerConnection(viewerID, setStream, detectionRef);
     createReceiverOffer(pc, roomID, viewerID);
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    throw new Error(err);
   }
 };
 
-export const receiveStreaming = (updateStream, imageRef) => {
+export const receiveStreaming = (updateStream, detectionRef) => {
   try {
     socket.on("receive streaming", ({ roomID }) => {
-      createReceivePC(roomID, socket.id, updateStream, imageRef);
+      createReceivePC(roomID, socket.id, updateStream, detectionRef);
     });
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
@@ -146,16 +146,16 @@ export const leaveStreaming = (viewerID) => {
     peer.receivePCs[viewerID].close();
     delete peer.receivePCs[viewerID];
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
-export const sendStreaming = (localStream, roomID, avatarRef) => {
+export const sendStreaming = (localStream, roomID, detectionRef) => {
   try {
-    peer.sendPC = createSenderPeerConnection(localStream, avatarRef);
+    peer.sendPC = createSenderPeerConnection(localStream, detectionRef);
     createSenderOffer(roomID);
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
@@ -166,7 +166,7 @@ export const endStreaming = (roomID) => {
 
     socket.emit("end streaming", { streamerID: socket.id, roomID });
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 
@@ -177,8 +177,8 @@ socket.on("getSenderCandidate", async ({ candidate }) => {
     }
 
     peer.sendPC.addIceCandidate(new RTCIceCandidate(candidate));
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    throw new Error(err);
   }
 });
 
@@ -191,16 +191,16 @@ socket.on("getReceiverCandidate", async ({ viewerID, candidate }) => {
     }
 
     pc.addIceCandidate(new RTCIceCandidate(candidate));
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    throw new Error(err);
   }
 });
 
 socket.on("getSenderAnswer", async ({ sdp }) => {
   try {
     await peer.sendPC.setRemoteDescription(new RTCSessionDescription(sdp));
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    throw new Error(err);
   }
 });
 
@@ -208,7 +208,7 @@ socket.on("getReceiverAnswer", async ({ viewerID, sdp }) => {
   try {
     const pc = peer.receivePCs[viewerID];
     await pc.setRemoteDescription(sdp);
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    throw new Error(err);
   }
 });
