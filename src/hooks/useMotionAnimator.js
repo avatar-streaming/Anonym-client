@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import PoseAnimator from "../poseAnimator";
+import PoseDetector from "../poseAnimator/poseDetector";
 
 const useMotionAnimator = () => {
   const outputRef = useRef(null);
@@ -7,7 +7,7 @@ const useMotionAnimator = () => {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    new PoseAnimator(avatarRef, outputRef, videoRef);
+    new PoseDetector(avatarRef, outputRef, videoRef);
 
     return () => {
       window.location.reload();

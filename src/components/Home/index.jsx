@@ -13,7 +13,8 @@ function Home() {
             <Link
               to={`/streaming/${streaming.streamer._id}`}
               key={streaming._id}
-              className="streaming-box">
+              className="streaming-box"
+            >
               <div className="streaming-thumnail">
                 <img
                   src={streaming.thumnail}
