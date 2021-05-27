@@ -4,8 +4,8 @@ import useReceiveStreaming from "../../hooks/useReceiveStreaming";
 import StreamingCanvas from "../../utils/StreamingCanvas";
 
 function Viewer() {
-  const { videoRef, canvasRef, imageRef } = useReceiveStreaming();
-  useCanvas(StreamingCanvas, { canvasRef, imageRef });
+  const { videoRef, canvasRef, detectionRef } = useReceiveStreaming();
+  // useCanvas(StreamingCanvas, { canvasRef, detectionRef });
 
   return (
     <>
