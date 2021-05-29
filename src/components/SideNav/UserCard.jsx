@@ -1,3 +1,6 @@
+import React from "react";
+import PropTypes from "prop-types";
+
 function UserCard({ userInfo }) {
   return (
     <div className="following-card">
@@ -13,3 +16,10 @@ function UserCard({ userInfo }) {
 }
 
 export default UserCard;
+
+UserCard.propTypes = {
+  userInfo: PropTypes.shape({
+    thumnail: PropTypes.string,
+    userName: PropTypes.string,
+  }),
+};
