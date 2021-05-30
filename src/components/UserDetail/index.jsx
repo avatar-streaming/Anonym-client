@@ -35,7 +35,7 @@ function UserDetail() {
                   updateUserName(e.target.value.trim());
                 }}
               />
-              <button onClick={(e) => {
+              <button className="user-name-button" onClick={(e) => {
                 e.preventDefault();
                 isUpdateUserName(true);
               }}>
