@@ -3,9 +3,13 @@
   width: 400px;
   margin: 20px;
   padding: 30px;
-  border: 1px solid var(--border-color);
+  border: 1px solid $border-color;
   border-radius: 10px;
   min-width: 400px;
+
+  &:hover {
+    border: 1px solid $point-color;
+  }
 
   &__thumnail {
     margin-right: 30px;

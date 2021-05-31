@@ -12,18 +12,6 @@
     width: 100%;
     background-color: black;
   }
-
-  // .character-list {
-  //   display: flex;
-  //   width: 100%;
-  //   height: 200px;
-  //   overflow: auto;
-
-  //   .character {
-  //     width: 200px;
-  //     border: 1px solid var(--sub-bg-color);
-  //   }
-  // }
 }
 
 .streamer-page {
@@ -55,7 +43,7 @@
   display: grid;
   grid-template-rows: 1fr 70px;
   overflow: hidden;
-  border-left: 1px solid var(--sub-bg-color);
+  border-left: 1px solid $sub-bg-color;
   height: 100%;
 
   .chat-list {
@@ -63,7 +51,7 @@
     flex-direction: column;
     align-items: flex-start;
     overflow: auto;
-    background-color: var(--sub-bg-color);
+    background-color: $sub-bg-color;
     margin: 10px;
     margin-bottom: 0px;
     padding: 15px 20px 0px 20px;
@@ -79,7 +67,7 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background: var(--scrollbar-bg);
+      background: $scrollbar-bg;
       border-radius: 10px;
     }
   }

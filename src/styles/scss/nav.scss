@@ -4,9 +4,9 @@
   left: 0px;
   @extend %flex-center;
   justify-content: space-between;
-  background-color: var(--top-bg-color);
+  background-color: $top-bg-color;
   width: 100%;
-  height: var(--top-height);
+  height: $top-height;
 
   div {
     padding: 20px;
@@ -15,7 +15,7 @@
   &__title {
     font-size: 30px;
     font-family: "Pattaya", sans-serif;
-    color: var(--point-color);
+    color: $point-color;
   }
 
   &__search-bar {
@@ -32,11 +32,11 @@
 
 .nav-side {
   position: fixed;
-  top: var(--top-height);
+  top: $top-height;
   left: 0px;
   width: 60px;
   height: 100%;
-  background-color: var(--side-bg-color);
+  background-color: $side-bg-color;
   overflow: auto;
 
   &:hover {
