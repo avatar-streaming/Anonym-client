@@ -9,12 +9,12 @@ function UserDetail() {
   const { thumnail } = useSelector((state) => state.auth.userInfo);
 
   return (
-    <div className="content-wrapper">
+    <div className="content-wrapper profile">
       <div>
-        <h3 className="profile-title">Profile</h3>
+        <h3 className="profile__title">Profile</h3>
       </div>
       <div>
-        <h4>Profile Picture</h4>
+        <h4>User Thumnail</h4>
         <img className="user-thumnail" src={thumnail} alt="user thumnail" />
         <form>
           <input type="file" accept="image/*" />
@@ -23,9 +23,8 @@ function UserDetail() {
       </div>
       <div>
         <div>
-          <h4>Profile Setting</h4>
+          <h4>User Name</h4>
           <div>
-            <h5 className="sub-title">Username</h5>
             <form>
               <input
                 type="text"
@@ -35,7 +34,7 @@ function UserDetail() {
                   updateUserName(e.target.value.trim());
                 }}
               />
-              <button className="user-name-button" onClick={(e) => {
+              <button onClick={(e) => {
                 e.preventDefault();
                 isUpdateUserName(true);
               }}>

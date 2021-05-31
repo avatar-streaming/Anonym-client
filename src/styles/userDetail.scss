@@ -1,8 +1,13 @@
-.profile-title {
-  margin-top: 5vh;
-}
+.profile {
+  &__title {
+    margin-top: 5vh;
+  }
 
-.user-thumnail,
-.sub-title {
-  margin: 10px;
+  .user-thumnail {
+    margin: 10px;
+  }
+
+  .input-text {
+    margin: 10px;
+  }
 }

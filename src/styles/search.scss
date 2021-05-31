@@ -7,28 +7,28 @@
   border-radius: 10px;
   min-width: 400px;
 
-  .user-thumnail {
+  &__thumnail {
     margin-right: 30px;
   }
 
-  .card-right {
+  &__right {
     display: flex;
     justify-content: space-between;
     width: 100%;
   }
-}
 
-.follow-button-box {
-  display: flex;
-  align-items: flex-end;
-}
+  &__description {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
-.user-description {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+    div {
+      margin: 5px;
+    }
+  }
 
-  div {
-    margin: 5px;
+  .follow-button-box {
+    display: flex;
+    align-items: flex-end;
   }
 }

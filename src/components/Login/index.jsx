@@ -6,10 +6,10 @@ function Login() {
 
   return (
     <div className="login-container">
-      <div className="app-title">
+      <div className="login-container__title">
         Anonym
       </div>
-      <button className="login-button" onClick={() => handleLogin(true)}>
+      <button className="login-container__login" onClick={() => handleLogin(true)}>
         Goggle Login
       </button>
     </div>

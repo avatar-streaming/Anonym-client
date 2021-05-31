@@ -13,9 +13,9 @@ function TopNav() {
   return (
     <nav className="nav-top">
       <div>
-        <NavLink to="/" className="app-title">Anonym</NavLink>
+        <NavLink to="/" className="nav-top__title">Anonym</NavLink>
       </div>
-      <div className="search-bar">
+      <div className="nav-top__search-bar">
         <form
           onSubmit={(e) => {
             e.preventDefault();
