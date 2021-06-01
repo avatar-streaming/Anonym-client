@@ -13,6 +13,7 @@ function UserDetail() {
   const {
     newThumnail,
     updateNewThumnail,
+    imageInputRef,
     isUpdateUserThumnail
   } = useUpdateUserThumnail();
 
@@ -33,7 +34,8 @@ function UserDetail() {
             onChange={(e) => {
               updateNewThumnail(e.target.value);
             }}
-            />
+            ref={imageInputRef}
+          />
           <button
             onClick={(e) => {
               e.preventDefault();
