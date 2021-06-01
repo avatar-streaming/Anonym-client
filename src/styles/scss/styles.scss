@@ -1,6 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Pattaya&family=Kanit:wght@500&display=swap");
 @import "./theme.scss";
+@import "./login.scss";
 @import "./home.scss";
 @import "./streamingPage.scss";
+@import "./userDetail.scss";
 @import "./nav.scss";
 @import "./search.scss";
 
@@ -11,8 +14,9 @@
   user-select: none;
   text-align: center;
   line-height: 1em;
-  color: var(--color);
+  color: $color;
   text-decoration: none;
+  font-family: "Kanit", sans-serif;
 }
 
 #root {
@@ -37,7 +41,7 @@ body {
 
 body {
   position: relative;
-  background-color: var(--bg-color);
+  background-color: $bg-color;
 }
 
 a {
@@ -50,7 +54,26 @@ ol {
 }
 
 button {
-  color: var(--bg-color);
+  color: $color;
+  background-color: $point-color;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: default;
+  }
+
+  &.follow-button:hover {
+    padding: 11px 22px;
+    transform: translate(2px, 1px);
+  }
 }
 
 .content-wrapper {
@@ -67,39 +90,31 @@ button {
   width: 300px;
   height: 40px;
   border: none;
-  background-color: var(--sub-bg-color);
+  background-color: $sub-bg-color;
   border-radius: 4px;
-  font-family: var(--body-font);
+  font-family: $body-font;
   font-size: 15px;
   font-weight: 500;
   padding: 0 20px 0 40px;
   background-size: 14px;
   background-repeat: no-repeat;
   background-position: 16px 48%;
-  color: var(--theme-color);
+  color: $theme-color;
   text-align: left;
 
   &::placeholder {
-    font-family: var(--body-font);
-    color: var(--inactive-color);
+    font-family: $body-font;
+    color: $inactive-color;
     font-size: 15px;
     font-weight: 500;
   }
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 1px var(--border-color);
+    box-shadow: 0 0 0 1px $point-color;
   }
 }
 
 .user-thumnail {
   border-radius: 50%;
-}
-
-.viewer-video {
-  display: block;
-}
-
-.fake {
-  background-color: black;
 }

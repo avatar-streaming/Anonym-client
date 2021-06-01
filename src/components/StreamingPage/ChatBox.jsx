@@ -12,19 +12,19 @@ function ChatBox() {
 
   return (
     <div className="chat-container">
-      <div ref={chatBoxRef} className="chat-box">
+      <div ref={chatBoxRef} className="chat-list">
         {chatList.map((chat, index) => (
-          <div key={index} className="chat-item">
-            <span>{chat.userName}</span>
+          <div key={index} className="chat-list__item">
+            <span className="chat-userName">{chat.userName}</span>
             <span>: {chat.content}</span>
           </div>
         ))}
       </div>
       <div className="chat-form">
-        <form onSubmit={handleSubmit}>
+        <form className="chat-form__form" onSubmit={handleSubmit}>
           <input
             type="text"
-            className="input-text"
+            className="chat-form__input input-text"
             value={inputValue}
             onChange={(e) => {
               updateInputValue(e.target.value);

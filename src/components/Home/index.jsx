@@ -13,23 +13,24 @@ function Home() {
             <Link
               to={`/streaming/${streaming.streamer._id}`}
               key={streaming._id}
-              className="streaming-box">
-              <div className="streaming-thumnail">
+              className="streaming"
+            >
+              <div className="streaming__top">
                 <img
                   src={streaming.thumnail}
                   alt="streaming thumnail"
-                  className="streaming-thumnail"
+                  className="streaming__thumnail"
                 />
               </div>
-              <div className="streaming-description">
+              <div className="streaming__bottom">
                 <img
                   src={streaming.streamer.thumnail}
-                  alt="user thumnail"
-                  className="streamer-thumnail"
+                  alt="streamer thumnail"
+                  className="streaming__streamer-thumnail"
                 />
-                <div className="description-text">
-                  <div className="streamer-title">{streaming.title}</div>
-                  <div className="streamer-name">{streaming.streamer.userName}</div>
+                <div className="streaming__description">
+                  <div className="streaming__title">{streaming.title}</div>
+                  <div className="streaming__streamer-name">{streaming.streamer.userName}</div>
                 </div>
               </div>
             </Link>

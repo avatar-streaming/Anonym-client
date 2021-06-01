@@ -5,9 +5,14 @@ function Login() {
   const handleLogin = useLogin();
 
   return (
-    <button onClick={() => handleLogin(true)}>
-      Goggle Login
-    </button>
+    <div className="login-container">
+      <div className="login-container__title">
+        Anonym
+      </div>
+      <button className="login-container__login" onClick={() => handleLogin(true)}>
+        Goggle Login
+      </button>
+    </div>
   );
 }
 

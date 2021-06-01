@@ -13,9 +13,9 @@ function TopNav() {
   return (
     <nav className="nav-top">
       <div>
-        <NavLink to="/">Logo</NavLink>
+        <NavLink to="/" className="nav-top__title">Anonym</NavLink>
       </div>
-      <div className="search-bar">
+      <div className="nav-top__search-bar">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -33,7 +33,7 @@ function TopNav() {
         </form>
       </div>
       <div>
-        <NavLink to={`/streaming/${userId}`}>OnAir</NavLink>
+        <NavLink to={`/streaming/${userId}`}>Streaming</NavLink>
         <NavLink to={`/user/${userId}`}>My Page</NavLink>
         <NavLink to="/auth/login" onClick={() => handleLogout(true)}>Logout</NavLink>
       </div>

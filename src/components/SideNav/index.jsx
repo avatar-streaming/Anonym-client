@@ -1,18 +1,19 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import UserCard from "./UserCard";
 
 function SideNav() {
-  const { following } = useSelector((state) => state.auth.userInfo);
+  const { followings } = useSelector((state) => state.auth.userInfo);
 
   return (
     <div className="nav-side">
-      <ul>
+      <div className="nav-side__following-list">
         {
-          following.map((user) => (
-            <li key={user._id}>user</li>
+          followings.map((follwing) => (
+            <UserCard key={follwing._id} userInfo={follwing} />
           ))
         }
-      </ul>
+      </div>
     </div>
   );
 }

@@ -1,11 +1,10 @@
 import React from "react";
-import useCanvas from "../../hooks/useCanvas";
+import useDrawStreaming from "../../hooks/useDrawStreaming";
 import useReceiveStreaming from "../../hooks/useReceiveStreaming";
-import StreamingCanvas from "../../utils/StreamingCanvas";
 
 function Viewer() {
-  const { videoRef, canvasRef, imageRef } = useReceiveStreaming();
-  useCanvas(StreamingCanvas, { canvasRef, imageRef });
+  const { videoRef, detectionRef } = useReceiveStreaming();
+  const canvasRef = useDrawStreaming(detectionRef);
 
   return (
     <>
@@ -13,7 +12,6 @@ function Viewer() {
         <canvas ref={canvasRef} />
       </div>
       <video className="viewer-video" ref={videoRef} autoPlay />
-      <div>title</div>
     </>
   );
 }
