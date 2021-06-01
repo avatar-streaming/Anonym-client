@@ -26,6 +26,7 @@ function Streamer() {
           type="text"
           className="input-text"
           value={streamingTitle}
+          placeholder="title"
           onChange={(e) => {
             setStreamingTitle(e.target.value);
           }}
