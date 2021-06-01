@@ -23,6 +23,28 @@ export const updateUserName = (userName) => async (dispatch, state) => {
   }
 };
 
+export const updateUserThumnail = (userThumnail) => async (dispatch, state) => {
+  try {
+    const userId = state().auth.userInfo._id;
+    const url = urlHelper(`user/userThumnail/${userId}`);
+    const option = defaultOptionHelper("PUT");
+    option.body = JSON.stringify({ userThumnail });
+
+    const response = await fetch(url, option);
+    const result = await response.json();
+
+    dispatch({
+      type: actionTypes.UPDATE_USER_THUMNAIL_SUCCESS,
+      payload: result.payload,
+    });
+  } catch (err) {
+    dispatch({
+      type: actionTypes.UPDATE_USER_THUMNAIL_FAIL,
+      payload: err,
+    });
+  }
+}
+
 export const searchUsers = (searchTerm) => async (dispatch) => {
   try {
     const url = urlHelper(`search/${searchTerm}`);

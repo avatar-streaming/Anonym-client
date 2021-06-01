@@ -13,6 +13,7 @@ function UserDetail() {
   const {
     newThumnail,
     updateNewThumnail,
+    isUpdateUserThumnail
   } = useUpdateUserThumnail();
 
   return (
@@ -36,6 +37,7 @@ function UserDetail() {
           <button
             onClick={(e) => {
               e.preventDefault();
+              isUpdateUserThumnail(true);
             }}
             disabled={
               newThumnail ? false : true
