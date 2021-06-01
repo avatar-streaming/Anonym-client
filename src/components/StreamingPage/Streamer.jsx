@@ -30,9 +30,14 @@ function Streamer() {
             setStreamingTitle(e.target.value);
           }}
         />
-        <button onClick={() => {
-          toggleOnOff();
-        }}>
+        <button
+          onClick={() => {
+            toggleOnOff();
+          }}
+          disabled={
+            streamingTitle.length ? false : true
+          }
+        >
           {isOn ? "STOP STREAM" : "START STREAM"}
         </button>
       </div>

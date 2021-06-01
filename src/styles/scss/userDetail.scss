@@ -5,6 +5,10 @@
 
   .user-thumnail {
     margin: 10px;
+
+    &__input {
+      cursor: pointer;
+    }
   }
 
   .input-text {

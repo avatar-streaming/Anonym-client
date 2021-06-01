@@ -1,12 +1,19 @@
 import React from "react";
-import useUserName from "../../hooks/useUserName";
 import useUpdateUserName from "../../hooks/useUpdateUserName";
 import { useSelector } from "react-redux";
+import useUpdateUserThumnail from "../../hooks/useUpdateUserThumnail";
 
 function UserDetail() {
-  const [userName, updateUserName] = useUserName();
-  const isUpdateUserName = useUpdateUserName(userName);
-  const { thumnail } = useSelector((state) => state.auth.userInfo);
+  const { userName, thumnail } = useSelector((state) => state.auth.userInfo);
+  const {
+    newName,
+    updateNewName,
+    isUpdateUserName
+  } = useUpdateUserName(userName);
+  const {
+    newThumnail,
+    updateNewThumnail,
+  } = useUpdateUserThumnail();
 
   return (
     <div className="content-wrapper profile">
@@ -17,8 +24,25 @@ function UserDetail() {
         <h4>User Thumnail</h4>
         <img className="user-thumnail" src={thumnail} alt="user thumnail" />
         <form>
-          <input type="file" accept="image/*" />
-          <button>save</button>
+          <input
+            type="file"
+            accept="image/*"
+            value={newThumnail}
+            className="user-thumnail__input"
+            onChange={(e) => {
+              updateNewThumnail(e.target.value);
+            }}
+            />
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+            disabled={
+              newThumnail ? false : true
+            }
+          >
+            save
+          </button>
         </form>
       </div>
       <div>
@@ -29,15 +53,20 @@ function UserDetail() {
               <input
                 type="text"
                 className="input-text"
-                value={userName}
+                value={newName}
                 onChange={(e) => {
-                  updateUserName(e.target.value.trim());
+                  updateNewName(e.target.value.trim());
                 }}
               />
-              <button onClick={(e) => {
-                e.preventDefault();
-                isUpdateUserName(true);
-              }}>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  isUpdateUserName(true);
+                }}
+                disabled={
+                  userName === newName ? true : false
+                }
+              >
                 save
               </button>
             </form>
