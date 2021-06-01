@@ -10,16 +10,16 @@ function UserCard({ user }) {
 
   return (
     <div className="user-card">
-      <div>
+      <div className="user-card__left">
         <img
-          className="user-thumnail"
+          className="user-card__thumnail user-thumnail"
           src={user.thumnail}
           alt="user thumnail"
         />
       </div>
-      <div className="card-right">
-        <div className="user-description">
-          <div className="user-name">
+      <div className="user-card__right">
+        <div className="user-card__description">
+          <div className="user-card__user-name">
             {user.userName}
           </div>
           <div className="follower-number">

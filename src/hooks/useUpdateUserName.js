@@ -4,16 +4,21 @@ import { updateUserName } from "../actions/userActionCreator";
 
 const useUpdateUserName = (userName) => {
   const [isUpdate, setIsUpdate] = useState(false);
+  const [newName, setNewName] = useState(userName);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (isUpdate) {
-      dispatch(updateUserName(userName));
+      dispatch(updateUserName(newName));
       setIsUpdate(false);
     }
-  }, [isUpdate, dispatch, userName]);
+  }, [isUpdate, dispatch, newName]);
 
-  return setIsUpdate;
+  return {
+    newName,
+    updateNewName: setNewName,
+    isUpdateUserName: setIsUpdate,
+  };
 };
 
 export default useUpdateUserName;

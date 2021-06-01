@@ -13,15 +13,15 @@ function Streamer() {
   useSendStreaming(isOn, videoRef, detectionRef);
 
   return (
-    <>
-      <div className="canvas-container streamer-page">
-        <div id='main'>
-          <video ref={videoRef} playsInline />
-          <canvas ref={outputRef} className="camera-canvas" />
+    <div className="streamer-page">
+      <div className="canvas-container">
+        <div className="output">
+          <video ref={videoRef} className="output__video" playsInline />
+          <canvas ref={outputRef} className="output__canvas" />
         </div>
         <canvas ref={avatarRef} className="illustration-canvas" />
       </div>
-      <div className="streaming-state">
+      <div className="streamer-page__streaming-state">
         <input
           type="text"
           className="input-text"
@@ -30,13 +30,18 @@ function Streamer() {
             setStreamingTitle(e.target.value);
           }}
         />
-        <button onClick={() => {
-          toggleOnOff();
-        }}>
+        <button
+          onClick={() => {
+            toggleOnOff();
+          }}
+          disabled={
+            streamingTitle.length ? false : true
+          }
+        >
           {isOn ? "STOP STREAM" : "START STREAM"}
         </button>
       </div>
-    </>
+    </div>
   );
 }
 
