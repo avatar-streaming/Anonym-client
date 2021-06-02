@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import PoseDetector from "../poseAnimator/poseDetector";
 
-const useMotionAnimator = () => {
+const usePoseDetector = () => {
   const avatarRef = useRef(null);
   const outputRef = useRef(null);
   const videoRef = useRef(null);
@@ -18,4 +18,4 @@ const useMotionAnimator = () => {
   return { avatarRef, outputRef, videoRef, detectionRef };
 };
 
-export default useMotionAnimator;
+export default usePoseDetector;

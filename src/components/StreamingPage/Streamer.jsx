@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import useMotionAnimator from "../../hooks/useMotionAnimator";
+import usePoseDetector from "../../hooks/usePoseDetector";
+import useSendStreaming from "../../hooks/useSendStreaming";
 import useToggleOnOff from "../../hooks/useToggleOnOff";
 import useToggleStreaming from "../../hooks/useToggleStreaming";
-import useSendStreaming from "../../hooks/useSendStreaming";
 
 function Streamer() {
   const [streamingTitle, setStreamingTitle] = useState("");
   const { isOn, toggleOnOff } = useToggleOnOff();
-  const { avatarRef, outputRef, videoRef, detectionRef } = useMotionAnimator();
+  const { avatarRef, outputRef, videoRef, detectionRef } = usePoseDetector();
 
   useToggleStreaming(isOn, streamingTitle, avatarRef);
   useSendStreaming(isOn, videoRef, detectionRef);
