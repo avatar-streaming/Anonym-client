@@ -33,6 +33,10 @@ export class SVGUtils {
     });
   }
 
+  static exportSVG(target) {
+    return target.exportSVG().outerHTML;
+  }
+
   static drawEllipse(p, va, vb, ctrlDA, ctrlDB, scope, options) {
     const va1 = va.multiply(-1);
     const vb1 = vb.multiply(-1);

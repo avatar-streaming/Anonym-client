@@ -4,7 +4,7 @@ import * as tf from "@tensorflow/tfjs";
 import PoseAnimator from "./poseAnimator";
 
 class PoseDetector {
-  constructor(avatarCanvasRef, outputCanvasRef, videoRef, detectionRef) {
+  constructor(avatarCanvasRef, outputCanvasRef, videoRef) {
     this.outputCanvas = outputCanvasRef.current;
     this.ctx = this.outputCanvas.getContext("2d");
 
@@ -14,7 +14,6 @@ class PoseDetector {
 
     this.facemesh = null;
     this.posenet = null;
-    this.detection = detectionRef.current;
 
     this.minPartConfidence = 0.1;
     this.nmsRadius = 30.0;
@@ -102,8 +101,6 @@ class PoseDetector {
       scoreThreshold: this.minPartConfidence,
       nmsRadius: this.nmsRadius,
     });
-    this.detection.face = this.faceDetection;
-    this.detection.pose = this.poseDetection;
 
     input.dispose();
     this.poseAnimator.draw(this.faceDetection, this.poseDetection);

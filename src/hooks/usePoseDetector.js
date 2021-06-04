@@ -5,17 +5,16 @@ const usePoseDetector = () => {
   const avatarRef = useRef(null);
   const outputRef = useRef(null);
   const videoRef = useRef(null);
-  const detectionRef = useRef({});
 
   useEffect(() => {
-    new PoseDetector(avatarRef, outputRef, videoRef, detectionRef);
+    new PoseDetector(avatarRef, outputRef, videoRef);
 
     return () => {
       window.location.reload();
     };
   }, []);
 
-  return { avatarRef, outputRef, videoRef, detectionRef };
+  return { avatarRef, outputRef, videoRef };
 };
 
 export default usePoseDetector;

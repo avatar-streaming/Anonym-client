@@ -46,6 +46,7 @@ class PoseAnimator {
       "blathers": blathersSVG,
       "tom-nook": tomNookSVG,
     };
+    this.exportedSVG = null;
 
     window.addEventListener("resize", this.resize.bind(this), false);
     this.animate();
@@ -98,6 +99,8 @@ class PoseAnimator {
       this.canvasHeight / this.videoHeight,
       new this.canvasScope.Point(0, 0)
     );
+
+    this.exportedSVG = SVGUtils.exportSVG(this.canvasScope.project);
   }
 }
 

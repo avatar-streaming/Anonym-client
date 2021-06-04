@@ -5,12 +5,13 @@ import { leaveStreaming, receiveStreaming } from "../api/webRTC";
 
 const useReceiveStreaming = () => {
   const [stream, setStream] = useState(null);
-  const detectionRef = useRef(null);
+  const canvasRef = useRef(null);
+  const imageRef = useRef(null);
   const videoRef = useRef(null);
   const { id } = useParams();
 
   useEffect(() => {
-    receiveStreaming(setStream, detectionRef);
+    receiveStreaming(setStream, imageRef);
     joinStreaming(socket.id, id);
 
     return () => {
@@ -25,7 +26,7 @@ const useReceiveStreaming = () => {
     }
   }, [stream]);
 
-  return { videoRef, detectionRef };
+  return { canvasRef, videoRef, imageRef };
 };
 
 export default useReceiveStreaming;

@@ -7,10 +7,10 @@ import useToggleStreaming from "../../hooks/useToggleStreaming";
 function Streamer() {
   const [streamingTitle, setStreamingTitle] = useState("");
   const { isOn, toggleOnOff } = useToggleOnOff();
-  const { avatarRef, outputRef, videoRef, detectionRef } = usePoseDetector();
+  const { avatarRef, outputRef, videoRef } = usePoseDetector();
 
   useToggleStreaming(isOn, streamingTitle, avatarRef);
-  useSendStreaming(isOn, videoRef, detectionRef);
+  useSendStreaming(isOn, videoRef, avatarRef);
 
   return (
     <div className="streamer-page">
@@ -19,7 +19,9 @@ function Streamer() {
           <video ref={videoRef} className="output__video" playsInline />
           <canvas ref={outputRef} className="output__canvas" />
         </div>
-        <canvas ref={avatarRef} className="illustration-canvas" />
+        <div>
+          <canvas ref={avatarRef} id="avatar-canvas" className="illustration-canvas" />
+        </div>
       </div>
       <div className="streamer-page__streaming-state">
         <input
