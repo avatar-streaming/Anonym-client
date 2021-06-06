@@ -1,6 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
+import { useSelector } from "react-redux";
 import ErrorPage from "../ErrorPage";
 import Home from "../Home";
 import Login from "../Login";
