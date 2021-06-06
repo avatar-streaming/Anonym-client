@@ -14,7 +14,7 @@ const peer = {
   intervalIDs: {},
 };
 
-const createSenderPeerConnection = (localStream, avatarRef) => {
+const createSenderPeerConnection = (localStream, characterRef) => {
   const pc = new RTCPeerConnection(pc_config);
 
   pc.onicecandidate = (event) => {
@@ -36,9 +36,9 @@ const createSenderPeerConnection = (localStream, avatarRef) => {
 
   dc.onopen = () => {
     peer.intervalIDs[socket.id] = setInterval(() => {
-      const imageUri = avatarRef.current.toDataURL("image/png");
+      const sgvSrc = characterRef.current;
 
-      dc.send(imageUri);
+      dc.send(sgvSrc);
     }, 100);
   };
   dc.onclose = () => {
@@ -67,7 +67,7 @@ const createSenderOffer = async (roomID) => {
   }
 };
 
-const createReceiverPeerConnection = (viewerID, setStream, imageRef) => {
+const createReceiverPeerConnection = (viewerID, setStream, streamingRef) => {
   const pc = new RTCPeerConnection(pc_config);
   peer.receivePCs[viewerID] = pc;
 
@@ -91,14 +91,19 @@ const createReceiverPeerConnection = (viewerID, setStream, imageRef) => {
   dc.onopen = () => {
     peer.intervalIDs[socket.id] = setInterval(() => {
       dc.send("get image");
-    }, 100);
+    }, 50);
   };
   dc.onclose = () => {
     clearInterval(peer.intervalIDs[socket.id]);
     delete peer.intervalIDs[socket.id];
   };
   dc.onmessage = (event) => {
-    imageRef.current = event.data;
+    let blob = new Blob([event.data], { type: "image/svg+xml" });
+    let url = URL.createObjectURL(blob);
+
+    streamingRef.current.src = url;
+    blob = null;
+    url = null;
   };
 
   return pc;
@@ -122,19 +127,19 @@ const createReceiverOffer = async (pc, roomID, viewerID) => {
   }
 };
 
-const createReceivePC = (roomID, viewerID, setStream, imageRef) => {
+const createReceivePC = (roomID, viewerID, setStream, streamingRef) => {
   try {
-    const pc = createReceiverPeerConnection(viewerID, setStream, imageRef);
+    const pc = createReceiverPeerConnection(viewerID, setStream, streamingRef);
     createReceiverOffer(pc, roomID, viewerID);
   } catch (err) {
     throw new Error(err);
   }
 };
 
-export const receiveStreaming = (updateStream, imageRef) => {
+export const receiveStreaming = (updateStream, streamingRef) => {
   try {
     socket.on("receive streaming", ({ roomID }) => {
-      createReceivePC(roomID, socket.id, updateStream, imageRef);
+      createReceivePC(roomID, socket.id, updateStream, streamingRef);
     });
   } catch (err) {
     throw new Error(err);
@@ -151,9 +156,9 @@ export const leaveStreaming = (viewerID) => {
   }
 };
 
-export const sendStreaming = (localStream, roomID, avatarRef) => {
+export const sendStreaming = (localStream, roomID, characterRef) => {
   try {
-    peer.sendPC = createSenderPeerConnection(localStream, avatarRef);
+    peer.sendPC = createSenderPeerConnection(localStream, characterRef);
     createSenderOffer(roomID);
   } catch (err) {
     throw new Error(err);

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import usePoseDetector from "../../hooks/usePoseDetector";
-import useSendStreaming from "../../hooks/useSendStreaming";
+import useMotionAnimator from "../../hooks/useMotionAnimator";
 import useToggleOnOff from "../../hooks/useToggleOnOff";
 import useToggleStreaming from "../../hooks/useToggleStreaming";
+import useSendStreaming from "../../hooks/useSendStreaming";
 
 function Streamer() {
   const [streamingTitle, setStreamingTitle] = useState("");
   const { isOn, toggleOnOff } = useToggleOnOff();
-  const { avatarRef, outputRef, videoRef } = usePoseDetector();
+  const { avatarRef, outputRef, videoRef, characterRef } = useMotionAnimator();
 
   useToggleStreaming(isOn, streamingTitle, avatarRef);
-  useSendStreaming(isOn, videoRef, avatarRef);
+  useSendStreaming(isOn, videoRef, characterRef);
 
   return (
     <div className="streamer-page">
@@ -19,9 +19,7 @@ function Streamer() {
           <video ref={videoRef} className="output__video" playsInline />
           <canvas ref={outputRef} className="output__canvas" />
         </div>
-        <div>
-          <canvas ref={avatarRef} id="avatar-canvas" className="illustration-canvas" />
-        </div>
+        <canvas ref={avatarRef} className="illustration-canvas" />
       </div>
       <div className="streamer-page__streaming-state">
         <input

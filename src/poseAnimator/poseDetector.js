@@ -4,7 +4,7 @@ import * as tf from "@tensorflow/tfjs";
 import PoseAnimator from "./poseAnimator";
 
 class PoseDetector {
-  constructor(avatarCanvasRef, outputCanvasRef, videoRef) {
+  constructor(avatarCanvasRef, outputCanvasRef, videoRef, characterRef) {
     this.outputCanvas = outputCanvasRef.current;
     this.ctx = this.outputCanvas.getContext("2d");
 
@@ -23,7 +23,7 @@ class PoseDetector {
     this.defaultStride = 16;
     this.defaultInputResolution = 200;
 
-    this.poseAnimator = new PoseAnimator(avatarCanvasRef, this.videoWidth, this.videoHeight);
+    this.poseAnimator = new PoseAnimator(avatarCanvasRef, this.videoWidth, this.videoHeight, characterRef);
 
     this.setupDetector();
   }
