@@ -43,7 +43,7 @@ export const updateUserThumnail = (thumnail) => async (dispatch, state) => {
       payload: err,
     });
   }
-}
+};
 
 export const searchUsers = (searchTerm) => async (dispatch) => {
   try {
