@@ -92,7 +92,7 @@ export class PoseIllustration {
       });
 
       skinnedPath.segments.forEach(seg => {
-        path.addSegment(seg.point.currentPosition, 
+        path.addSegment(seg.point.currentPosition,
           seg.handleIn ? seg.handleIn.currentPosition.subtract(seg.point.currentPosition) : null,
           seg.handleOut ? seg.handleOut.currentPosition.subtract(seg.point.currentPosition) : null);
       });

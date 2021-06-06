@@ -7,10 +7,10 @@ import useSendStreaming from "../../hooks/useSendStreaming";
 function Streamer() {
   const [streamingTitle, setStreamingTitle] = useState("");
   const { isOn, toggleOnOff } = useToggleOnOff();
-  const { avatarRef, outputRef, videoRef, detectionRef } = useMotionAnimator();
+  const { avatarRef, outputRef, videoRef, characterRef } = useMotionAnimator();
 
   useToggleStreaming(isOn, streamingTitle, avatarRef);
-  useSendStreaming(isOn, videoRef, detectionRef);
+  useSendStreaming(isOn, videoRef, characterRef);
 
   return (
     <div className="streamer-page">

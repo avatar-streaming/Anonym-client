@@ -19,7 +19,6 @@ const auth = (state = initialState, action) => {
       return copiedState;
     case actionTypes.AUTHORIZATION_FAIL:
     case actionTypes.LOG_IN_FAIL:
-    case actionTypes.LOG_OUT_SUCCESS:
       copiedState.isAuthenticated = false;
       copiedState.err = action.payload;
       copiedState.userInfo = null;
@@ -39,6 +38,8 @@ const auth = (state = initialState, action) => {
       copiedState.err = action.payload;
 
       return copiedState;
+    case actionTypes.LOG_OUT_SUCCESS:
+      return initialState;
     default:
       return copiedState;
   }

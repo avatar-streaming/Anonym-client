@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
+import { configureStore } from "@reduxjs/toolkit";
 import App from "./components/App/App";
 import reducer from "./reducer";
 
@@ -14,7 +14,7 @@ if (process.env.NODE_ENV !== "production") {
   middleware.push(logger);
 }
 
-const store = createStore(reducer, applyMiddleware(...middleware));
+const store = configureStore({ reducer, middleware });
 
 ReactDOM.render(
   <Provider store={store}>
