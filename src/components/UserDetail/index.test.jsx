@@ -42,7 +42,7 @@ describe("<UserDetail />", () => {
     expect(component.toJSON()).toMatchSnapshot();
 
     renderer.act(() => {
-      component.root.findByProps({ className : "user-name-button" })
+      component.root.findByProps({ className: "user-name-button" })
         .props.onClick({ preventDefault: jest.fn() });
     });
 

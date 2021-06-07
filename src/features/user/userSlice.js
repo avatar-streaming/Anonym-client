@@ -1,8 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getPayload } from "../../api/server";
+import { defaultOptionHelper, urlHelper } from "../../utils/fetchHelper";
+import { loadingFailed, startLoading } from "../../utils/sliceHelper";
 
 const initialState = {
-  isAuthenticated: false,
   userInfo: null,
+  isLoading: false,
   err: null,
 };
 
@@ -10,30 +13,124 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    updateUserName (state, action) {
-      const payload = action.payload;
-      state.userInfo = payload;
+    updateUserNameStart: startLoading,
+    updateUserThumnailStart: startLoading,
+    followUserStart: startLoading,
+    unfollowUserStart: startLoading,
+    updateUserNameSuccess (state, action) {
+      state.userInfo = action.payload;
+      state.isLoading = false;
+      state.err = null;
     },
-    updateUserThumnail (state, action) {
-      const payload = action.payload;
-      state.userInfo = payload;     
+    updateUserThumnailSuccess (state, action) {
+      state.userInfo = action.payload;
+      state.isLoading = false;
+      state.err = null;
     },
-    followUser (state, action) {
-      const payload = action.payload;
-      state.userInfo = payload;     
+    followUserSuccess (state, action) {
+      state.userInfo = action.payload;
+      state.isLoading = false;
+      state.err = null;
     },
-    unfollowUser (state, action) {
-      const payload = action.payload;
-      state.userInfo = payload;     
+    unfollowUserSuccess (state, action) {
+      state.userInfo = action.payload;
+      state.isLoading = false;
+      state.err = null;
     },
+    updateUserNameFailure: loadingFailed,
+    updateUserThumnailFailure: loadingFailed,
+    followUserFailure: loadingFailed,
+    unfollowUserFailure: loadingFailed,
+    addUserInfo (state, action) {
+      state.userInfo = action.payload;
+      state.isLoading = false;
+      state.err = null;
+    },
+    removeUserInfo (state, action) {
+      state.userInfo = null;
+      state.isLoading = false;
+      state.err = null;
+    }
   },
 });
 
 export const {
-  updateUserName,
-  updateUserThumnail,
-  followUser,
-  unfollowUser,
+  updateUserNameStart,
+  updateUserThumnailStart,
+  followUserStart,
+  unfollowUserStart,
+  updateUserNameSuccess,
+  updateUserThumnailSuccess,
+  followUserSuccess,
+  unfollowUserSuccess,
+  updateUserNameFailure,
+  updateUserThumnailFailure,
+  followUserFailure,
+  unfollowUserFailure,
+  addUserInfo,
+  removeUserInfo,
 } = userSlice.actions;
 
 export default userSlice.reducer;
+
+export const updateUserName = (userName) => async (dispatch, state) => {
+  try {
+    dispatch(updateUserThumnailStart());
+
+    const userId = state().auth.userInfo._id;
+    const url = urlHelper(`user/userName/${userId}`);
+    const option = defaultOptionHelper("PUT");
+    option.body = JSON.stringify({ userName });
+    const { payload } = getPayload(url, option);
+
+    dispatch(updateUserNameSuccess(payload));
+  } catch (err) {
+    dispatch(updateUserThumnailFailure(err.toString()));
+  }
+};
+
+export const updateUserThumnail = (thumnail) => async (dispatch, state) => {
+  try {
+    dispatch(updateUserThumnailStart());
+
+    const userId = state().auth.userInfo._id;
+    const url = urlHelper(`user/userThumnail/${userId}`);
+    const option = defaultOptionHelper("PUT");
+    option.body = JSON.stringify({ thumnail });
+    const { payload } = getPayload(url, option);
+
+    dispatch(updateUserThumnailSuccess(payload));
+  } catch (err) {
+    dispatch(updateUserThumnailFailure(err.toString()));
+  }
+};
+
+export const followUser = (userID, targetID) => async (dispatch) => {
+  try {
+    dispatch(followUserStart());
+
+    const url = urlHelper(`user/follow/${userID}`);
+    const option = defaultOptionHelper("PUT");
+    option.body = JSON.stringify({ targetID });
+    const { payload } = getPayload(url, option);
+
+    dispatch(followUserSuccess(payload));
+  } catch (err) {
+    dispatch(followUserFailure(err.toString()));
+  }
+};
+
+export const unfollowUser = (userID, targetID) => async (dispatch) => {
+  try {
+    dispatch(unfollowUserStart());
+
+    const url = urlHelper(`user/unfollow/${userID}`);
+    const option = defaultOptionHelper("PUT");
+    option.body = JSON.stringify({ targetID });
+    const { payload } = getPayload(url, option);
+
+    dispatch(unfollowUserSuccess(payload));
+  } catch (err) {
+    dispatch(unfollowUserFailure(err.toString()));
+  }
+};

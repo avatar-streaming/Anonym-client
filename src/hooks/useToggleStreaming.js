@@ -1,27 +1,24 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { generateStreaming, removeStreaming } from "../actions/streamingActionCreators";
+import { generateStreaming, removeStreaming } from "../features/streaming/streamingSlice";
 
 const useToggleStreaming = (isOn, streamTitle, avatarRef) => {
-  const dispatch = useDispatch();
-
   useEffect(() => {
     (async () => {
       if (isOn) {
         const streamingThumnail = avatarRef.current.toDataURL("image/png");
 
-        dispatch(generateStreaming(streamTitle.trim(), streamingThumnail));
+        generateStreaming(streamTitle.trim(), streamingThumnail);
       }
 
       if (isOn === false) {
-        dispatch(removeStreaming());
+        removeStreaming();
       }
     })();
 
     return () => {
-      dispatch(removeStreaming());
+      removeStreaming();
     };
-  }, [isOn, avatarRef, dispatch]);
+  }, [isOn, avatarRef]);
 };
 
 export default useToggleStreaming;

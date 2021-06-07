@@ -1,6 +1,6 @@
 import React from "react";
-import useUpdateUserName from "../../hooks/useUpdateUserName";
 import { useSelector } from "react-redux";
+import useUpdateUserName from "../../hooks/useUpdateUserName";
 import useUpdateUserThumnail from "../../hooks/useUpdateUserThumnail";
 
 function UserDetail() {

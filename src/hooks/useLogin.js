@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import firebase from "firebase";
 import firebaseApp from "../api/firebaseAPI";
-import { userLogin } from "../actions/authActionCreators";
+import { userLogin, userLoginFailure } from "../features/auth/authSlice";
 
 const useLogin = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -19,10 +19,9 @@ const useLogin = () => {
         const loginData = await firebaseApp.auth().signInWithPopup(provider);
         const { uid, email, displayName, photoURL } = loginData.user;
 
-        dispatch(userLogin({ uid, email, displayName, photoURL }));
+        userLogin({ uid, email, displayName, photoURL });
       } catch (err) {
-        throw new Error(err);
-        // need to modify err handling
+        dispatch(userLoginFailure(err.toString()));
       }
     })();
   }, [isLogin, dispatch]);

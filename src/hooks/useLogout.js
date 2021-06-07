@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { userLogout } from "../actions/authActionCreators";
+import { userLogout } from "../features/auth/authSlice";
 
 const useLogout = () => {
   const [isLogout, setIsLogout] = useState(false);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isLogout) {
-      dispatch(userLogout());
+      userLogout();
     }
-  }, [isLogout, dispatch]);
+  }, [isLogout]);
 
   return setIsLogout;
 };
