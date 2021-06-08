@@ -7,7 +7,7 @@ const useUpdateUserThumnail = () => {
   const imageInputRef = useRef(null);
 
   useEffect(() => {
-    if (isUpdate) {
+    if (isUpdate && imageInputRef.current) {
       const reader = new FileReader();
 
       reader.readAsDataURL(imageInputRef.current.files[0]);

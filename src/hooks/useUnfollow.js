@@ -4,7 +4,7 @@ import { unfollowUser } from "../features/user/userSlice";
 
 const useUnfollow = () => {
   const [targetID, setTargetID] = useState(null);
-  const { _id: userID } = useSelector((state) => state.auth.userInfo);
+  const { _id: userID } = useSelector((state) => state.user.userInfo);
 
   useEffect(() => {
     if (targetID && userID !== targetID) {

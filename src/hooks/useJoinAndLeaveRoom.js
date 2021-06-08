@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import { joinRoom, leaveRoom } from "../api/socket";
 
 const useJoinAndLeaveRoom = () => {
-  const { _id: userId } = useSelector((state) => state.auth.userInfo);
+  const { _id: userId } = useSelector((state) => state.user.userInfo);
   const { id } = useParams();
 
   useEffect(() => {

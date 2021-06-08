@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const useCheckFollow = (targetID) => {
-  const { followings } = useSelector((state) => state.auth.userInfo);
+  const { followings } = useSelector((state) => state.user.userInfo);
   const [isFollow, setIsFollow] = useState(false);
 
   useEffect(() => {

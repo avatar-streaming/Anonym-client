@@ -4,17 +4,17 @@ import useUpdateUserName from "../../hooks/useUpdateUserName";
 import useUpdateUserThumnail from "../../hooks/useUpdateUserThumnail";
 
 function UserDetail() {
-  const { userName, thumnail } = useSelector((state) => state.auth.userInfo);
+  const { userName, thumnail } = useSelector((state) => state.user.userInfo);
   const {
     newName,
     updateNewName,
-    isUpdateUserName
+    isUpdateUserName,
   } = useUpdateUserName(userName);
   const {
     newThumnail,
     updateNewThumnail,
     imageInputRef,
-    isUpdateUserThumnail
+    isUpdateUserThumnail,
   } = useUpdateUserThumnail();
 
   return (
@@ -37,6 +37,7 @@ function UserDetail() {
             ref={imageInputRef}
           />
           <button
+            data-testid = "thumnail"
             onClick={(e) => {
               e.preventDefault();
               isUpdateUserThumnail(true);
@@ -63,6 +64,7 @@ function UserDetail() {
                 }}
               />
               <button
+                data-testid="name"
                 onClick={(e) => {
                   e.preventDefault();
                   isUpdateUserName(true);
