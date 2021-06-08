@@ -1,13 +1,13 @@
 import React from "react";
-import { shallow } from "enzyme";
 import UserCard from "./UserCard";
+import { shallow } from "enzyme";
 
 describe("<UserCard />", () => {
   const context = {
     thumnail: "mock thumnail",
     userName: "mock userName",
   };
-  const component = shallow(<UserCard userInfo={context} />);
+  const component = shallow(<UserCard user={context} />);
 
   it("should render context", () => {
     const img = component.find(".user-thumnail");
