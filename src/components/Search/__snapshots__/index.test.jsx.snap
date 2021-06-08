@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Search /> should render with given state from redux store 1`] = `
+<div
+  className="content-wrapper"
+>
+  <div>
+    <div
+      className="user-card"
+    >
+      <div
+        className="user-card__left"
+      >
+        <img
+          alt="user thumnail"
+          className="user-card__thumnail user-thumnail"
+          src="thumnail 1"
+        />
+      </div>
+      <div
+        className="user-card__right"
+      >
+        <div
+          className="user-card__description"
+        >
+          <div
+            className="user-card__user-name"
+          >
+            user 1
+          </div>
+          <div
+            className="follower-number"
+          >
+            0
+             followers
+          </div>
+        </div>
+        <div
+          className="follow-button-box"
+        >
+          <button
+            className="follow-button"
+            onClick={[Function]}
+          >
+            follow
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="user-card"
+    >
+      <div
+        className="user-card__left"
+      >
+        <img
+          alt="user thumnail"
+          className="user-card__thumnail user-thumnail"
+          src="thumnail 2"
+        />
+      </div>
+      <div
+        className="user-card__right"
+      >
+        <div
+          className="user-card__description"
+        >
+          <div
+            className="user-card__user-name"
+          >
+            user 2
+          </div>
+          <div
+            className="follower-number"
+          >
+            0
+             followers
+          </div>
+        </div>
+        <div
+          className="follow-button-box"
+        >
+          <button
+            className="follow-button"
+            onClick={[Function]}
+          >
+            follow
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
