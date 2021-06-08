@@ -9,7 +9,7 @@ const useUpdateUserThumnail = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isUpdate) {
+    if (isUpdate && imageInputRef.current) {
       const reader = new FileReader();
 
       reader.readAsDataURL(imageInputRef.current.files[0]);

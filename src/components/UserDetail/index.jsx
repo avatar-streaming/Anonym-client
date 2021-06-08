@@ -8,13 +8,13 @@ function UserDetail() {
   const {
     newName,
     updateNewName,
-    isUpdateUserName
+    isUpdateUserName,
   } = useUpdateUserName(userName);
   const {
     newThumnail,
     updateNewThumnail,
     imageInputRef,
-    isUpdateUserThumnail
+    isUpdateUserThumnail,
   } = useUpdateUserThumnail();
 
   return (
@@ -37,6 +37,7 @@ function UserDetail() {
             ref={imageInputRef}
           />
           <button
+            data-testid = "thumnail"
             onClick={(e) => {
               e.preventDefault();
               isUpdateUserThumnail(true);
@@ -63,6 +64,7 @@ function UserDetail() {
                 }}
               />
               <button
+                data-testid="name"
                 onClick={(e) => {
                   e.preventDefault();
                   isUpdateUserName(true);
