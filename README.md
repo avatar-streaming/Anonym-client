@@ -12,7 +12,6 @@ Github Repositories : [**https://github.com/avatar-streaming**](https://github.c
 </br>
 
 ## 프로젝트 동기
----
 최근 늘어가는 스트리밍에 대한 관심과 수요와 함께\
 스트리밍을 하면서 익명성을 보장받고 싶은 사람들을 위해\
 실물 대신 캐릭터를 송출하는 스트리밍 서비스를 제공하면\
@@ -21,7 +20,6 @@ Github Repositories : [**https://github.com/avatar-streaming**](https://github.c
 </br>
 
 ## 기술 스택
----
 **[Front-end]**
 
 - React
@@ -43,7 +41,6 @@ Github Repositories : [**https://github.com/avatar-streaming**](https://github.c
 </br>
 
 ## 프로젝트 기간
----
 
 - **기획 :** 2021 / 05 / 03 ~ 2021 / 05 / 09 **(1주간)**
     - **1주차 -**  아이디어 및 기술스택 검토
@@ -55,7 +52,6 @@ Github Repositories : [**https://github.com/avatar-streaming**](https://github.c
 </br>
 
 ## 주요 기능 및 시연 영상
----
 
 [바닐라코딩 부트캠프 9기 최종 프로젝트 Stand-up Event](https://www.youtube.com/watch?v=F8OHnevCS30&t=13148s)
 
@@ -64,7 +60,6 @@ Github Repositories : [**https://github.com/avatar-streaming**](https://github.c
 </br>
 
 ## 기술
----
 
 ### SCSS
 ![cssTrend](README_assets/cssTrend.png)
@@ -92,7 +87,6 @@ Component interaction이 활발할수록 자주 렌더링 될 것입니다.
 </br>
 
 ### WebRTC
----
 이번 프로젝트는 실시간성이 중요한 스트리밍 서비스이기 때문에\
 `WebRTC`를 통해 스트리밍을 구현하기로 했습니다.
 
@@ -112,7 +106,6 @@ Signaling을 제외하면 통신을 위해 서버를 경유할 필요가 없어�
 </br>
 
 ## History
----
 ### - dataChannel 용량 제한 -
 ![dataChannel Error](README_assets/dataChannelError.png)
 
@@ -151,7 +144,6 @@ https://github.com/node-webrtc/node-webrtc/issues/698
 
 
 ## 프로젝트 소감
----
 팀 프로젝트 때와 달리 서비스의 모든 부분은 혼자서 구현하고자 하니 
 많은 작업량과 시간에 대한 압박이 있었습니다.\
 그와 더불어 짧은 시간 내에 완성시켜야 했기에 팀으로 했을 때보다 디테일을 신경 쓰기 어려운 부분이 있었습니다.
