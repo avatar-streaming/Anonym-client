@@ -1,5 +1,5 @@
 # Anonym
-![loginPage](README_assets/loginPage.png)
+![loginPage](public/assets/README_assets/loginPage.png)
 
 Anonym은 유저의 실물 대신 캐릭터를 송출하는 스트리밍 서비스입니다.
 
@@ -62,7 +62,7 @@ Github Repositories : [**https://github.com/avatar-streaming**](https://github.c
 ## 기술
 
 ### SCSS
-![cssTrend](README_assets/cssTrend.png)
+![cssTrend](public/assets/README_assets/cssTrend.png)
 
 
 `The State of CSS 2020`에서 CSS의 트렌드를 확인해 봤습니다.
@@ -107,7 +107,7 @@ Signaling을 제외하면 통신을 위해 서버를 경유할 필요가 없어�
 
 ## History
 ### - dataChannel 용량 제한 -
-![dataChannel Error](README_assets/dataChannelError.png)
+![dataChannel Error](public/assets/README_assets/dataChannelError.png)
 
 `webRTC`의 `dataChannel`을 통해 데이터를 전송할 때는 `256kb`라는 용량 제한이 존재합니다.
 
@@ -126,7 +126,7 @@ Signaling을 제외하면 통신을 위해 서버를 경유할 필요가 없어�
 https://www.notion.so/WebRTC-DataChannel-1653659ae3544505a80ed356dc7769eb
 
 ### - wrtc m1 이슈 -
-![M1 Error](README_assets/m1Error.png)
+![M1 Error](public/assets/README_assets/m1Error.png)
 
 스트리밍의 `SFU` 구조를 구현하기 위해서 `server` 쪽에 `peer`를 만들어야 했기 때문에\
 `server`에서 `webRTC`를 사용할 수 있게 해주는 `wrtc`라는 라이브러리를 사용했습니다.\
