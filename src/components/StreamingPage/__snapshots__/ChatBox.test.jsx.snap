@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ChatBox /> should render with given state from redux store 1`] = `
+<div
+  className="chat-container"
+>
+  <div
+    className="chat-list"
+    data-testid="chat-container"
+  />
+  <div
+    className="chat-form"
+  >
+    <form
+      className="chat-form__form"
+      onSubmit={[Function]}
+    >
+      <input
+        className="chat-form__input input-text"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+      <button>
+        Chat
+      </button>
+    </form>
+  </div>
+</div>
+`;
