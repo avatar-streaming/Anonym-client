@@ -1,6 +1,6 @@
 import React from "react";
-import useSearchUsers from "../../hooks/useSearchUsers";
 import UserCard from "./UserCard";
+import useSearchUsers from "../../hooks/useSearchUsers";
 
 function Search() {
   const userList = useSearchUsers();

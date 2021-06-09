@@ -7,7 +7,7 @@ const useChatting = () => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [chatList, setChatList] = useState([]);
   const chatBoxRef = useRef(null);
-  const { userName } = useSelector((state) => state.auth.userInfo);
+  const { userName } = useSelector((state) => state.user.userInfo);
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmit(true);
@@ -43,7 +43,9 @@ const useChatting = () => {
   useEffect(() => {
     const chatBox = chatBoxRef.current;
 
-    chatBox.scrollTop = chatBox.scrollHeight - chatBox.clientHeight;
+    if (chatBox) {
+      chatBox.scrollTop = chatBox.scrollHeight - chatBox.clientHeight;
+    }
   }, [chatList]);
 
   return {

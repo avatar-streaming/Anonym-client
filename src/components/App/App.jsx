@@ -10,7 +10,6 @@ import StreamingPage from "../StreamingPage";
 import TopNav from "../TopNav";
 import UserDetail from "../UserDetail";
 import useAuthCheck from "../../hooks/useAuthCheck";
-import "../../styles/index";
 
 function App() {
   const { isAuthenticated } = useSelector(state => state.auth);

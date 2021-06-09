@@ -1,93 +1,135 @@
-import user, {
-  updateUserName,
-  updateUserThumnail,
-  followUser,
-  unfollowUser,
+import userSlice, {
+  updateUserNameSuccess,
+  updateUserThumnailSuccess,
+  followUserSuccess,
+  unfollowUserSuccess,
+  addUserInfo,
+  removeUserInfo,
 } from "./userSlice";
 
 const initialState = {
-  isAuthenticated: false,
   userInfo: null,
+  isLoading: false,
   err: null,
 };
 
 describe("user reducer", () => {
   it("should handle initial state", () => {
-    expect(user(undefined, {})).toEqual(initialState);
+    expect(userSlice(undefined, {})).toEqual(initialState);
   });
 
   it("should handle UPDATE_USER_NAME", () => {
     expect(
-      user(initialState, {
-        type: updateUserName.type,
+      userSlice(initialState, {
+        type: updateUserNameSuccess.type,
         payload: {
           text: "Run the tests",
-          id: 0
+          id: 0,
         }
       })
     ).toEqual({
-      isAuthenticated: false,
       userInfo: {
         text: "Run the tests",
-        id: 0
+        id: 0,
       },
+      isLoading: false,
       err: null,
     });
   });
 
   it("should handle UPDATE_USER_THUMNAIL", () => {
     expect(
-      user(initialState, {
-        type: updateUserThumnail.type,
+      userSlice(initialState, {
+        type: updateUserThumnailSuccess.type,
         payload: {
           text: "Run the tests",
-          id: 1
+          id: 1,
         }
       })
     ).toEqual({
-      isAuthenticated: false,
       userInfo: {
         text: "Run the tests",
-        id: 1
+        id: 1,
       },
+      isLoading: false,
       err: null,
     });
   });
 
   it("should handle FOLLOW_USER", () => {
     expect(
-      user(initialState, {
-        type: followUser.type,
+      userSlice(initialState, {
+        type: followUserSuccess.type,
         payload: {
           text: "Run the tests",
-          id: 2
+          id: 2,
         }
       })
     ).toEqual({
-      isAuthenticated: false,
       userInfo: {
         text: "Run the tests",
-        id: 2
+        id: 2,
       },
+      isLoading: false,
       err: null,
     });
   });
 
   it("should handle UNFOLLOW_USER", () => {
     expect(
-      user(initialState, {
-        type: unfollowUser.type,
+      userSlice(initialState, {
+        type: unfollowUserSuccess.type,
         payload: {
           text: "Run the tests",
-          id: 3
+          id: 3,
         }
       })
     ).toEqual({
-      isAuthenticated: false,
       userInfo: {
         text: "Run the tests",
-        id: 3
+        id: 3,
       },
+      isLoading: false,
+      err: null,
+    });
+  });
+
+  it("should handle ADD_USER_INFO", () => {
+    expect(
+      userSlice(initialState, {
+        type: addUserInfo.type,
+        payload: {
+          text: "Run the tests",
+          id: 4,
+        }
+      })
+    ).toEqual({
+      userInfo: {
+        text: "Run the tests",
+        id: 4,
+      },
+      isLoading: false,
+      err: null,
+    });
+  });
+
+  it("should handle REMOVE_USER_INFO", () => {
+    const mockState = {
+      userInfo: {
+        text: "Run the tests",
+        id: 5,
+      },
+      isLoading: false,
+      err: null,
+    };
+
+    expect(
+      userSlice(mockState, {
+        type: removeUserInfo.type,
+      })
+    ).toEqual({
+      userInfo: null,
+      isLoading: false,
       err: null,
     });
   });

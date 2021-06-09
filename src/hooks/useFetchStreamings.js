@@ -1,14 +1,13 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchStreamings } from "../actions/streamingActionCreators";
+import { useSelector } from "react-redux";
+import { fetchStreamings } from "../features/streaming/streamingSlice";
 
 const useFetchStreamings = () => {
-  const dispatch = useDispatch();
   const { streamings } = useSelector((state) => state.streaming);
 
   useEffect(() => {
-    dispatch(fetchStreamings());
-  }, [dispatch]);
+    fetchStreamings();
+  }, []);
 
   return streamings;
 };
