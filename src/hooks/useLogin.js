@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import firebase from "firebase";
 import firebaseApp from "../api/firebaseAPI";
 import { userLogin, userLoginFailure } from "../features/auth/authSlice";
@@ -24,10 +23,10 @@ const useLogin = () => {
 
         dispatch(userLogin({ uid, email, displayName, photoURL }));
       } catch (err) {
-        dispatch(userLoginFailure(err.toString()));
+        userLoginFailure(err.toString());
       }
     })();
-  }, [isLogin, dispatch]);
+  }, [isLogin]);
 
   return handleClick;
 };
