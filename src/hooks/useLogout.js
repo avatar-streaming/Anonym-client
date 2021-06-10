@@ -13,7 +13,7 @@ const useLogout = () => {
     if (isLogout) {
       dispatch(userLogout());
     }
-  }, [isLogout]);
+  }, [isLogout, dispatch]);
 
   return handleClick;
 };

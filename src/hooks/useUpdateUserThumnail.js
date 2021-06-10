@@ -18,7 +18,7 @@ const useUpdateUserThumnail = () => {
         setIsUpdate(false);
       };
     }
-  }, [isUpdate, imageInputRef]);
+  }, [isUpdate, imageInputRef, dispatch]);
 
   return {
     newThumnail,
