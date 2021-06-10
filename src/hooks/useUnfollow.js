@@ -12,7 +12,7 @@ const useUnfollow = () => {
       dispatch(unfollowUser(userID, targetID));
       setTargetID(null);
     }
-  }, [userID, targetID]);
+  }, [userID, targetID, dispatch]);
 
   return setTargetID;
 };

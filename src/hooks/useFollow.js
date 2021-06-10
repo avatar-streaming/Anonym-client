@@ -12,7 +12,7 @@ const useFollow = () => {
       dispatch(followUser(userID, targetID));
       setTargetID(null);
     }
-  }, [userID, targetID]);
+  }, [userID, targetID, dispatch]);
 
   return setTargetID;
 };

@@ -10,7 +10,7 @@ const useSearchUsers = () => {
 
   useEffect(() => {
     dispatch(searchUsers(search));
-  }, [search]);
+  }, [search, dispatch]);
 
   return searchList;
 };

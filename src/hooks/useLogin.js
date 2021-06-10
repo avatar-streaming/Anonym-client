@@ -27,7 +27,7 @@ const useLogin = () => {
         userLoginFailure(err.toString());
       }
     })();
-  }, [isLogin]);
+  }, [isLogin, dispatch]);
 
   return handleClick;
 };

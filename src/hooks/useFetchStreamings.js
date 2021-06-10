@@ -8,7 +8,7 @@ const useFetchStreamings = () => {
 
   useEffect(() => {
     dispatch(fetchStreamings());
-  }, []);
+  }, [dispatch]);
 
   return streamings;
 };

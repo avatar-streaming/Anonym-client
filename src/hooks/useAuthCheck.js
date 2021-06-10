@@ -5,8 +5,8 @@ import Cookies from "universal-cookie";
 import { checkAuthorization } from "../features/auth/authSlice";
 
 const useAuthCheck = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     const cookies = new Cookies();
@@ -19,7 +19,7 @@ const useAuthCheck = () => {
     } else {
       history.push("/auth/login");
     }
-  }, [history]);
+  }, [dispatch, history]);
 };
 
 export default useAuthCheck;

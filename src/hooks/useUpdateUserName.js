@@ -12,7 +12,7 @@ const useUpdateUserName = (userName) => {
       dispatch(updateUserName(newName));
       setIsUpdate(false);
     }
-  }, [isUpdate, newName]);
+  }, [isUpdate, newName, dispatch]);
 
   return {
     newName,
