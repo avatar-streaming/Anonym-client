@@ -60,17 +60,17 @@ export const checkAuthorization = () => async (dispatch) => {
     const url = urlHelper("auth/check");
     const option = defaultOptionHelper("POST");
     option.headers.Authentication = `bearer ${token}`;
-    const { response, payload } = getPayload(url, option);
+    const { response, payload } = await getPayload(url, option);
 
     if (response.ok) {
+      await dispatch(addUserInfo(payload));
       dispatch(checkAuthorizationSuccess());
-      dispatch(addUserInfo(payload));
 
       return;
     }
 
     cookies.remove("jwt");
-    dispatch(checkAuthorizationFailure("Auth Fail"));
+    dispatch(checkAuthorizationFailure("Auth Failed"));
     dispatch(removeUserInfo());
   } catch (err) {
     cookies.remove("jwt");
@@ -85,10 +85,10 @@ export const userLogin = (userInfo) => async (dispatch) => {
     const url = urlHelper("auth/login");
     const option = defaultOptionHelper("POST");
     option.body = JSON.stringify(userInfo);
-    const { payload } = getPayload(url, option);
+    const { payload } = await getPayload(url, option);
 
+    await dispatch(addUserInfo(payload));
     dispatch(userLoginSuccess());
-    dispatch(addUserInfo(payload));
   } catch (err) {
     dispatch(userLoginFailure(err.toString()));
   }
@@ -100,7 +100,7 @@ export const userLogout = () => async (dispatch) => {
 
     const url = urlHelper("auth/logout");
     const option = defaultOptionHelper("GET");
-    const { response } = getPayload(url, option);
+    const { response } = await getPayload(url, option);
 
     if (response.ok) {
       dispatch(userLogoutSuccess());

@@ -6,9 +6,9 @@ import useSearch from "../../hooks/useSearch";
 
 function TopNav() {
   const [searchTerm, setSearchTerm] = useState("");
-  const updateIsSubmit = useSearch(searchTerm);
+  const handleSubmit = useSearch(searchTerm);
   const { _id: userId } = useSelector((state) => state.user.userInfo);
-  const handleLogout = useLogout();
+  const handleClick = useLogout();
 
   return (
     <nav className="nav-top">
@@ -16,18 +16,15 @@ function TopNav() {
         <NavLink to="/" className="nav-top__title">Anonym</NavLink>
       </div>
       <div className="nav-top__search-bar">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            updateIsSubmit(true);
-          }}
-        >
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
             className="input-text"
             value={searchTerm}
             onChange={(e) => {
-              setSearchTerm(e.target.value);
+              if (e.target.value !== "\\") {
+                setSearchTerm(e.target.value);
+              }
             }}
           />
         </form>
@@ -35,7 +32,7 @@ function TopNav() {
       <div>
         <NavLink to={`/streaming/${userId}`}>Streaming</NavLink>
         <NavLink to={`/user/${userId}`}>My Page</NavLink>
-        <NavLink to="/auth/login" onClick={() => handleLogout(true)}>Logout</NavLink>
+        <NavLink to="/auth/login" onClick={handleClick}>Logout</NavLink>
       </div>
     </nav>
   );

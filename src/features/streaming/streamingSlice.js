@@ -56,7 +56,7 @@ export const fetchStreamings = () => async (dispatch) => {
 
     const url = urlHelper();
     const option = defaultOptionHelper("GET");
-    const { payload } = getPayload(url, option);
+    const { payload } = await getPayload(url, option);
 
     dispatch(fetchStreamingsSuccess(payload));
   } catch (err) {
@@ -68,11 +68,11 @@ export const generateStreaming = (streamingTitle, streamingThumnail) => async (d
   try {
     dispatch(generateStreamingStart());
 
-    const streamingId = state().auth.userInfo["_id"];
+    const streamingId = state().user.userInfo["_id"];
     const url = urlHelper(`streaming/${streamingId}`);
     const option = defaultOptionHelper("POST");
     option.body = JSON.stringify({ streamingTitle, streamingThumnail });
-    const { response, payload } = getPayload(url, option);
+    const { response, payload } = await getPayload(url, option);
 
     if (response.ok) {
       dispatch(generateStreamingSuccess(payload));
@@ -88,10 +88,10 @@ export const removeStreaming = () => async (dispatch, state) => {
   try {
     dispatch(removeStreamingStart());
 
-    const streamingId = state().auth.userInfo["_id"];
+    const streamingId = state().user.userInfo["_id"];
     const url = urlHelper(`streaming/${streamingId}`);
     const option = defaultOptionHelper("DELETE");
-    getPayload(url, option);
+    await getPayload(url, option);
 
     dispatch(removeStreamingSuccess());
   } catch (err) {

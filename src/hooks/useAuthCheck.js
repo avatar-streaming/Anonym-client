@@ -1,16 +1,18 @@
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import Cookies from "universal-cookie";
 import { checkAuthorization } from "../features/auth/authSlice";
 
 const useAuthCheck = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const cookies = new Cookies();
     const token = cookies.get("jwt");
 
-    checkAuthorization();
+    dispatch(checkAuthorization());
 
     if (token) {
       history.push("/");
