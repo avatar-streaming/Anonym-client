@@ -12,11 +12,7 @@ function ChatBox() {
 
   return (
     <div className="chat-container">
-      <div
-        ref={chatBoxRef}
-        className="chat-list"
-        data-testid="chat-container"
-      >
+      <div ref={chatBoxRef} className="chat-list">
         {chatList.map((chat, index) => (
           <div key={index} className="chat-list__item">
             <span className="chat-userName">{chat.userName}</span>

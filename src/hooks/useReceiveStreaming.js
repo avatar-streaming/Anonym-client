@@ -10,10 +10,8 @@ const useReceiveStreaming = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    if (streamingRef.current) {
-      receiveStreaming(setStream, streamingRef);
-      joinStreaming(socket.id, id);
-    }
+    receiveStreaming(setStream, streamingRef);
+    joinStreaming(socket.id, id);
 
     return () => {
       leaveStreaming(socket.id);

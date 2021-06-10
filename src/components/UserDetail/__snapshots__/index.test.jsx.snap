@@ -1,38 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<UserDetail /> should render with given state from redux store 1`] = `
+exports[`<UserDetail /> should dispatch an action on button click 1`] = `
 <div
-  className="content-wrapper profile"
+  className="content-wrapper"
 >
   <div>
     <h3
-      className="profile__title"
+      className="profile-title"
     >
       Profile
     </h3>
   </div>
   <div>
     <h4>
-      User Thumnail
+      Profile Picture
     </h4>
     <img
       alt="user thumnail"
       className="user-thumnail"
-      src="mock thumnail 1"
+      src="mock thumnail"
     />
     <form>
       <input
         accept="image/*"
-        className="user-thumnail__input"
-        onChange={[Function]}
         type="file"
-        value=""
       />
-      <button
-        data-testid="thumnail"
-        disabled={true}
-        onClick={[Function]}
-      >
+      <button>
         save
       </button>
     </form>
@@ -40,73 +33,14 @@ exports[`<UserDetail /> should render with given state from redux store 1`] = `
   <div>
     <div>
       <h4>
-        User Name
+        Profile Setting
       </h4>
       <div>
-        <form>
-          <input
-            className="input-text"
-            onChange={[Function]}
-            type="text"
-            value="mock name 1"
-          />
-          <button
-            data-testid="name"
-            disabled={true}
-            onClick={[Function]}
-          >
-            save
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`<UserDetail /> should update user name 1`] = `
-<div
-  className="content-wrapper profile"
->
-  <div>
-    <h3
-      className="profile__title"
-    >
-      Profile
-    </h3>
-  </div>
-  <div>
-    <h4>
-      User Thumnail
-    </h4>
-    <img
-      alt="user thumnail"
-      className="user-thumnail"
-      src="mock thumnail 1"
-    />
-    <form>
-      <input
-        accept="image/*"
-        className="user-thumnail__input"
-        onChange={[Function]}
-        type="file"
-        value=""
-      />
-      <button
-        data-testid="thumnail"
-        disabled={true}
-        onClick={[Function]}
-      >
-        save
-      </button>
-    </form>
-  </div>
-  <div>
-    <div>
-      <h4>
-        User Name
-      </h4>
-      <div>
+        <h5
+          className="sub-title"
+        >
+          Username
+        </h5>
         <form>
           <input
             className="input-text"
@@ -115,8 +49,7 @@ exports[`<UserDetail /> should update user name 1`] = `
             value="mock name 2"
           />
           <button
-            data-testid="name"
-            disabled={false}
+            className="user-name-button"
             onClick={[Function]}
           >
             save
@@ -128,39 +61,32 @@ exports[`<UserDetail /> should update user name 1`] = `
 </div>
 `;
 
-exports[`<UserDetail /> should update user thumnail 1`] = `
+exports[`<UserDetail /> should render with given state from redux store 1`] = `
 <div
-  className="content-wrapper profile"
+  className="content-wrapper"
 >
   <div>
     <h3
-      className="profile__title"
+      className="profile-title"
     >
       Profile
     </h3>
   </div>
   <div>
     <h4>
-      User Thumnail
+      Profile Picture
     </h4>
     <img
       alt="user thumnail"
       className="user-thumnail"
-      src="mock thumnail 1"
+      src="mock thumnail"
     />
     <form>
       <input
         accept="image/*"
-        className="user-thumnail__input"
-        onChange={[Function]}
         type="file"
-        value="mock thumnail 2"
       />
-      <button
-        data-testid="thumnail"
-        disabled={false}
-        onClick={[Function]}
-      >
+      <button>
         save
       </button>
     </form>
@@ -168,9 +94,14 @@ exports[`<UserDetail /> should update user thumnail 1`] = `
   <div>
     <div>
       <h4>
-        User Name
+        Profile Setting
       </h4>
       <div>
+        <h5
+          className="sub-title"
+        >
+          Username
+        </h5>
         <form>
           <input
             className="input-text"
@@ -179,8 +110,7 @@ exports[`<UserDetail /> should update user thumnail 1`] = `
             value="mock name 1"
           />
           <button
-            data-testid="name"
-            disabled={true}
+            className="user-name-button"
             onClick={[Function]}
           >
             save

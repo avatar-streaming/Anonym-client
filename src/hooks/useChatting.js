@@ -43,9 +43,7 @@ const useChatting = () => {
   useEffect(() => {
     const chatBox = chatBoxRef.current;
 
-    if (chatBox) {
-      chatBox.scrollTop = chatBox.scrollHeight - chatBox.clientHeight;
-    }
+    chatBox.scrollTop = chatBox.scrollHeight - chatBox.clientHeight;
   }, [chatList]);
 
   return {

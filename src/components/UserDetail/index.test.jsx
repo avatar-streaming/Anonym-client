@@ -1,9 +1,9 @@
 import React from "react";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-import UserDetail from ".";
-import renderer from "react-test-renderer";
 import configureMockStore from "redux-mock-store";
+import renderer from "react-test-renderer";
+import UserDetail from ".";
 
 describe("<UserDetail />", () => {
   const mockStore = configureMockStore([thunk]);
@@ -12,13 +12,14 @@ describe("<UserDetail />", () => {
 
   beforeEach(() => {
     store = mockStore({
-      user: {
+      auth: {
         userInfo: {
           userName: "mock name 1",
-          thumnail: "mock thumnail 1",
+          thumnail: "mock thumnail",
         },
       },
     });
+
     store.dispatch = jest.fn();
 
     component = renderer.create(
@@ -32,47 +33,19 @@ describe("<UserDetail />", () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it("should update user thumnail", () => {
-    const userThumnailInput = component.root.findByProps({ type: "file" });
-    const userThumnailButton = component.root.findByProps({ "data-testid": "thumnail" });
-
+  it("should dispatch an action on button click", () => {
     renderer.act(() => {
-      userThumnailInput.props.onChange({
-        target: {
-          value: "mock thumnail 2",
-        },
-      });
+      component.root.findByProps({ type: "text" })
+        .props.onChange({ target: { value: "mock name 2 " } });
     });
+
     expect(component.toJSON()).toMatchSnapshot();
 
     renderer.act(() => {
-      userThumnailButton.props.onClick({
-        preventDefault: jest.fn(),
-        isUpdateUserThumnail: store.dispatch(),
-      });
+      component.root.findByProps({ className: "user-name-button" })
+        .props.onClick({ preventDefault: jest.fn() });
     });
-    expect(store.dispatch).toHaveBeenCalledTimes(1);
-  });
 
-  it("should update user name", () => {
-    const userNameInput = component.root.findByProps({ type: "text" });
-    const userNameButton = component.root.findByProps({ "data-testid": "name" });
-
-    renderer.act(() => {
-      userNameInput.props.onChange({
-        target: {
-          value: "mock name 2 ",
-        },
-      });
-    });
-    expect(component.toJSON()).toMatchSnapshot();
-
-    renderer.act(() => {
-      userNameButton.props.onClick({
-        preventDefault: jest.fn(),
-        isUpdateUserName: store.dispatch(),
-      });
-    });
     expect(store.dispatch).toHaveBeenCalledTimes(1);
   });
 });

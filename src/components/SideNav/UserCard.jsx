@@ -1,19 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function UserCard({ user }) {
+function UserCard({ userInfo }) {
   return (
     <div className="following-card">
       <div>
         <img
-          src={user.thumnail}
+          src={userInfo.thumnail}
           className="following-card__thumnail user-thumnail"
           alt="user thumnail"
         />
       </div>
       <div>
         <span className="following-card__user-name">
-          {user.userName}
+          {userInfo.userName}
         </span>
         <span className="following-card__streaming-state">
           Offline

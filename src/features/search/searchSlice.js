@@ -35,7 +35,7 @@ export const searchUsers = (searchTerm) => async (dispatch) => {
 
     const url = urlHelper(`search/${searchTerm}`);
     const option = defaultOptionHelper("GET");
-    const { payload } = getPayload(url, option);
+    const { payload } = await getPayload(url, option);
 
     dispatch(searchUserSuccess(payload));
   } catch (err) {

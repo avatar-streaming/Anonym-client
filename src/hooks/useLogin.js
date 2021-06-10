@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import firebase from "firebase";
 import firebaseApp from "../api/firebaseAPI";
 import { userLogin, userLoginFailure } from "../features/auth/authSlice";
 
 const useLogin = () => {
   const [isLogin, setIsLogin] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!isLogin) {
@@ -17,12 +19,12 @@ const useLogin = () => {
         const loginData = await firebaseApp.auth().signInWithPopup(provider);
         const { uid, email, displayName, photoURL } = loginData.user;
 
-        userLogin({ uid, email, displayName, photoURL });
+        dispatch(userLogin({ uid, email, displayName, photoURL }));
       } catch (err) {
-        userLoginFailure(err.toString());
+        dispatch(userLoginFailure(err.toString()));
       }
     })();
-  }, [isLogin]);
+  }, [isLogin, dispatch]);
 
   return setIsLogin;
 };

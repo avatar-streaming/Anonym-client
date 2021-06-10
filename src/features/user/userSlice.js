@@ -77,11 +77,11 @@ export const updateUserName = (userName) => async (dispatch, state) => {
   try {
     dispatch(updateUserThumnailStart());
 
-    const userId = state().auth.userInfo._id;
+    const userId = state().user.userInfo._id;
     const url = urlHelper(`user/userName/${userId}`);
     const option = defaultOptionHelper("PUT");
     option.body = JSON.stringify({ userName });
-    const { payload } = getPayload(url, option);
+    const { payload } = await getPayload(url, option);
 
     dispatch(updateUserNameSuccess(payload));
   } catch (err) {
@@ -93,11 +93,11 @@ export const updateUserThumnail = (thumnail) => async (dispatch, state) => {
   try {
     dispatch(updateUserThumnailStart());
 
-    const userId = state().auth.userInfo._id;
+    const userId = state().user.userInfo._id;
     const url = urlHelper(`user/userThumnail/${userId}`);
     const option = defaultOptionHelper("PUT");
     option.body = JSON.stringify({ thumnail });
-    const { payload } = getPayload(url, option);
+    const { payload } = await getPayload(url, option);
 
     dispatch(updateUserThumnailSuccess(payload));
   } catch (err) {
@@ -112,7 +112,7 @@ export const followUser = (userID, targetID) => async (dispatch) => {
     const url = urlHelper(`user/follow/${userID}`);
     const option = defaultOptionHelper("PUT");
     option.body = JSON.stringify({ targetID });
-    const { payload } = getPayload(url, option);
+    const { payload } = await getPayload(url, option);
 
     dispatch(followUserSuccess(payload));
   } catch (err) {
@@ -127,7 +127,7 @@ export const unfollowUser = (userID, targetID) => async (dispatch) => {
     const url = urlHelper(`user/unfollow/${userID}`);
     const option = defaultOptionHelper("PUT");
     option.body = JSON.stringify({ targetID });
-    const { payload } = getPayload(url, option);
+    const { payload } = await getPayload(url, option);
 
     dispatch(unfollowUserSuccess(payload));
   } catch (err) {
