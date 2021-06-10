@@ -57,6 +57,25 @@ Github Repositories : [**https://github.com/avatar-streaming**](https://github.c
 
 `3: 39: 10`부터 주요 기능과 프로젝트 플로우에 대한 설명을 보실 수 있습니다.
 
+|                                                              |                                                              |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ![home nothing](public/assets/README_assets/home_nothing.png)
+메인 페이지에서는 현재 진행중인 방송 리스트를 랜덤으로 10개 보여줍니다. | ![streaming ready](public/assets/README_assets/streaming_ready.png)
+
+상단의 `streaming`을 클릭하면 `streaming page`로 이동하고 스트리밍을 위한 준비가 시작됩니다.\
+로딩이 끝나면 캔버스에 캐릭터가 그려지고 `title`을 입력하면 `start stream` 버튼을 클릭하여 streaming을 `on / off` 할 수 있습니다.
+ |
+| ![feature_3](public/assets/README_assets/streaming_now.png)
+
+스트리밍에 참여하면 스트리며의 움직임과 목소리가 전달되며 채팅창을 통해 실시간 채팅이 가능합니다. | ![feature_4](public/assets/README_assets/profile.png)
+
+상단의 `profile`을 클릭하면 사용자의 `thumnail`과 `userName`을 바꿀 수 있습니다. |
+| ![feature_5](public/assets/README_assets/search.png)
+
+상단의 검색창을 통해 유저를 검색할 수 있으며 `follow / unfollow`가 가능합니다. | ![feature_6](./README_assets/feature_6.png)스페이스바 누르면 채팅공간이 생성되고, 다른 유저들에게도 표시되면서 진입시 화상연결이 가능해집니다. |
+
+
+
 </br>
 
 ## 기술

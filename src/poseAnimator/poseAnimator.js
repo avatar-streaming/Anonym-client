@@ -55,8 +55,8 @@ class PoseAnimator {
   }
 
   resize() {
-    this.avatarCanvas.style.width = "none";
-    this.avatarCanvas.style.height = "none";
+    this.avatarCanvas.style.width = null;
+    this.avatarCanvas.style.height = null;
 
     this.canvasWidth = this.avatarCanvas.width / 2;
     this.canvasHeight = this.avatarCanvas.height / 2;
