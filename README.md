@@ -63,8 +63,8 @@ Github Repositories : [**https://github.com/avatar-streaming**](https://github.c
 
 |                                                             |                                                              |
 | ------------------------------------------------------------|------------------------------------------------------------- |
-|![home nothing](public/assets/README_assets/home_nothing.png)메인 페이지에서는 현재 진행중인 방송 리스트를 랜덤으로 10개 보여줍니다.|![streaming ready](public/assets/README_assets/streaming_ready.png)상단의 `streaming`을 클릭하면 `streaming page`로 이동하고 스트리밍을 위한 준비가 시작됩니다. 로딩이 끝나면 캔버스에 캐릭터가 그려지고 `title`을 입력하면 `start stream` 버튼을 클릭하여 streaming을 `on / off` 할 수 있습니다.|
-| ![feature_3](public/assets/README_assets/streaming_now.png)스트리밍에 참여하면 스트리며의 움직임과 목소리가 전달되며 채팅창을 통해 실시간 채팅이 가능합니다.| ![feature_4](public/assets/README_assets/profile.png)상단의 `profile`을 클릭하면 사용자의 `thumnail`과 `userName`을 바꿀 수 있습니다. |
+|![home nothing](public/assets/README_assets/home_nothing.png)메인 페이지에서는 현재 진행 중인 방송 리스트를 랜덤으로 10개 보여줍니다.|![streaming ready](public/assets/README_assets/streaming_ready.png)상단의 `streaming`을 클릭하면 `streaming page`로 이동하고 스트리밍을 위한 준비가 시작됩니다. 로딩이 끝나면 캔버스에 캐릭터가 그려지고 `title`을 입력하면 `start stream` 버튼을 클릭하여 streaming을 `on / off` 할 수 있습니다.|
+| ![feature_3](public/assets/README_assets/streaming_now.png)방송에 참여하면 스트리머의 움직임과 목소리가 전달되며 채팅창을 통해 방송 참가자들과의 실시간 채팅이 가능합니다.| ![feature_4](public/assets/README_assets/profile.png)상단의 `profile`을 클릭하면 사용자의 `thumnail`과 `user name`을 바꿀 수 있습니다. |
 | ![feature_5](public/assets/README_assets/search.png)상단의 검색창을 통해 유저를 검색할 수 있으며 `follow / unfollow`가 가능합니다.
 | |
 
