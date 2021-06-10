@@ -7,6 +7,9 @@ import { userLogin, userLoginFailure } from "../features/auth/authSlice";
 const useLogin = () => {
   const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
+  const handleClick = () => {
+    setIsLogin(true);
+  };
 
   useEffect(() => {
     if (!isLogin) {
@@ -26,7 +29,7 @@ const useLogin = () => {
     })();
   }, [isLogin, dispatch]);
 
-  return setIsLogin;
+  return handleClick;
 };
 
 export default useLogin;
