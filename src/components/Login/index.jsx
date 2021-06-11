@@ -9,7 +9,11 @@ function Login() {
       <div className="login-container__title">
         Anonym
       </div>
-      <button className="login-container__login" onClick={handleClick}>
+      <button
+        className="login-container__login"
+        onClick={handleClick}
+        data-testid="login"
+      >
         Goggle Login
       </button>
     </div>
