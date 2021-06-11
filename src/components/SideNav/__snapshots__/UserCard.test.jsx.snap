@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UserCard /> should render with given state from context 1`] = `
+<div
+  className="following-card"
+>
+  <div>
+    <img
+      alt="user thumnail"
+      className="following-card__thumnail user-thumnail"
+      src="mock thumnail"
+    />
+  </div>
+  <div>
+    <span
+      className="following-card__user-name"
+    >
+      mock userName
+    </span>
+    <span
+      className="following-card__streaming-state"
+    >
+      Offline
+    </span>
+  </div>
+</div>
+`;

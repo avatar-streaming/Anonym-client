@@ -70,7 +70,6 @@ describe("<UserDetail />", () => {
     renderer.act(() => {
       userNameButton.props.onClick({
         preventDefault: jest.fn(),
-        isUpdateUserName: store.dispatch(),
       });
     });
     expect(store.dispatch).toHaveBeenCalledTimes(1);

@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UserCard /> should render with given state from redux store and context 1`] = `
+<div
+  className="user-card"
+>
+  <div
+    className="user-card__left"
+  >
+    <img
+      alt="user thumnail"
+      className="user-card__thumnail user-thumnail"
+      src="mock thumnail"
+    />
+  </div>
+  <div
+    className="user-card__right"
+  >
+    <div
+      className="user-card__description"
+    >
+      <div
+        className="user-card__user-name"
+      >
+        mock userName
+      </div>
+      <div
+        className="follower-number"
+      >
+        2
+         followers
+      </div>
+    </div>
+    <div
+      className="follow-button-box"
+    >
+      <button
+        className="follow-button"
+        onClick={[Function]}
+      >
+        follow
+      </button>
+    </div>
+  </div>
+</div>
+`;
