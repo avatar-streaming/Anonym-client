@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Cookies from "universal-cookie";
 import { getPayload } from "../../api/server";
 import { defaultOptionHelper, urlHelper } from "../../utils/fetchHelper";
 import { loadingFailed, startLoading } from "../../utils/sliceHelper";
@@ -51,15 +50,11 @@ export const {
 export default authSlice.reducer;
 
 export const checkAuthorization = () => async (dispatch) => {
-  const cookies = new Cookies();
-
   try {
     dispatch(checkAuthorizationStart());
 
-    const token = cookies.get("jwt");
     const url = urlHelper("auth/check");
     const option = defaultOptionHelper("POST");
-    option.headers.Authentication = `bearer ${token}`;
     const { response, payload } = await getPayload(url, option);
 
     if (response.ok) {
@@ -69,11 +64,9 @@ export const checkAuthorization = () => async (dispatch) => {
       return;
     }
 
-    cookies.remove("jwt");
     dispatch(checkAuthorizationFailure("Auth Failed"));
     dispatch(removeUserInfo());
   } catch (err) {
-    cookies.remove("jwt");
     dispatch(checkAuthorizationFailure(err.toString()));
   }
 };
