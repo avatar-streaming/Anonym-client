@@ -1,26 +1,24 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import Cookies from "universal-cookie";
 import { checkAuthorization } from "../features/auth/authSlice";
 
 const useAuthCheck = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const cookies = new Cookies();
-  const token = cookies.get("jwt");
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   useEffect(() => {
     (async () => {
-      dispatch(checkAuthorization());
+      await dispatch(checkAuthorization());
 
-      if (token) {
+      if (isAuthenticated) {
         history.push("/");
       } else {
         history.push("/auth/login");
       }
     })();
-  }, [dispatch, history, token]);
+  }, [dispatch, history, isAuthenticated]);
 };
 
 export default useAuthCheck;
