@@ -7,19 +7,20 @@ import { checkAuthorization } from "../features/auth/authSlice";
 const useAuthCheck = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const cookies = new Cookies();
+  const token = cookies.get("jwt");
 
   useEffect(() => {
-    const cookies = new Cookies();
-    const token = cookies.get("jwt");
+    (async () => {
+      dispatch(checkAuthorization());
 
-    dispatch(checkAuthorization());
-
-    if (token) {
-      history.push("/");
-    } else {
-      history.push("/auth/login");
-    }
-  }, [dispatch, history]);
+      if (token) {
+        history.push("/");
+      } else {
+        history.push("/auth/login");
+      }
+    })();
+  }, [dispatch, history, token]);
 };
 
 export default useAuthCheck;

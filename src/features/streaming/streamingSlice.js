@@ -57,7 +57,6 @@ export const fetchStreamings = () => async (dispatch) => {
     const url = urlHelper();
     const option = defaultOptionHelper("GET");
     const { payload } = await getPayload(url, option);
-    console.log(payload)
 
     dispatch(fetchStreamingsSuccess(payload));
   } catch (err) {
