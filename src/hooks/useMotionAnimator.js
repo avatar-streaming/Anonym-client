@@ -11,7 +11,7 @@ const useMotionAnimator = () => {
     new PoseDetector(avatarCanvasRef, avatarSvgRef, outputRef, videoRef);
 
     return () => {
-      console.log(2)
+      console.log(2);
       // window.location.reload();
     };
   }, []);

@@ -97,7 +97,7 @@ const createReceiverPeerConnection = (viewerID, setStream, streamingRef) => {
   };
   dc.onclose = () => {
     clearInterval(peer.intervalIDs[socket.id]);
-    console.log("close!!")
+    console.log("close!!");
     delete peer.intervalIDs[socket.id];
   };
   dc.onmessage = (event) => {
