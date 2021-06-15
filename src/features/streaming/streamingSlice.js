@@ -33,6 +33,8 @@ const streamingSlice = createSlice({
       state.err = null;
     },
     fetchStreamingsFailure: loadingFailed,
+    generateStreamingFailure: loadingFailed,
+    removeStreamingFailure: loadingFailed,
   },
 });
 

@@ -14,7 +14,7 @@ const peer = {
   intervalIDs: {},
 };
 
-const createSenderPeerConnection = (localStream, characterRef) => {
+const createSenderPeerConnection = (localStream, avatarSvgRef) => {
   const pc = new RTCPeerConnection(pc_config);
 
   pc.onicecandidate = (event) => {
@@ -36,7 +36,8 @@ const createSenderPeerConnection = (localStream, characterRef) => {
 
   dc.onopen = () => {
     peer.intervalIDs[socket.id] = setInterval(() => {
-      const sgvSrc = characterRef.current;
+      const sgvSrc = avatarSvgRef.current;
+      console.log("sender dc open");
 
       dc.send(sgvSrc);
     }, 100);
@@ -91,10 +92,12 @@ const createReceiverPeerConnection = (viewerID, setStream, streamingRef) => {
   dc.onopen = () => {
     peer.intervalIDs[socket.id] = setInterval(() => {
       dc.send("get image");
+      console.log("receiver dc open");
     }, 50);
   };
   dc.onclose = () => {
     clearInterval(peer.intervalIDs[socket.id]);
+    console.log("close!!")
     delete peer.intervalIDs[socket.id];
   };
   dc.onmessage = (event) => {
@@ -149,16 +152,23 @@ export const receiveStreaming = (updateStream, streamingRef) => {
 export const leaveStreaming = (viewerID) => {
   try {
     socket.emit("leave streaming", viewerID);
-    peer.receivePCs[viewerID].close();
-    delete peer.receivePCs[viewerID];
+
+    if (peer.receivePCs[viewerID]) {
+      peer.receivePCs[viewerID].close();
+      clearReceiver(viewerID);
+    }
   } catch (err) {
     throw new Error(err);
   }
 };
 
-export const sendStreaming = (localStream, roomID, characterRef) => {
+export const clearReceiver = (viewerID) => {
+  delete peer.receivePCs[viewerID];
+};
+
+export const sendStreaming = (localStream, roomID, avatarSvgRef) => {
   try {
-    peer.sendPC = createSenderPeerConnection(localStream, characterRef);
+    peer.sendPC = createSenderPeerConnection(localStream, avatarSvgRef);
     createSenderOffer(roomID);
   } catch (err) {
     throw new Error(err);
@@ -167,13 +177,19 @@ export const sendStreaming = (localStream, roomID, characterRef) => {
 
 export const endStreaming = (roomID) => {
   try {
-    peer.sendPC.close();
-    delete peer.sendPC;
+    if (peer.sendPC) {
+      peer.sendPC.close();
+      clearSender();
 
-    socket.emit("end streaming", { streamerID: socket.id, roomID });
+      socket.emit("end streaming", { streamerID: socket.id, roomID });
+    }
   } catch (err) {
     throw new Error(err);
   }
+};
+
+export const clearSender = () => {
+  delete peer.sendPC;
 };
 
 socket.on("getSenderCandidate", async ({ candidate }) => {

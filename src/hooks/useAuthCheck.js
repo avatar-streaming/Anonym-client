@@ -9,15 +9,13 @@ const useAuthCheck = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    (async () => {
-      await dispatch(checkAuthorization());
+     dispatch(checkAuthorization());
 
       if (isAuthenticated) {
         history.push("/");
       } else {
         history.push("/auth/login");
       }
-    })();
   }, [dispatch, history, isAuthenticated]);
 };
 
