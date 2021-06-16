@@ -3,8 +3,8 @@ import useCheckFollow from "../../hooks/useCheckFollow";
 import useFollow from "../../hooks/useFollow";
 import useUnfollow from "../../hooks/useUnfollow";
 
-function UserCard({ user }) {
-  const isFollow = useCheckFollow(user._id);
+function UserCard({ _id, thumnail, userName, followers }) {
+  const isFollow = useCheckFollow(_id);
   const followUser = useFollow();
   const unfollowUser = useUnfollow();
 
@@ -13,17 +13,17 @@ function UserCard({ user }) {
       <div className="user-card__left">
         <img
           className="user-card__thumnail user-thumnail"
-          src={user.thumnail}
+          src={thumnail}
           alt="user thumnail"
         />
       </div>
       <div className="user-card__right">
         <div className="user-card__description">
           <div className="user-card__user-name">
-            {user.userName}
+            {userName}
           </div>
           <div className="follower-number">
-            {user.followers.length} followers
+            {followers.length} followers
           </div>
         </div>
         <div className="follow-button-box">
@@ -32,7 +32,7 @@ function UserCard({ user }) {
               <button
                 className="follow-button"
                 onClick={() => {
-                  unfollowUser(user._id);
+                  unfollowUser(_id);
                 }}
               >
                 unfollow
@@ -41,7 +41,7 @@ function UserCard({ user }) {
               <button
                 className="follow-button"
                 onClick={() => {
-                  followUser(user._id);
+                  followUser(_id);
                 }}
               >
                 follow

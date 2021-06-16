@@ -9,7 +9,7 @@ function Search() {
     <div className="content-wrapper">
       <div>
         {userList.map((user) => (
-          <UserCard key={user._id} user={user} />
+          <UserCard key={user._id} {...user} />
         ))}
       </div>
     </div>
