@@ -1,4 +1,3 @@
-import React from "react";
 import useCheckFollow from "../../hooks/useCheckFollow";
 import useFollow from "../../hooks/useFollow";
 import useUnfollow from "../../hooks/useUnfollow";

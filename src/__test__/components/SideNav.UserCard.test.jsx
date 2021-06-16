@@ -1,4 +1,3 @@
-import React from "react";
 import UserCard from "../../components/SideNav/UserCard";
 import renderer from "react-test-renderer";
 
