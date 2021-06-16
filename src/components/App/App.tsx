@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ErrorPage from "../ErrorPage";
@@ -10,9 +9,10 @@ import StreamingPage from "../StreamingPage";
 import TopNav from "../TopNav";
 import UserDetail from "../UserDetail";
 import useAuthCheck from "../../hooks/useAuthCheck";
+import { RootState } from "./rootReducer";
 
 function App() {
-  const { isAuthenticated } = useSelector(state => state.auth);
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   useAuthCheck();
 
   return (

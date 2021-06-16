@@ -4,7 +4,13 @@ import { defaultOptionHelper, urlHelper } from "../../utils/fetchHelper";
 import { loadingFailed, startLoading } from "../../utils/sliceHelper";
 import { addUserInfo, removeUserInfo } from "../user/userSlice";
 
-const initialState = {
+interface auth {
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  err: string | null;
+}
+
+const initialState: auth = {
   isAuthenticated: false,
   isLoading: false,
   err: null,
@@ -49,7 +55,7 @@ export const {
 
 export default authSlice.reducer;
 
-export const checkAuthorization = () => async (dispatch) => {
+export const checkAuthorization = () => async (dispatch: Function) => {
   try {
     dispatch(checkAuthorizationStart());
 
@@ -71,7 +77,7 @@ export const checkAuthorization = () => async (dispatch) => {
   }
 };
 
-export const userLogin = (userInfo) => async (dispatch) => {
+export const userLogin = (userInfo: object) => async (dispatch: Function) => {
   try {
     dispatch(userLoginStart());
 
@@ -87,7 +93,7 @@ export const userLogin = (userInfo) => async (dispatch) => {
   }
 };
 
-export const userLogout = () => async (dispatch) => {
+export const userLogout = () => async (dispatch: Function) => {
   try {
     dispatch(userLogoutStart());
 

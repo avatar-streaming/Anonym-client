@@ -27,7 +27,6 @@ const useToggleStreaming = (isOn, streamTitle, avatarCanvasRef, videoRef, avatar
     }
 
     return () => {
-      console.log(3);
       dispatch(removeStreaming());
       clearSender();
     };

@@ -37,8 +37,6 @@ const createSenderPeerConnection = (localStream, avatarSvgRef) => {
   dc.onopen = () => {
     peer.intervalIDs[socket.id] = setInterval(() => {
       const sgvSrc = avatarSvgRef.current;
-      console.log("sender dc open");
-
       dc.send(sgvSrc);
     }, 100);
   };
@@ -92,12 +90,10 @@ const createReceiverPeerConnection = (viewerID, setStream, streamingRef) => {
   dc.onopen = () => {
     peer.intervalIDs[socket.id] = setInterval(() => {
       dc.send("get image");
-      console.log("receiver dc open");
     }, 50);
   };
   dc.onclose = () => {
     clearInterval(peer.intervalIDs[socket.id]);
-    console.log("close!!");
     delete peer.intervalIDs[socket.id];
   };
   dc.onmessage = (event) => {
