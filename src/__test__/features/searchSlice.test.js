@@ -1,6 +1,6 @@
 import searchSlice, {
   searchUserSuccess
-} from "./searchSlice";
+} from "../../features/search/searchSlice";
 
 const initialState = {
   searchList: [],

@@ -1,5 +1,5 @@
 import React from "react";
-import UserCard from "./UserCard";
+import UserCard from "../../components/SideNav/UserCard";
 import renderer from "react-test-renderer";
 
 describe("<UserCard />", () => {

@@ -2,12 +2,12 @@ import React from "react";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { Router } from "react-router";
-import Search from ".";
+import TopNav from "../../components/TopNav";
 import renderer from "react-test-renderer";
 import configureMockStore from "redux-mock-store";
 import { createMemoryHistory } from "history";
 
-describe("<Search />", () => {
+describe("<TopNav />", () => {
   const mockStore = configureMockStore([thunk]);
   const history = createMemoryHistory();
   let store = null;
@@ -23,28 +23,12 @@ describe("<Search />", () => {
           followers: [],
         },
       },
-      search: {
-        searchList: [
-          {
-            "_id": 1,
-            userName: "user 1",
-            thumnail: "thumnail 1",
-            followers: [],
-          },
-          {
-            "_id": 2,
-            userName: "user 2",
-            thumnail: "thumnail 2",
-            followers: [],
-          },
-        ],
-      }
     });
 
     component = renderer.create(
       <Provider store={store}>
         <Router history={history}>
-          <Search />
+          <TopNav />
         </Router>
       </Provider>
     );

@@ -2,7 +2,7 @@ import streamingSlice, {
   fetchStreamingsSuccess,
   generateStreamingSuccess,
   removeStreamingSuccess,
-} from "./streamingSlice";
+} from "../../features/streaming/streamingSlice";
 
 const initialState = {
   userStreaming: null,
