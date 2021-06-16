@@ -25,7 +25,6 @@ allPartNames.forEach(name => allPartNamesMap[name] = 1);
 
 const MIN_CONFIDENCE_PATH_SCORE = 0.3;
 
-// Represents a skinned illustration.
 export class PoseIllustration {
   constructor(scope) {
     this.scope = scope;
@@ -53,9 +52,7 @@ export class PoseIllustration {
       let confidenceScore = 0;
 
       skinnedPath.segments.forEach(seg => {
-        // Compute confidence score.
         confidenceScore += getConfidenceScore(seg.point);
-        // Compute new positions for curve point and handles.
         seg.point.currentPosition = Skeleton.getCurrentPosition(seg.point);
 
         if (seg.handleIn) {
@@ -77,9 +74,8 @@ export class PoseIllustration {
     }
 
     const scope = this.scope;
-    // Add paths
+
     this.skinnedPaths.forEach(skinnedPath => {
-      // Do not render paths with low confidence scores.
       if (!skinnedPath.confidenceScore || skinnedPath.confidenceScore < MIN_CONFIDENCE_PATH_SCORE) {
         return;
       }
@@ -124,12 +120,10 @@ export class PoseIllustration {
         strokeWidth: opt.strokeWidth || 1
       }));
     };
-    // Draw skeleton.
+
     this.skeleton.debugDraw(scope);
-    // Draw curve and handles.
     this.skinnedPaths.forEach(skinnedPath => {
       skinnedPath.segments.forEach(seg => {
-        // Color represents weight influence from bones.
         const color = new scope.Color(0);
 
         Object.keys(seg.point.skinning).forEach((boneName) => {
@@ -166,7 +160,6 @@ export class PoseIllustration {
     this.skeleton = skeleton;
     this.skinnedPaths = [];
 
-    // Only support rendering path and shapes for now.
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
 
@@ -190,7 +183,6 @@ export class PoseIllustration {
     const paths = [];
     const keypoints = {};
     const items = group.getItems({ recursive: true });
-    // Find all paths and included keypoints.
 
     items.forEach(item => {
       const partName = item.name ? allPartNames.find(partName => item.name.startsWith(partName)) : null;
@@ -214,7 +206,6 @@ export class PoseIllustration {
     });
 
     const secondaryBones = [];
-    // Find all parent bones of the included keypoints.
     const parentBones = skeleton.bones.filter(bone => keypoints[bone.kp0.name] && keypoints[bone.kp1.name]);
     const nosePos = skeleton.bNose3Nose4.kp1.position;
 
@@ -222,7 +213,6 @@ export class PoseIllustration {
       return;
     }
 
-    // Crete secondary bones for the included keypoints.
     parentBones.forEach(parentBone => {
       const kp0 = keypoints[parentBone.kp0.name];
       const kp1 = keypoints[parentBone.kp1.name];
@@ -240,15 +230,12 @@ export class PoseIllustration {
     });
   }
 
-  // Assign weights from bones for point.
-  // Weight calculation is roughly based on linear blend skinning model.
   getWeights(point, bones) {
     let totalW = 0;
     let weights = {};
 
     bones.forEach(bone => {
       const d = MathUtils.getClosestPointOnSegment(bone.kp0.position, bone.kp1.position, point).getDistance(point);
-      // Absolute weight = 1 / (distance * distance)
       const w = 1 / (d * d);
       weights[bone.name] = {
         value: w,
@@ -269,11 +256,9 @@ export class PoseIllustration {
     });
 
     if (totalW === 0) {
-      // Point is outside of the influence zone of all bones. It will not be influence by any bone.
       return {};
     }
 
-    // Normalize weights to sum up to 1.
     Object.values(weights).forEach(weight => {
       weight.value /= totalW;
     });
@@ -281,21 +266,15 @@ export class PoseIllustration {
     return weights;
   }
 
-  // Binds a path to bones by compute weight contribution from each bones for each path segment.
-  // If selectedBones are set, bind directly to the selected bones. Otherwise auto select the bone group closest to each segment.
   bindPathToBones(path, selectedBones) {
-    // Compute bone weights for each segment.
     const segs = path.segments.map(s => {
-      // Check if control points are collinear.
-      // If so, use the middle point's weight for all three points (curve point, handleIn, handleOut).
-      // This makes sure smooth curves remain smooth after deformation.
       const collinear = MathUtils.isCollinear(s.handleIn, s.handleOut);
       const bones = selectedBones || this.skeleton.findBoneGroup(s.point);
       const weightsP = this.getWeights(s.point, bones);
       const segment = {
         point: this.getSkinning(s.point, weightsP),
       };
-      // For handles, compute transformation in world space.
+
       if (s.handleIn) {
         const pHandleIn = s.handleIn.add(s.point);
 

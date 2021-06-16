@@ -30,7 +30,7 @@ const useToggleStreaming = (isOn, streamTitle, avatarCanvasRef, videoRef, avatar
       dispatch(removeStreaming());
       clearSender();
     };
-  }, [isOn, avatarCanvasRef, dispatch, videoRef, avatarSvgRef, id]);
+  }, [isOn, avatarCanvasRef, dispatch, videoRef, avatarSvgRef, id, history]);
 };
 
 export default useToggleStreaming;

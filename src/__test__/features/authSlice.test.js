@@ -2,7 +2,7 @@ import authSlice, {
   checkAuthorizationSuccess,
   userLoginSuccess,
   userLogoutSuccess,
-} from "./authSlice";
+} from "../../features/auth/authSlice";
 
 const initialState = {
   isAuthenticated: false,

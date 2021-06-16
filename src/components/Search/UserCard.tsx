@@ -2,6 +2,7 @@ import useCheckFollow from "../../hooks/useCheckFollow";
 import useFollow from "../../hooks/useFollow";
 import useUnfollow from "../../hooks/useUnfollow";
 
+<<<<<<< HEAD:src/components/Search/UserCard.tsx
 interface UserCardProps {
   _id: string;
   thumnail: string;
@@ -10,6 +11,9 @@ interface UserCardProps {
 }
 
 function UserCard({ _id, thumnail, userName, followers }: UserCardProps) {
+=======
+function UserCard({ _id, thumnail, userName, followers }) {
+>>>>>>> c05b8641dad7cfa992c68cc1b3c69d422f4bf8ce:src/components/Search/UserCard.jsx
   const isFollow = useCheckFollow(_id);
   const followUser = useFollow();
   const unfollowUser = useUnfollow();

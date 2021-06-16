@@ -28,7 +28,6 @@ const posePartNames = ["leftAnkle", "leftKnee", "leftHip", "leftWrist", "leftElb
   "rightAnkle", "rightKnee", "rightHip", "rightWrist", "rightElbow", "rightShoulder",
   "leftEar", "rightEar"];
 
-// Mapping between face part names and their vertex indices in TF face mesh.
 export const facePartName2Index = {
   "topMid": 10,
   "rightTop0": 67,
@@ -43,7 +42,7 @@ export const facePartName2Index = {
   "rightJaw5": 172,
   "rightJaw6": 150,
   "rightJaw7": 176,
-  "jawMid": 152, // 0 - 8
+  "jawMid": 152,
   "leftJaw7": 400,
   "leftJaw6": 379,
   "leftJaw5": 397,
@@ -51,79 +50,78 @@ export const facePartName2Index = {
   "leftJaw3": 454,
   "leftJaw2": 356,
   "leftJaw1": 389,
-  "leftJaw0": 251, // 9 - 16
+  "leftJaw0": 251,
   "rightBrow0": 46,
   "rightBrow1": 53,
   "rightBrow2": 52,
   "rightBrow3": 65,
-  "rightBrow4": 55, // 17 - 21
+  "rightBrow4": 55,
   "leftBrow4": 285,
   "leftBrow3": 295,
   "leftBrow2": 282,
   "leftBrow1": 283,
-  "leftBrow0": 276, // 22 - 26
+  "leftBrow0": 276,
   "nose0": 6,
   "nose1": 197,
   "nose2": 195,
-  "nose3": 5, // 27 - 30
+  "nose3": 5,
   "rightNose0": 48,
   "rightNose1": 220,
   "nose4": 4,
   "leftNose1": 440,
-  "leftNose0": 278, // 31 - 35
+  "leftNose0": 278,
   "rightEye0": 33,
   "rightEye1": 160,
   "rightEye2": 158,
   "rightEye3": 133,
   "rightEye4": 153,
-  "rightEye5": 144, // 36 - 41
+  "rightEye5": 144,
   "leftEye3": 362,
   "leftEye2": 385,
   "leftEye1": 387,
   "leftEye0": 263,
   "leftEye5": 373,
-  "leftEye4": 380, // 42 - 47
+  "leftEye4": 380,
   "rightMouthCorner": 61,
   "rightUpperLipTop0": 40,
   "rightUpperLipTop1": 37,
   "upperLipTopMid": 0,
   "leftUpperLipTop1": 267,
   "leftUpperLipTop0": 270,
-  "leftMouthCorner": 291, // 48 - 54
+  "leftMouthCorner": 291,
   "leftLowerLipBottom0": 321,
   "leftLowerLipBottom1": 314,
   "lowerLipBottomMid": 17,
   "rightLowerLipBottom1": 84,
-  "rightLowerLipBottom0": 91, // 55 - 59
+  "rightLowerLipBottom0": 91,
   "rightMiddleLip": 78,
   "rightUpperLipBottom1": 81,
   "upperLipBottomMid": 13,
   "leftUpperLipBottom1": 311,
-  "leftMiddleLip": 308, // 60 - 64
+  "leftMiddleLip": 308,
   "leftLowerLipTop0": 402,
   "lowerLipTopMid": 14,
-  "rightLowerLipTop0": 178, // 65 - 67
+  "rightLowerLipTop0": 178,
 };
 
 const facePartNames = [
   "topMid", "rightTop0", "rightTop1", "leftTop0", "leftTop1",
-  "rightJaw0", "rightJaw1", "rightJaw2", "rightJaw3", "rightJaw4", "rightJaw5", "rightJaw6", "rightJaw7", "jawMid", // 0 - 8
-  "leftJaw7", "leftJaw6", "leftJaw5", "leftJaw4", "leftJaw3", "leftJaw2", "leftJaw1", "leftJaw0", // 9 - 16
-  "rightBrow0", "rightBrow1", "rightBrow2", "rightBrow3", "rightBrow4", // 17 - 21
-  "leftBrow4", "leftBrow3", "leftBrow2", "leftBrow1", "leftBrow0", // 22 - 26
-  "nose0", "nose1", "nose2", "nose3", // 27 - 30
-  "rightNose0", "rightNose1", "nose4", "leftNose1", "leftNose0", // 31 - 35
-  "rightEye0", "rightEye1", "rightEye2", "rightEye3", "rightEye4", "rightEye5", // 36 - 41
-  "leftEye3", "leftEye2", "leftEye1", "leftEye0", "leftEye5", "leftEye4", // 42 - 47
-  "rightMouthCorner", "rightUpperLipTop0", "rightUpperLipTop1", "upperLipTopMid", "leftUpperLipTop1", "leftUpperLipTop0", "leftMouthCorner", // 48 - 54
-  "leftLowerLipBottom0", "leftLowerLipBottom1", "lowerLipBottomMid", "rightLowerLipBottom1", "rightLowerLipBottom0", // 55 - 59
-  "rightMiddleLip", "rightUpperLipBottom1", "upperLipBottomMid", "leftUpperLipBottom1", "leftMiddleLip", // 60 - 64
-  "leftLowerLipTop0", "lowerLipTopMid", "rightLowerLipTop0", // 65 - 67
+  "rightJaw0", "rightJaw1", "rightJaw2", "rightJaw3", "rightJaw4", "rightJaw5", "rightJaw6", "rightJaw7", "jawMid",
+  "leftJaw7", "leftJaw6", "leftJaw5", "leftJaw4", "leftJaw3", "leftJaw2", "leftJaw1", "leftJaw0",
+  "rightBrow0", "rightBrow1", "rightBrow2", "rightBrow3", "rightBrow4",
+  "leftBrow4", "leftBrow3", "leftBrow2", "leftBrow1", "leftBrow0",
+  "nose0", "nose1", "nose2", "nose3",
+  "rightNose0", "rightNose1", "nose4", "leftNose1", "leftNose0",
+  "rightEye0", "rightEye1", "rightEye2", "rightEye3", "rightEye4", "rightEye5",
+  "leftEye3", "leftEye2", "leftEye1", "leftEye0", "leftEye5", "leftEye4",
+  "rightMouthCorner", "rightUpperLipTop0", "rightUpperLipTop1", "upperLipTopMid", "leftUpperLipTop1", "leftUpperLipTop0", "leftMouthCorner",
+  "leftLowerLipBottom0", "leftLowerLipBottom1", "lowerLipBottomMid", "rightLowerLipBottom1", "rightLowerLipBottom0",
+  "rightMiddleLip", "rightUpperLipBottom1", "upperLipBottomMid", "leftUpperLipBottom1", "leftMiddleLip",
+  "leftLowerLipTop0", "lowerLipTopMid", "rightLowerLipTop0",
 ];
 
 export const allPartNames = posePartNames.concat(facePartNames);
 
-// Represents a bone formed by two part keypoints.
 export class Bone {
   set(kp0, kp1, skeleton, type) {
     this.name = `${kp0.name}-${kp1.name}`;
@@ -137,9 +135,6 @@ export class Bone {
     return this;
   };
 
-  // Finds a point's bone transform.
-  // Let anchor be the closest point on the bone to the point.
-  // A point's bone transformation is the transformation from anchor to the point.
   getPointTransform(p) {
     const dir = this.kp1.position.subtract(this.kp0.position).normalize();
     const n = dir.clone();
@@ -157,13 +152,11 @@ export class Bone {
     };
   }
 
-  // Finds a point's current position from the current bone position.
   transform(trans) {
     if (!this.kp1.currentPosition || !this.kp0.currentPosition) {
       return;
     }
-    // Scale distance from anchor point base on bone type.
-    // All face bones will share one distance scale. All body bones share another.
+
     const scale = this.type === "face" ? this.skeleton.currentFaceScale : this.skeleton.currentBodyScale;
     const dir = this.kp1.currentPosition.subtract(this.kp0.currentPosition).normalize();
     const n = dir.clone();
@@ -203,10 +196,10 @@ function getKeypointFromFaceFrame(face, i) {
   }
 }
 
-// Represents a full body skeleton.
 export class Skeleton {
   constructor(scope) {
     const skeletonGroup = SVGUtils.findFirstItemWithPrefix(scope.project, "skeleton");
+
     // Pose
     const leftAnkle = getKeyPointFromSVG(skeletonGroup, "leftAnkle");
     const leftKnee = getKeyPointFromSVG(skeletonGroup, "leftKnee");
@@ -522,7 +515,6 @@ export class Skeleton {
       return;
     }
 
-    // Update bones.
     this.bones.forEach(bone => {
       const part0 = this.parts[bone.kp0.name];
       const part1 = this.parts[bone.kp1.name];
@@ -532,7 +524,7 @@ export class Skeleton {
       bone.score = (part0.score + part1.score) / 2;
       bone.latestCenter = bone.kp1.currentPosition.add(bone.kp0.currentPosition).divide(2);
     });
-    // Update secondary bones.
+
     const nosePos = this.bNose3Nose4.kp1.currentPosition;
 
     this.secondaryBones.forEach(bone => {
@@ -541,7 +533,6 @@ export class Skeleton {
       bone.score = bone.parent.score;
       bone.latestCenter = bone.kp1.currentPosition.add(bone.kp0.currentPosition).divide(2);
     });
-    // Recompute face & body bone scale.
     this.currentFaceScale = this.getTotalBoneLength(this.faceBones) / this.faceLen0;
     this.currentBodyScale = this.getTotalBoneLength(this.bodyBones) / this.bodyLen0;
     this.isValid = true;
@@ -549,7 +540,6 @@ export class Skeleton {
 
   updatePoseParts(pose) {
     posePartNames.forEach(partName => {
-      // Use new and old pose's confidence scores as weights to compute the new part position.
       const part1 = getPartFromPose(pose, partName);
       const part0 = (this.parts[partName] || part1);
       const weight0 = part0.score / (part1.score + part0.score);
@@ -573,7 +563,6 @@ export class Skeleton {
     const posRightEar = this.parts["rightEar"].position;
 
     if (face && face.positions && face.positions.length && face.faceInViewConfidence > MIN_FACE_SCORE) {
-      // Valid face results.
       for (let i = 0; i < facePartNames.length; i++) {
         const partName = facePartNames[i];
         const pos = getKeypointFromFaceFrame(face, i);
@@ -587,15 +576,13 @@ export class Skeleton {
           score: face.faceInViewConfidence
         };
       }
-      // Keep track of the transformation from pose ear positions to face ear positions.
-      // This can be used to infer face position when face tracking is lost.
+
       this.leftEarP2FFunc = MathUtils.getTransformFunc(posLeftEar, posRightEar, this.parts["leftJaw2"].position);
       this.rightEarP2FFunc = MathUtils.getTransformFunc(posLeftEar, posRightEar, this.parts["rightJaw2"].position);
     } else {
-      // Invalid face keypoints. Infer face keypoints from pose.
       const fLeftEar = this.leftEarP2FFunc ? this.leftEarP2FFunc(posLeftEar, posRightEar) : posLeftEar;
       const fRightEar = this.rightEarP2FFunc ? this.rightEarP2FFunc(posLeftEar, posRightEar) : posRightEar;
-      // Also infer face scale from pose.
+
       this.currentFaceScale = this.currentBodyScale;
       this.faceBones.forEach(bone => {
         const parts = [bone.kp0, bone.kp1];
@@ -668,14 +655,6 @@ export class Skeleton {
 
       group.addChild(path);
     });
-    // this.secondaryBones.forEach(bone => {
-    //     let path = new scope.Path({
-    //         segments: [bone.kp0.currentPosition, bone.kp1.currentPosition],
-    //         strokeColor: '#00ff00',
-    //         strokeWidth: 5,
-    //     });
-    //     group.addChild(path);
-    // });
   }
 
   debugDrawLabels(scope) {
