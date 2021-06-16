@@ -2,12 +2,12 @@ import React from "react";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { Router } from "react-router";
-import TopNav from ".";
+import Home from "../../components/Home";
 import renderer from "react-test-renderer";
 import configureMockStore from "redux-mock-store";
 import { createMemoryHistory } from "history";
 
-describe("<TopNav />", () => {
+describe("<Home />", () => {
   const mockStore = configureMockStore([thunk]);
   const history = createMemoryHistory();
   let store = null;
@@ -15,20 +15,18 @@ describe("<TopNav />", () => {
 
   beforeEach(() => {
     store = mockStore({
-      user: {
-        userInfo: {
-          "_id": 0,
-          userName: "user 0",
-          thumnail: "thumnail 0",
-          followers: [],
-        },
+      streaming: {
+        userStreaming: null,
+        streamings: [],
+        isLoading: false,
+        err: null,
       },
     });
 
     component = renderer.create(
       <Provider store={store}>
         <Router history={history}>
-          <TopNav />
+          <Home />
         </Router>
       </Provider>
     );

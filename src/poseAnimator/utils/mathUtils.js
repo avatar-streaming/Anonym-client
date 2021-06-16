@@ -34,7 +34,6 @@ export class MathUtils {
     return x * x * (3 - 2 * x);
   }
 
-  // Generate a transform function of p in the coordinate system defined by p0 and p1.
   static getTransformFunc(p0, p1, p) {
     const d = p1.subtract(p0);
     const dir = d.normalize();
@@ -79,8 +78,6 @@ export class MathUtils {
     return p0.add(d.multiply(c));
   }
 
-  // Check if v0 and v1 are collinear.
-  // Returns true if cosine of the angle between v0 and v1 is within threshold to 1.
   static isCollinear(v0, v1, threshold = 0.01) {
     let colinear = false;
 
@@ -98,7 +95,7 @@ export class MathUtils {
     let u = 0, v = 0;
 
     while(u === 0) {
-      u = Math.random(); //Converting [0,1) to (0,1)
+      u = Math.random();
     }
 
     while(v === 0) {
@@ -214,7 +211,7 @@ class KeySpline {
 
   get(aX) {
     if (this.mX1 === this.mY1 && this.mX2 === this.mY2) {
-      return aX; // linear
+      return aX;
     }
 
     return this.CalcBezier(this.GetTForX(aX), this.mY1, this.mY2);
@@ -232,18 +229,15 @@ class KeySpline {
     return 3.0 * aA1;
   }
 
-  // Returns x(t) given t, x1, and x2, or y(t) given t, y1, and y2.
   CalcBezier( aT, aA1, aA2) {
     return ((this.A(aA1, aA2) * aT + this.B(aA1, aA2)) * aT + this.C(aA1)) * aT;
   }
 
-  // Returns dx/dt given t, x1, and x2, or dy/dt given t, y1, and y2.
   GetSlope( aT, aA1, aA2) {
     return 3.0 * this.A(aA1, aA2) * aT * aT + 2.0 * this.B(aA1, aA2) * aT + this.C(aA1);
   }
 
   GetTForX( aX) {
-    // Newton raphson iteration
     let aGuessT = aX;
 
     for (let i = 0; i < 4; ++i) {

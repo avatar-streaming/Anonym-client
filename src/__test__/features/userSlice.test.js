@@ -5,7 +5,7 @@ import userSlice, {
   unfollowUserSuccess,
   addUserInfo,
   removeUserInfo,
-} from "./userSlice";
+} from "../../features/user/userSlice";
 
 const initialState = {
   userInfo: null,

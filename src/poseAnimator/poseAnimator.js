@@ -28,8 +28,9 @@ import blathersSVG from "./resources/illustration/blathers.svg";
 import tomNookSVG from "./resources/illustration/tom-nook.svg";
 
 class PoseAnimator {
-  constructor(avatarCanvasRef, videoWidth, videoHeight, characterRef) {
+  constructor(avatarCanvasRef, avatarSvgRef, videoWidth, videoHeight) {
     this.avatarCanvas = avatarCanvasRef.current;
+    this.avatarSvgRef = avatarSvgRef;
 
     this.videoWidth = videoWidth;
     this.videoHeight = videoHeight;
@@ -46,8 +47,6 @@ class PoseAnimator {
       "blathers": blathersSVG,
       "tom-nook": tomNookSVG,
     };
-
-    this.characterRef = characterRef;
 
     window.addEventListener("resize", this.resize.bind(this), false);
     this.animate();
@@ -101,7 +100,7 @@ class PoseAnimator {
       new this.canvasScope.Point(0, 0)
     );
 
-    this.characterRef.current = SVGUtils.exportSVG(this.canvasScope.project);
+    this.avatarSvgRef.current = SVGUtils.exportSVG(this.canvasScope.project);
   }
 }
 

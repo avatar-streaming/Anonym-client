@@ -2,20 +2,20 @@ import { useEffect, useRef } from "react";
 import PoseDetector from "../poseAnimator/poseDetector";
 
 const useMotionAnimator = () => {
-  const avatarRef = useRef(null);
+  const avatarCanvasRef = useRef(null);
+  const avatarSvgRef = useRef(null);
   const outputRef = useRef(null);
   const videoRef = useRef(null);
-  const characterRef = useRef(null);
 
   useEffect(() => {
-    new PoseDetector(avatarRef, outputRef, videoRef, characterRef);
+    new PoseDetector(avatarCanvasRef, avatarSvgRef, outputRef, videoRef);
 
     return () => {
       window.location.reload();
     };
   }, []);
 
-  return { avatarRef, outputRef, videoRef, characterRef };
+  return { avatarCanvasRef, avatarSvgRef, outputRef, videoRef };
 };
 
 export default useMotionAnimator;

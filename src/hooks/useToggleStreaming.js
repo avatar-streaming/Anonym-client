@@ -1,27 +1,36 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
+import { clearSender, endStreaming, sendStreaming } from "../api/webRTC";
 import { generateStreaming, removeStreaming } from "../features/streaming/streamingSlice";
 
-const useToggleStreaming = (isOn, streamTitle, avatarRef) => {
+const useToggleStreaming = (isOn, streamTitle, avatarCanvasRef, videoRef, avatarSvgRef) => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { id } = useParams();
+  const [streaming, setStreaming] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      if (isOn) {
-        const streamingThumnail = avatarRef.current.toDataURL("image/png");
+    if (!streaming && isOn) {
+      setStreaming(true);
 
-        dispatch(generateStreaming(streamTitle.trim(), streamingThumnail));
-      }
+      const streamingThumnail = avatarCanvasRef.current.toDataURL("image/png");
+      const stream = videoRef.current.srcObject;
 
-      if (isOn === false) {
-        dispatch(removeStreaming());
-      }
-    })();
+      dispatch(generateStreaming(streamTitle.trim(), streamingThumnail));
+      sendStreaming(stream, id, avatarSvgRef);
+    }
+
+    if (isOn === false) {
+      endStreaming(id);
+      history.push("/");
+    }
 
     return () => {
       dispatch(removeStreaming());
+      clearSender();
     };
-  }, [isOn, avatarRef, dispatch]);
+  }, [isOn, avatarCanvasRef, dispatch, videoRef, avatarSvgRef, id, history]);
 };
 
 export default useToggleStreaming;

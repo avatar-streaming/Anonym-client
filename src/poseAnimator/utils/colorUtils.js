@@ -58,17 +58,15 @@ export class ColorUtils {
     );
   }
 
-  // Generates random color from string hash.
   static fromStringHash(str) {
-    // Compute hash from string
-    // Source http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
     let hash = 0, i, chr;
+
     for (i = 0; i < str.length; i++) {
       chr = str.charCodeAt(i);
       hash = ((hash << 5) - hash) + chr;
-      hash |= 0; // Convert to 32bit integer
+      hash |= 0;
     }
-    // Hash to rgb color.
+
     const r = hash & 255;
     const g = (hash & (255 << 8)) >> 8;
     const b = (hash & (255 << 16)) >> 16;
