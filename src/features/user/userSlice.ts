@@ -3,7 +3,17 @@ import { getPayload } from "../../api/server";
 import { defaultOptionHelper, urlHelper } from "../../utils/fetchHelper";
 import { loadingFailed, startLoading } from "../../utils/sliceHelper";
 
-const initialState = {
+export interface user {
+  _id: string;
+}
+
+interface userState {
+  userInfo: user | null;
+  isLoading: boolean;
+  err: string | null;
+}
+
+const initialState: userState = {
   userInfo: null,
   isLoading: false,
   err: null,
@@ -46,7 +56,7 @@ const userSlice = createSlice({
       state.isLoading = false;
       state.err = null;
     },
-    removeUserInfo (state, action) {
+    removeUserInfo (state) {
       state.userInfo = null;
       state.isLoading = false;
       state.err = null;
@@ -73,7 +83,7 @@ export const {
 
 export default userSlice.reducer;
 
-export const updateUserName = (userName) => async (dispatch, state) => {
+export const updateUserName = (userName: string) => async (dispatch: Function, state: Function) => {
   try {
     dispatch(updateUserThumnailStart());
 
@@ -89,7 +99,7 @@ export const updateUserName = (userName) => async (dispatch, state) => {
   }
 };
 
-export const updateUserThumnail = (thumnail) => async (dispatch, state) => {
+export const updateUserThumnail = (thumnail: string) => async (dispatch: Function, state: Function) => {
   try {
     dispatch(updateUserThumnailStart());
 
@@ -105,7 +115,7 @@ export const updateUserThumnail = (thumnail) => async (dispatch, state) => {
   }
 };
 
-export const followUser = (userID, targetID) => async (dispatch) => {
+export const followUser = (userID: string, targetID: string) => async (dispatch: Function) => {
   try {
     dispatch(followUserStart());
 
@@ -120,7 +130,7 @@ export const followUser = (userID, targetID) => async (dispatch) => {
   }
 };
 
-export const unfollowUser = (userID, targetID) => async (dispatch) => {
+export const unfollowUser = (userID: string, targetID: string) => async (dispatch: Function) => {
   try {
     dispatch(unfollowUserStart());
 
