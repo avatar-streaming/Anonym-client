@@ -1,4 +1,3 @@
-import React from "react";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import UserCard from "./UserCard";
@@ -31,15 +30,12 @@ describe("<UserCard />", () => {
       "_id": 1,
       thumnail: "mock thumnail",
       userName: "mock userName",
-      followers: [
-        "mock user1",
-        "mock user2",
-      ],
+      followers: ["mock user1", "mock user2"],
     };
 
     component = renderer.create(
       <Provider store={store}>
-        <UserCard user={context} />
+        <UserCard {...context} />
       </Provider>
     );
   });
@@ -47,47 +43,4 @@ describe("<UserCard />", () => {
   it("should render with given state from redux store and context", () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
-
-  // it("should update user thumnail", () => {
-  //   const userThumnailInput = component.root.findByProps({ type: "file" });
-  //   const userThumnailButton = component.root.findByProps({ "data-testid": "thumnail" });
-
-  //   renderer.act(() => {
-  //     userThumnailInput.props.onChange({
-  //       target: {
-  //         value: "mock thumnail 2",
-  //       },
-  //     });
-  //   });
-  //   expect(component.toJSON()).toMatchSnapshot();
-
-  //   renderer.act(() => {
-  //     userThumnailButton.props.onClick({
-  //       preventDefault: jest.fn(),
-  //       isUpdateUserThumnail: store.dispatch(),
-  //     });
-  //   });
-  //   expect(store.dispatch).toHaveBeenCalledTimes(1);
-  // });
-
-  // it("should update user name", () => {
-  //   const userNameInput = component.root.findByProps({ type: "text" });
-  //   const userNameButton = component.root.findByProps({ "data-testid": "name" });
-
-  //   renderer.act(() => {
-  //     userNameInput.props.onChange({
-  //       target: {
-  //         value: "mock name 2 ",
-  //       },
-  //     });
-  //   });
-  //   expect(component.toJSON()).toMatchSnapshot();
-
-  //   renderer.act(() => {
-  //     userNameButton.props.onClick({
-  //       preventDefault: jest.fn(),
-  //     });
-  //   });
-  //   expect(store.dispatch).toHaveBeenCalledTimes(1);
-  // });
 });
