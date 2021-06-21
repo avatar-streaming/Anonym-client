@@ -5,11 +5,11 @@ Anonym은 유저의 실물 대신 캐릭터를 송출하는 스트리밍 서비�
 
 </br>
 
-🔗 Deploy Site :[**https://anonym.life**](https://anonym.life)
+- 🔗 Deploy Site :[**https://anonym.life**](https://anonym.life)
 
-🔗 Github Repositories : [**https://github.com/avatar-streaming**](https://github.com/avatar-streaming)
+- 🔗 Github Repositories : [**https://github.com/avatar-streaming**](https://github.com/avatar-streaming)
 
-🔗 Anonym 시연 영상 : [**https://www.youtube.com/watch?v=F8OHnevCS30&t=13147s**](https://www.youtube.com/watch?v=F8OHnevCS30&t=13147s)
+- 🔗 Anonym 시연 영상 : [**https://www.youtube.com/watch?v=F8OHnevCS30&t=13147s**](https://www.youtube.com/watch?v=F8OHnevCS30&t=13147s)
 
 ![home nothing](public/assets/README_assets/project_ing.gif)
 
@@ -80,6 +80,18 @@ AWS 파이프라인 연결 후 배포 자동화 구현
 </br>
 
 ## 📝 기술 기록
+
+### Redux 상태관리
+- 클라이언트에서 비동기 관련 상태는 Redux-thunk를 도입해 비동기 핸들링을 하였습니다.
+- thunk를 도입한 이유는 이전 프로젝트에서 비동기 로직을 담당하지 않아 thunk를 사용해보지 못했기 때문에 참여했던 프로젝트의 기술을 경험해 볼 필요성을 느꼈기 때문입니다.
+- thunk를 적용해보면서 느낀 점은 규모가 커짐에 따른 복잡성에 대한 피로감이 있었습니다.
+- 예를 들어, 비동기로 처리하는 유저 정보 상태 로직을 추가하려면 reducer, actionCreator, actionType 등 여러 파일을 만들면서 코드를 살펴봐야 하는데 이런 부분이 여러모로 비효율적이라 느꼈습니다.
+- 이러한 상황에 redux-tookit을 사용해보라는 제안을 받았고
+redux-toolkit과 Ducks pattern을 도입하여 action과 reducer를 상태당 하나의 파일로 통합하여 좀 더 직관적이고 복잡성이 감소한 코드를 작성할 수 있었습니다.
+- 다만 react의 useEffect와 같은 훅과 redux의 상태관리 로직이 겹쳤을 때, 동일한 api요청이 불필요하게 중복발생하는 것을 발견했습니다.
+- 조사 결과 이런 문제를 redux-saga가 해결해줄 수 있다는 것을 알게 되었고 다음 번에는 saga를 사용해 보고자 합니다.
+
+</br>
 
 ### 실시간 스트리밍 (WebRTC)
 - 이번 프로젝트는 실시간성이 중요한 스트리밍 서비스이기 때문에 `WebRTC`를 통해 스트리밍을 구현하기로 했습니다.
