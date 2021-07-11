@@ -29,7 +29,7 @@ function TopNav() {
           />
         </form>
       </div>
-      <div>
+      <div className="nav-top__link-list">
         <NavLink to={`/streaming/${userId}`}>Streaming</NavLink>
         <NavLink to={`/user/${userId}`}>My Page</NavLink>
         <NavLink to="/auth/login" onClick={handleClick}>Logout</NavLink>
