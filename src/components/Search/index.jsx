@@ -1,4 +1,3 @@
-import React from "react";
 import UserCard from "./UserCard";
 import useSearchUsers from "../../hooks/useSearchUsers";
 

@@ -55,6 +55,7 @@ ol {
 }
 
 button {
+  height: 40px;
   color: $color;
   background-color: $point-color;
   padding: 10px 20px;
@@ -83,8 +84,8 @@ button {
   width: 100%;
   height: 100%;
   margin: 0;
-  padding-top: 50px;
-  padding-left: 50px;
+  padding-top: $top-height;
+  padding-left: 60px;
 }
 
 .input-text {
@@ -117,4 +118,35 @@ button {
 
 .user-thumnail {
   border-radius: 50%;
+}
+
+@media screen and (max-width: 800px) {
+  .streaming-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+}
+
+
+@media screen and (max-width: 690px) {
+  .nav-top {
+    flex-direction: column;
+
+    &__title {
+      display: none;
+    }
+
+    &__link-list {
+      padding: 15px 0px 10px 0px;
+    }
+  }
+
+  .nav-side {
+    top: 100px;
+  }
+
+  .content-wrapper {
+    padding-top: 100px;
+  }
 }

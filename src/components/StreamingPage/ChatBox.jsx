@@ -1,4 +1,3 @@
-import React from "react";
 import useChatting from "../../hooks/useChatting";
 
 function ChatBox() {
