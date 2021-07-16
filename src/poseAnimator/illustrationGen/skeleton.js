@@ -19,7 +19,7 @@ import * as paper from "paper";
 import { SVGUtils } from "../utils/svgUtils";
 import { MathUtils } from "../utils/mathUtils";
 import { ColorUtils } from "../utils/colorUtils";
-import _ from "lodash";
+import { flatMapDeep } from "lodash-es";
 
 const MIN_POSE_SCORE = 0.1;
 const MIN_FACE_SCORE = 0.8;
@@ -627,7 +627,7 @@ export class Skeleton {
       }
     });
 
-    return _.flatMapDeep(selectedGroups);
+    return flatMapDeep(selectedGroups);
   }
 
   getTotalBoneLength(bones) {

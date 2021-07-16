@@ -8,7 +8,7 @@
     "@tensorflow-models/posenet": "^2.2.2",
     "@tensorflow/tfjs": "^3.6.0",
     "firebase": "^8.5.0",
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "node-sass": "^4.14.1",
     "paper": "^0.12.15",
     "prop-types": "^15.7.2",
