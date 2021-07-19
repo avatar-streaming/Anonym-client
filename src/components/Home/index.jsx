@@ -19,6 +19,7 @@ function Home() {
                   src={streaming.thumnail}
                   alt="streaming thumnail"
                   className="streaming__thumnail"
+                  loading="lazy"
                 />
               </div>
               <div className="streaming__bottom">

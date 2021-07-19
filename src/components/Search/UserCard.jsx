@@ -14,6 +14,7 @@ function UserCard({ _id, thumnail, userName, followers }) {
           className="user-card__thumnail user-thumnail"
           src={thumnail}
           alt="user thumnail"
+          loading="lazy"
         />
       </div>
       <div className="user-card__right">

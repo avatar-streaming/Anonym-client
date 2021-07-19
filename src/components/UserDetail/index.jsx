@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import useUpdateUserName from "../../hooks/useUpdateUserName";
 import useUpdateUserThumnail from "../../hooks/useUpdateUserThumnail";
@@ -15,6 +16,12 @@ function UserDetail() {
     imageInputRef,
     isUpdateUserThumnail,
   } = useUpdateUserThumnail();
+  const handleImageInputValue = useCallback((e) => {
+    updateNewThumnail(e.target.value);
+  }, []);
+  const handleTextInputValue = useCallback((e) => {
+    updateNewName(e.target.value.trim());
+  }, []);
 
   return (
     <div className="content-wrapper profile">
@@ -23,16 +30,19 @@ function UserDetail() {
       </div>
       <div>
         <h4>User Thumnail</h4>
-        <img className="user-thumnail" src={thumnail} alt="user thumnail" />
+        <img
+          className="user-thumnail"
+          src={thumnail}
+          alt="user thumnail"
+          loading="lazy"
+        />
         <form>
           <input
             type="file"
             accept="image/*"
             value={newThumnail}
             className="user-thumnail__input"
-            onChange={(e) => {
-              updateNewThumnail(e.target.value);
-            }}
+            onChange={handleImageInputValue}
             ref={imageInputRef}
           />
           <button
@@ -58,9 +68,7 @@ function UserDetail() {
                 type="text"
                 className="input-text"
                 value={newName}
-                onChange={(e) => {
-                  updateNewName(e.target.value.trim());
-                }}
+                onChange={handleTextInputValue}
               />
               <button
                 data-testid="name"

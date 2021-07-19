@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useLogout from "../../hooks/useLogout";
@@ -6,9 +6,14 @@ import useSearch from "../../hooks/useSearch";
 
 function TopNav() {
   const [searchTerm, setSearchTerm] = useState("");
-  const handleSubmit = useSearch(searchTerm);
   const { _id: userId } = useSelector((state) => state.user.userInfo);
-  const handleClick = useLogout();
+  const handleSubmit = useSearch(searchTerm);
+  const handleLogout = useLogout();
+  const handleInputValue = useCallback((e) => {
+    if (e.target.value !== "\\") {
+      setSearchTerm(e.target.value);
+    }
+  }, []);
 
   return (
     <nav className="nav-top">
@@ -21,18 +26,14 @@ function TopNav() {
             type="text"
             className="input-text"
             value={searchTerm}
-            onChange={(e) => {
-              if (e.target.value !== "\\") {
-                setSearchTerm(e.target.value);
-              }
-            }}
+            onChange={handleInputValue}
           />
         </form>
       </div>
       <div className="nav-top__link-list">
         <NavLink to={`/streaming/${userId}`}>Streaming</NavLink>
         <NavLink to={`/user/${userId}`}>My Page</NavLink>
-        <NavLink to="/auth/login" onClick={handleClick}>Logout</NavLink>
+        <NavLink to="/auth/login" onClick={handleLogout}>Logout</NavLink>
       </div>
     </nav>
   );

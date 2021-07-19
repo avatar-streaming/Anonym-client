@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { cancelSubscribeUsersChat, sendChat, subscribeUsersChat } from "../api/socket";
 
@@ -8,10 +8,10 @@ const useChatting = () => {
   const [chatList, setChatList] = useState([]);
   const chatBoxRef = useRef(null);
   const { userName } = useSelector((state) => state.user.userInfo);
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback((e) => {
     e.preventDefault();
     setIsSubmit(true);
-  };
+  }, []);
 
   useEffect(() => {
     if (isSubmit) {

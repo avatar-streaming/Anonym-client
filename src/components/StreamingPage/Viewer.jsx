@@ -6,7 +6,12 @@ function Viewer() {
   return (
     <div>
       <div className="canvas-container">
-        <img ref={streamingRef} alt="streaming" className="streaming-image" />
+        <img
+          ref={streamingRef}
+          alt="streaming"
+          className="streaming-image"
+          loading="lazy"
+        />
       </div>
       <video className="viewer-video" ref={videoRef} autoPlay />
     </div>

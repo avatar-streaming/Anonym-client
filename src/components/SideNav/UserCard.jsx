@@ -8,6 +8,7 @@ function UserCard({ user }) {
           src={user.thumnail}
           className="following-card__thumnail user-thumnail"
           alt="user thumnail"
+          loading="lazy"
         />
       </div>
       <div>
