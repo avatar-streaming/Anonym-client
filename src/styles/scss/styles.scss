@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Pattaya&family=Kanit:wght@500&display=swap");
 @import "./theme.scss";
 @import "./login.scss";
+@import "./loading.scss";
 @import "./home.scss";
 @import "./streamingPage.scss";
 @import "./viewerPage.scss";
@@ -127,7 +128,6 @@ button {
     grid-template-rows: auto 1fr;
   }
 }
-
 
 @media screen and (max-width: 690px) {
   .nav-top {

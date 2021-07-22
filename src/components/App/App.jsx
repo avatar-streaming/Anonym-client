@@ -1,14 +1,16 @@
 import { Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
-import ErrorPage from "../ErrorPage";
-import Home from "../Home";
 import Login from "../Login";
-import Search from "../Search";
 import SideNav from "../SideNav";
-import StreamingPage from "../StreamingPage";
 import TopNav from "../TopNav";
-import UserDetail from "../UserDetail";
 import useAuthCheck from "../../hooks/useAuthCheck";
+import { lazy } from "react";
+
+const Home = lazy(() => import("../Home"));
+const StreamingPage = lazy(() => import("../StreamingPage"));
+const UserDetail = lazy(() => import("../UserDetail"));
+const Search = lazy(() => import("../Search"));
+const ErrorPage = lazy(() => import("../ErrorPage"));
 
 function App() {
   const { isAuthenticated } = useSelector(state => state.auth);

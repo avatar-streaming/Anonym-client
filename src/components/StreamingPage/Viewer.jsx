@@ -10,7 +10,6 @@ function Viewer() {
           ref={streamingRef}
           alt="streaming"
           className="streaming-image"
-          loading="lazy"
         />
       </div>
       <video className="viewer-video" ref={videoRef} autoPlay />
