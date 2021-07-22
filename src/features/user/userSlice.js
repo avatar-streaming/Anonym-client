@@ -79,7 +79,7 @@ export const updateUserName = (userName) => async (dispatch, state) => {
 
     const userId = state().user.userInfo._id;
     const url = urlHelper(`user/userName/${userId}`);
-    const option = defaultOptionHelper("PUT");
+    const option = defaultOptionHelper("PATCH");
     option.body = JSON.stringify({ userName });
     const { payload } = await getPayload(url, option);
 
@@ -95,7 +95,7 @@ export const updateUserThumnail = (thumnail) => async (dispatch, state) => {
 
     const userId = state().user.userInfo._id;
     const url = urlHelper(`user/userThumnail/${userId}`);
-    const option = defaultOptionHelper("PUT");
+    const option = defaultOptionHelper("PATCH");
     option.body = JSON.stringify({ thumnail });
     const { payload } = await getPayload(url, option);
 
@@ -110,7 +110,7 @@ export const followUser = (userID, targetID) => async (dispatch) => {
     dispatch(followUserStart());
 
     const url = urlHelper(`user/follow/${userID}`);
-    const option = defaultOptionHelper("PUT");
+    const option = defaultOptionHelper("PATCH");
     option.body = JSON.stringify({ targetID });
     const { payload } = await getPayload(url, option);
 
@@ -125,7 +125,7 @@ export const unfollowUser = (userID, targetID) => async (dispatch) => {
     dispatch(unfollowUserStart());
 
     const url = urlHelper(`user/unfollow/${userID}`);
-    const option = defaultOptionHelper("PUT");
+    const option = defaultOptionHelper("PATCH");
     option.body = JSON.stringify({ targetID });
     const { payload } = await getPayload(url, option);
 
